@@ -1,6 +1,7 @@
 package br.com.vsl.VSLSystem.controller;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,8 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.vsl.VSLSystem.model.entity.Author;
 import br.com.vsl.VSLSystem.model.entity.Publication;
 import br.com.vsl.VSLSystem.model.exception.DBLPException;
+import br.com.vsl.VSLSystem.model.service.AccessReportService;
+import br.com.vsl.VSLSystem.model.service.implementation.AccessReportServiceImpl;
 import br.com.vsl.VSLSystem.model.service.implementation.AuthorServiceImpl;
 import br.com.vsl.VSLSystem.model.service.implementation.PublicationServiceImpl;
  
@@ -18,10 +21,21 @@ public class AuthorGraphController {
  
 	private AuthorServiceImpl authorService;
 	private PublicationServiceImpl publicationService;
+	private AccessReportServiceImpl accessReportService;
 	
 	public AuthorGraphController(){
 		this.authorService = new AuthorServiceImpl();
 		this.publicationService = new PublicationServiceImpl();
+		this.accessReportService = new AccessReportServiceImpl();
+	}
+	
+	@RequestMapping("/AccessReport")
+	public ModelAndView AccessReport() {
+		ModelAndView mv = new ModelAndView("AccessReport");
+		GregorianCalendar gc=new GregorianCalendar();
+		
+		mv.addObject("data", gc.getTime().toString());
+		return mv;
 	}
 	
 	@RequestMapping("/SearchAuthor")
@@ -79,5 +93,9 @@ public class AuthorGraphController {
 		}
 
 		return mv;
+	}
+	
+	public void insertLog(){
+		accessReportService.insertAccessLog(new GregorianCalendar());
 	}
 }
