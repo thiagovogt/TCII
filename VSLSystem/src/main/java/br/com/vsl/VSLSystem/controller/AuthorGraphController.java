@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.vsl.VSLSystem.model.entity.Author;
 import br.com.vsl.VSLSystem.model.entity.Publication;
-import br.com.vsl.VSLSystem.model.exception.AccessLogException;
+import br.com.vsl.VSLSystem.model.exception.AccessReportException;
 import br.com.vsl.VSLSystem.model.exception.DBLPException;
 import br.com.vsl.VSLSystem.model.service.AccessReportService;
 import br.com.vsl.VSLSystem.model.service.implementation.AccessReportServiceImpl;
@@ -92,7 +92,7 @@ public class AuthorGraphController {
 		try {
 			accessReportService.insertAccessLog(new GregorianCalendar());
 			return "";
-		} catch (AccessLogException e) {
+		} catch (AccessReportException e) {
 			return e.getMessage();
 		}
 	}
@@ -109,7 +109,7 @@ public class AuthorGraphController {
 			mv.addObject("accessDay", accessReport.get("accessDay"));
 			mv.addObject("accessMonth", accessReport.get("accessMonth"));
 			mv.addObject("accessYear", accessReport.get("accessYear"));
-		} catch (AccessLogException e) {
+		} catch (AccessReportException e) {
 			mv.addObject("msg", e.getMessage());
 		}
 		

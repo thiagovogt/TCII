@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import br.com.vsl.VSLSystem.model.exception.AccessLogException;
+import br.com.vsl.VSLSystem.model.exception.AccessReportException;
 
 public class AccessReportParser {
 	
@@ -24,7 +24,7 @@ public class AccessReportParser {
         return (instance);
     }
     
-	public void insertAccessLog(GregorianCalendar accessLog) throws AccessLogException{
+	public void insertAccessLog(GregorianCalendar accessLog) throws AccessReportException{
 		try{
 			List<GregorianCalendar> accessLogList = getAccessLogList(); 
 			
@@ -37,13 +37,13 @@ public class AccessReportParser {
 			objGravar.close();
 
 		}catch (Exception e) {
-			throw new AccessLogException("Fail to insert into access log file: " + e.getMessage(), e);
+			throw new AccessReportException("Fail to insert into access log file: " + e.getMessage(), e);
 		}
 
 	}
 	
 	@SuppressWarnings("unchecked")
-	public List<GregorianCalendar> getAccessLogList() throws AccessLogException{
+	public List<GregorianCalendar> getAccessLogList() throws AccessReportException{
 	
         List<GregorianCalendar> accessLogList = new ArrayList<GregorianCalendar>();
         try{
@@ -57,7 +57,7 @@ public class AccessReportParser {
             arquivoLeitura.close();
             
         }catch( Exception e ){
-        	throw new AccessLogException("Fail to read access log file: " + e.getMessage(), e);
+        	throw new AccessReportException("Fail to read access log file: " + e.getMessage(), e);
         }
         return accessLogList;
 	}

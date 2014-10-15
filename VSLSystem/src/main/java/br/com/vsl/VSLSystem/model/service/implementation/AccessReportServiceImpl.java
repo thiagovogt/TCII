@@ -5,14 +5,14 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
-import br.com.vsl.VSLSystem.model.exception.AccessLogException;
+import br.com.vsl.VSLSystem.model.exception.AccessReportException;
 import br.com.vsl.VSLSystem.model.repository.AccessReportParser;
 import br.com.vsl.VSLSystem.model.service.AccessReportService;
 
 public class AccessReportServiceImpl implements AccessReportService {
 
 	@Override
-	public HashMap<String, Integer> getAccessLogReport() throws AccessLogException {
+	public HashMap<String, Integer> getAccessLogReport() throws AccessReportException {
 
 		List<GregorianCalendar> accessLogList = new ArrayList<GregorianCalendar>();
 		HashMap<String, Integer> accessLogCount = new HashMap<String, Integer>();
@@ -55,7 +55,7 @@ public class AccessReportServiceImpl implements AccessReportService {
 	}
 
 	@Override
-	public void insertAccessLog(GregorianCalendar accessLog) throws AccessLogException {
+	public void insertAccessLog(GregorianCalendar accessLog) throws AccessReportException {
 		AccessReportParser.getInstance().insertAccessLog(accessLog);
 	}
 	
