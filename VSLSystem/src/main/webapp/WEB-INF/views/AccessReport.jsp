@@ -16,37 +16,37 @@
 		<br>
 		<br>
 		<br>
+		<span class="errorMessage">${msg}</span>
 		<br>
 		<br>
-		${data}
 		<br>
 		<br>
 		<div id="report" >
-			<table style="width:335px;border-collapse: collapse;border:solid black 1px;" border="1">
+			<table style="width:560px;border-collapse: collapse;border:solid black 1px;font-size: 20px;" border="1">
 				<caption><b>Relatório de acessos ao sistema</b></caption>
 				<thead>
 					<tr>
-						<th>
+						<th align="center">
 							Acessos no dia
 						</th>
-						<th>
+						<th align="center">
 							Acessos no mês
 						</th>
-						<th>
+						<th align="center">
 							Acessos no ano
 						</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
-						<td>
-							3
+						<td align="center">
+							${accessDay}
 						</td>
-						<td>
-							414
+						<td align="center">
+							${accessMonth}
 						</td>
-						<td>
-							412123
+						<td align="center">
+							${accessYear}
 						</td>
 					</tr>
 				</tbody>

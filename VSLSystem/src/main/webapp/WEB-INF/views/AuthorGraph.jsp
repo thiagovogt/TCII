@@ -24,7 +24,8 @@
 		<h2>Search by Author</h2>
 		<h2>Author: ${author.name}</h2>
 		<br>
-			${msg}
+		<br>
+		<span class="errorMessage">${msg}</span>
 		<br>
 		<br>
 		<table id="publications" class="display" cellspacing="0" width="100%">
