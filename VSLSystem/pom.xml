@@ -13,16 +13,10 @@
 		<jquery.version>2.1.1</jquery.version>
 		<jstl.version>1.2</jstl.version>
 		<junit.version>4.11</junit.version>
+		<stax.version>1.0.1</stax.version>
+		<json.version>20140107</json.version>
 	</properties>
 	<dependencies>
-		
-		<!-- jQuery dependencies -->
-<!-- 		<dependency> -->
-<!-- 			<groupId>org.webjars</groupId> -->
-<!-- 			<artifactId>jquery</artifactId> -->
-<!-- 			<version>${jquery.version}</version> -->
-<!-- 		</dependency> -->
-		
 		
 		<!-- Spring dependencies -->
 		<dependency>
@@ -55,6 +49,18 @@
 			<artifactId>jstl</artifactId>
 			<version>${jstl.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>stax</groupId>
+			<artifactId>stax-api</artifactId>
+			<version>${stax.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>${json.version}</version>
+		</dependency>
+		
 
 	</dependencies>
  

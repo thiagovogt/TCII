@@ -12,9 +12,11 @@ pageEncoding="ISO-8859-1"%>
 <body>
 	<center>
 		<h1>VSLSystem</h1>
-		<span id="tes">teste</span>
 		<h3>
-			<a href="hello?name=Eric">Click Here</a>
+			<a href="SearchAuthor">Search by Author</a>
+		</h3>
+		<h3>
+			<a href="SearchCollaborations">Search Collaborations among Authors</a>
 		</h3>
 	</center>
 </body>

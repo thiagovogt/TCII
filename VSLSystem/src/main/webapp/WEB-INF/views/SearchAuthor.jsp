@@ -6,11 +6,14 @@
 <title>VSLSystem</title>
 </head>
 <body>
-	<center>
-		<h2>Hello World</h2>
-		<h2>
-			${message} ${name}
-		</h2>
-	</center>
+	<form action="ListAuthors" method="post">
+		<center>
+			<h1>VSLSystem</h1>
+			<h2>Search by Author</h2>
+			Name: <input type="text" name="searchName" id="searchName" />
+			<br>
+			<input type="submit" title="Search"/>
+		</center>
+	</form>
 </body>
 </html>
