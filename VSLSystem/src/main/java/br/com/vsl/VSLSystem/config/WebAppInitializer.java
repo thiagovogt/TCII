@@ -1,17 +1,28 @@
 package br.com.vsl.VSLSystem.config;
-import javax.servlet.ServletContext;  
-import javax.servlet.ServletException;  
-import javax.servlet.ServletRegistration.Dynamic;  
-import org.springframework.web.WebApplicationInitializer;  
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;  
-import org.springframework.web.servlet.DispatcherServlet;  
+
+import javax.servlet.ServletContext;
+import javax.servlet.ServletRegistration;
+ 
+import org.springframework.web.WebApplicationInitializer;
+import org.springframework.web.context.ContextLoaderListener;
+import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.DelegatingFilterProxy;
+import org.springframework.web.servlet.DispatcherServlet;
+ 
 public class WebAppInitializer implements WebApplicationInitializer {
-	public void onStartup(ServletContext servletContext) throws ServletException {  
-        AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();  
-        ctx.register(AppConfig.class);  
-        ctx.setServletContext(servletContext);    
-        Dynamic dynamic = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));  
-        dynamic.addMapping("/");  
-        dynamic.setLoadOnStartup(1);  
-   }  
-} 
+ 
+    @Override
+    public void onStartup(ServletContext container) {
+ 
+        // Create the dispatcher servlet's Spring application context
+        AnnotationConfigWebApplicationContext dispatcherServlet = new AnnotationConfigWebApplicationContext();
+        dispatcherServlet.register(WebConfig.class);
+             
+        // Register and map the dispatcher servlet
+        ServletRegistration.Dynamic dispatcher = container.addServlet("dispatcher", new DispatcherServlet(dispatcherServlet));
+        dispatcher.setLoadOnStartup(1);
+        dispatcher.addMapping("/");
+         
+    }
+ 
+ }

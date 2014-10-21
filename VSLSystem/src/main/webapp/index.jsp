@@ -6,11 +6,14 @@ pageEncoding="ISO-8859-1"%>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>VSLSystem - Visualizer of Scientific Collaborations</title>
+<style type="text/css">
+	@import url("resources/css/main.css");
+</style> 
 </head>
-<script>
-</script>
+
 <body>
 	<center>
+	<span id="TESTE">teste</span>
 		<h1>VSLSystem</h1>
 		<h3>
 			<a href="SearchAuthor">Search by Author</a>

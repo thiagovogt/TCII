@@ -16,10 +16,10 @@
 			
 			***List*** 
 			<table>
-			 <c:forEach items="${lista}" var="var">
+			 <c:forEach items="${authors}" var="author">
 			    	<tr>
 			    		<td>
-			    			${var}
+			    			${author.name}
 			    		</td>
 			    	
 			    	</tr>

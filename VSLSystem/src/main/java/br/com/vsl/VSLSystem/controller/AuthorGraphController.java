@@ -16,13 +16,24 @@ import javax.xml.stream.events.XMLEvent;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.XML;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import br.com.vsl.VSLSystem.model.entity.Author;
+import br.com.vsl.VSLSystem.model.exception.DBLPException;
+import br.com.vsl.VSLSystem.model.service.implementation.AuthorServiceImpl;
  
 @Controller
 public class AuthorGraphController {
  
+	private AuthorServiceImpl authorService;
+	
+	public AuthorGraphController(){
+		this.authorService = new AuthorServiceImpl();
+	}
+	
 	@RequestMapping("/SearchAuthor")
 	public ModelAndView SearchAuthor() {
 		ModelAndView mv = new ModelAndView("SearchAuthor");
@@ -32,31 +43,16 @@ public class AuthorGraphController {
 	@RequestMapping("/ListAuthors")
 	public ModelAndView ListAuthors(String searchName) {
 		ModelAndView mv = new ModelAndView("ListAuthors");
-		mv.addObject("nome", searchName);
+		List<Author> authors = new ArrayList<Author>();
+		
 		try{
-			URL url = new URL("http://dblp.uni-trier.de/search/author?xauthor=" + searchName);
-			System.out.println(url);
-			InputStream input = url.openStream();
-			int ptr = 0;
-			StringBuilder builder = new StringBuilder();
-			while ((ptr = input.read()) != -1) {
-			    builder.append((char) ptr);
-			}
-			String xml = builder.toString();
-			JSONObject jsonObject = (JSONObject) XML.toJSONObject(xml).get("authors");
-			List<String> li = new ArrayList<String>();
-		    JSONArray c = jsonObject.getJSONArray("author");
-		    
-		    for (int i = 0 ; i < c.length(); i++) {
-		        JSONObject obj = c.getJSONObject(i);
-		        li.add(obj.get("content").toString());
-		    }
-
+			
+			authors = authorService.searchAuthorByName(searchName);
+			
 			mv.addObject("msg", "XML processado com sucesso!");
-			mv.addObject("lista", li);
-		} catch (Exception e) {
-			mv.addObject("msg","Erro ao processar XML : " + e.getMessage());
-			throw new IllegalStateException(e);
+			mv.addObject("authors", authors);
+		} catch (DBLPException dblpe) {
+			mv.addObject("msg","Erro ao processar XML : " + dblpe.getMessage());
 		}
 
 		return mv;
