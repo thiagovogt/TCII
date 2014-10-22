@@ -14,12 +14,12 @@
 			<h2>Search by Author</h2>
 			<h3>Select one Author</h3>
 			
-			***List*** 
+			${msg}
 			<table>
 			 <c:forEach items="${authors}" var="author">
 			    	<tr>
 			    		<td>
-			    			${author.name}
+			    			${author}
 			    		</td>
 			    	
 			    	</tr>

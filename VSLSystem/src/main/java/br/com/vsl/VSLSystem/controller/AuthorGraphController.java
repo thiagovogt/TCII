@@ -1,22 +1,8 @@
 package br.com.vsl.VSLSystem.controller;
 
-import java.io.InputStream;
-import java.net.URL;
-
-
-
-
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.stream.XMLEventReader;
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.events.XMLEvent;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.XML;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;

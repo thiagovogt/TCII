@@ -14,7 +14,6 @@
 		<jstl.version>1.2</jstl.version>
 		<junit.version>4.11</junit.version>
 		<stax.version>1.0.1</stax.version>
-		<json.version>20140107</json.version>
 		<servletapi.version>3.0.1</servletapi.version>
 	</properties>
 	<dependencies>
@@ -48,7 +47,8 @@
 		<dependency>
 		    <groupId>javax.servlet</groupId>
 		    <artifactId>javax.servlet-api</artifactId>
-		    <version>${servlet.version}</version>
+		    <version>${servletapi.version}</version>
+		    <scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -60,14 +60,11 @@
 			<artifactId>stax-api</artifactId>
 			<version>${stax.version}</version>
 		</dependency>
-		
 		<dependency>
-			<groupId>org.json</groupId>
-			<artifactId>json</artifactId>
-			<version>${json.version}</version>
+			  <groupId>org.apache.commons</groupId>
+			  <artifactId>commons-lang3</artifactId>
+			  <version>3.3.2</version>
 		</dependency>
-		
-
 	</dependencies>
  
 	<build>
