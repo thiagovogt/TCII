@@ -8,16 +8,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.vsl.VSLSystem.model.entity.Author;
+import br.com.vsl.VSLSystem.model.entity.Publication;
 import br.com.vsl.VSLSystem.model.exception.DBLPException;
 import br.com.vsl.VSLSystem.model.service.implementation.AuthorServiceImpl;
+import br.com.vsl.VSLSystem.model.service.implementation.PublicationServiceImpl;
  
 @Controller
 public class AuthorGraphController {
  
 	private AuthorServiceImpl authorService;
+	private PublicationServiceImpl publicationService;
 	
 	public AuthorGraphController(){
 		this.authorService = new AuthorServiceImpl();
+		this.publicationService = new PublicationServiceImpl();
 	}
 	
 	@RequestMapping("/SearchAuthor")
@@ -34,18 +38,32 @@ public class AuthorGraphController {
 		try{
 			
 			authors = authorService.searchAuthorByName(searchName);
+			authors = authorService.searchAuthorByName(searchName);
 			
 			mv.addObject("msg", "XML processado com sucesso!");
 			mv.addObject("authors", authors);
 		} catch (DBLPException dblpe) {
-			mv.addObject("msg","Erro ao processar XML : " + dblpe.getMessage());
+			mv.addObject("msg", dblpe.getMessage());
 		}
 
 		return mv;
 	}
 	@RequestMapping("/GenerateGraph")
-	public ModelAndView GenerateGraph(String name) {
+	public ModelAndView GenerateGraph(String urlKey) {
 		ModelAndView mv = new ModelAndView("AuthorGraph");
+		List<Publication> publications = new ArrayList<Publication>();
+
+		try {
+
+			publications = publicationService.searchPublicationsByAuthor(urlKey);
+
+			mv.addObject("msg", "XML processado com sucesso!");
+			mv.addObject("publications", publications);
+		} catch (DBLPException dblpe) {
+			mv.addObject("msg", dblpe.getMessage());
+		}
+
+		mv.addObject("key", urlKey);
 		return mv;
 	}
 }

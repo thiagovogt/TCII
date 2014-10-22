@@ -1,5 +1,7 @@
 @CHARSET "ISO-8859-1";
 
-#TESTE {
-	color:yellow;
+body {
+    font-size: 14px;
+    color: navy;
+    background-color: #EBEBEB !important;
 }

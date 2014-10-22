@@ -18,6 +18,9 @@ public class Publication {
 		this.local = local;
 		this.type = type;
 	}
+	public Publication(){
+		
+	}
 	public String getUrlKey() {
 		return urlKey;
 	}
