@@ -1,0 +1,66 @@
+package br.com.vsl.VSLSystem;
+
+import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import junit.framework.TestCase;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import br.com.vsl.VSLSystem.model.entity.Author;
+import br.com.vsl.VSLSystem.model.exception.DBLPException;
+import br.com.vsl.VSLSystem.model.service.implementation.AuthorServiceImpl;
+
+public class AuthorServiceImplTest extends TestCase{
+	AuthorServiceImpl authorService = null; 
+	List<Author> authors = null;
+	
+	@Before
+	public void setUp() throws Exception {
+		authorService = new AuthorServiceImpl(); 
+		authors = new ArrayList<Author>();
+	}
+
+	@After
+	public void tearDown() throws Exception {
+		authorService = null;
+		authors = null;
+	}
+
+	@Test
+	public void testSearchAuthorByFirstName() throws DBLPException {
+		String firstName = "Sabrina";
+		authors = authorService.searchAuthorByName(firstName);
+		
+		assertTrue(authors.size() > 1);
+	}
+	
+	@Test
+	public void testSearchAuthorByFullName() throws DBLPException {
+		String fullName = "Sabrina Marczak";
+		authors = authorService.searchAuthorByName(fullName);
+		
+		assertTrue(authors.size() == 1);
+	}
+	
+	@Test
+	public void testSearchAuthorByWrongName() throws DBLPException {
+		String wrongName = "aaHASkahshhh";
+		authors = authorService.searchAuthorByName(wrongName);
+		
+		assertTrue(authors.size() == 0);
+	}
+	
+	@Test
+	public void testSearchAuthorByFullNameWithSpecialCharacters() throws DBLPException {
+		String fullNameWithSpecialCharacteres = "Hans-Jörg Schek";
+		authors = authorService.searchAuthorByName(fullNameWithSpecialCharacteres);
+		
+		assertTrue(authors.size() == 1);
+	}
+
+}
