@@ -1,6 +1,10 @@
 package br.com.vsl.VSLSystem.model.exception;
 
 public class DBLPException extends Exception{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	public DBLPException(){
 		super();
 	}

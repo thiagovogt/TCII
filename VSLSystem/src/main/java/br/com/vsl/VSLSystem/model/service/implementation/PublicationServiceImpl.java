@@ -51,5 +51,17 @@ public class PublicationServiceImpl implements PublicationService{
 	    
 		return publications;
 	}
+
+	@Override
+	public String searchPublication(Publication publication) throws DBLPException {
+		
+		try {
+				
+			return PublicationDBLP.getInstance().searchPublication(publication.getUrlKey());
+			
+		} catch (Exception e) {
+			throw new DBLPException(e.getMessage(), e);
+		}
+	}
 	
 }

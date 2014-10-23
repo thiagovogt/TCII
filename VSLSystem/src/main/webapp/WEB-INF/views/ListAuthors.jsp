@@ -14,6 +14,16 @@
 
 <script type="text/javascript">
 
+	$(function(){
+	
+		$("form").submit(function(event) {
+			if (!$("input[type='radio'][name='urlKey']").is(':checked')) {
+				alert("Select one author!");
+				event.preventDefault();
+			}
+		});
+	});
+
 	$(document).ready(function() {
 		var table = $('#authorsSearchTable').DataTable();
 
@@ -39,7 +49,8 @@
 		<center>
 			<h1>VSLSystem</h1>
 			<h2>Search by Author</h2>
-			<h3>Select one Author</h3>
+			<br>
+			<h2>Select one Author</h2>
 			<br>
 			${msg}
 			<br>
@@ -72,7 +83,7 @@
 		   	</table>
 			<input type="hidden" name="name" id="authorName" value=""/>
 			<br> 
-			<input type="submit" title="Search" />
+			<input type="submit" title="Search" value="Search"/>
 		</center>
 	</form>
 </body>

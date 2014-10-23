@@ -3,62 +3,52 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta name="Author" content="Gerard Ferrandez at http://www.dhteumeuleu.com/">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="HandheldFriendly" content="true">
-<meta name="description" content="I think - SVG menu tree">
-<meta name="keywords" content="svg,vector,menu,tree,IK">
-<link rel="canonical" href="http://www.dhteumeuleu.com/i-think">
-<!--cssnav-->
-<link rel="shortcut icon" href="/favicon.ico"/>
 
 <title>VSLSystem</title>
-
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" />
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/DataTables-1.10.3/media/css/jquery.dataTables.css" />" />
 
+<script type="text/javascript" src="<c:url value="/resources/js/jQuery-2.1.1/jquery.min.js" />"> </script>
+<script type="text/javascript" src="<c:url value="/resources/js/DataTables-1.10.3/media/js/jquery.dataTables.js" />"> </script>
+
+<script type="text/javascript">
+
+	$(document).ready(function() {
+		var table = $('#publications').DataTable();
+	});
+</script>
 </head>
 <body>
 	<center>
 		<h1>VSLSystem</h1>
 		<h2>Search by Author</h2>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		<table id="" class="display" cellspacing="0" width="100%">
-			<thead>
-				<tr>
-					<th>Key</th>
-				</tr>
-			</thead>
+		<h2>Author: ${author.name}</h2>
+		<br>
+			${msg}
+		<br>
+		<br>
+		<table id="publications" class="display" cellspacing="0" width="100%">
+		 	<thead>
+	            <tr>
+	                <th>Publication Key</th>
+	                <th>Publication XML</th>
+	            </tr>
+	        </thead>
+	        <tfoot>
+	            <tr>
+ 					<th>Publication Key</th>
+	                <th>Publication XML</th>
+	            </tr>
+	        </tfoot>
 			<tbody>
 				<c:forEach items="${author.publications}" var="publication">
 					<tr>
 						<td>${publication.urlKey}</td>
+						<td><pre><c:out value="${publication.xmlInfo}"/></pre></td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 	</center>
-			<br> ${msg} ${author.name}
 </body>
 </html>

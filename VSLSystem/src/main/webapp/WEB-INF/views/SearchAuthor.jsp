@@ -7,6 +7,21 @@
 <title>VSLSystem</title>
 
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" />
+<script type="text/javascript" src="<c:url value="/resources/js/jQuery-2.1.1/jquery.min.js" />"> </script>
+
+<script type="text/javascript">
+
+	$(function(){
+
+		$("form").submit(function(event) {
+			if ($("#searchName").val() === "") {
+				alert("The field Name is required!");
+				event.preventDefault();
+			}
+		});
+	});
+	
+</script>
 
 </head>
 <body>
@@ -14,10 +29,12 @@
 		<center>
 			<h1>VSLSystem</h1>
 			<h2>Search by Author</h2>
-			Name: <input type="text" name="searchName" id="searchName" />
 			<br>
 			<br>
-			<input type="submit" title="Search"/>
+			<h3>Name: <input type="text" name="searchName" id="searchName" value="" /></h3>
+			<br>
+			<br>
+			<input type="submit" title="Search" value="Search"/>
 		</center>
 	</form>
 </body>

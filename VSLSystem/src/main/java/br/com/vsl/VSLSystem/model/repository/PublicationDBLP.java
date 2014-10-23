@@ -1,5 +1,6 @@
 package br.com.vsl.VSLSystem.model.repository;
 
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URL;
 
@@ -40,7 +41,7 @@ public class PublicationDBLP {
     	}
     }
     
-    public byte[] searchPublication(String urlKeyPublication) throws DBLPException {
+    public String searchPublication(String urlKeyPublication) throws DBLPException {
     	try{
     		
     		URL url = new URL("http://dblp.uni-trier.de/rec/bibtex/"+urlKeyPublication+".xml");
@@ -50,9 +51,9 @@ public class PublicationDBLP {
     		while ((ptr = input.read()) != -1) {
     			builder.append((char) ptr);
     		}
-    		String xml = StringEscapeUtils.unescapeHtml4(builder.toString());
-    		
-    		return xml.getBytes("UTF-8");
+//    		String xml = StringEscapeUtils.unescapeHtml4(builder.toString());
+    		String xml = builder.toString();
+    		return xml;
     		
     	} catch (Exception e) {
     		throw new DBLPException("Erro ao processar XML : " + e.getMessage(), e);

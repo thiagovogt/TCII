@@ -3,8 +3,7 @@ package br.com.vsl.VSLSystem.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
+import org.apache.jasper.tagplugins.jstl.core.ForEach;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,6 +40,10 @@ public class AuthorGraphController {
 			
 			authors = authorService.searchAuthorByName(searchName);
 			
+			if(authors.size() == 1){
+				return this.GenerateGraph(authors.get(0).getUrlKey(), searchName);
+			}
+			
 			mv.addObject("msg", "XML processado com sucesso!");
 			mv.addObject("authors", authors);
 		} catch (DBLPException dblpe) {
@@ -57,6 +60,9 @@ public class AuthorGraphController {
 
 			authorSearched.setPublications(publicationService.searchPublicationsByAuthor(urlKey));
 			
+			for (Publication pubAux : authorSearched.getPublications()) {
+				pubAux.setXmlInfo(publicationService.searchPublication(pubAux));
+			}
 			mv.addObject("msg", "XML processado com sucesso!");
 			mv.addObject("author", authorSearched);
 		} catch (DBLPException dblpe) {
