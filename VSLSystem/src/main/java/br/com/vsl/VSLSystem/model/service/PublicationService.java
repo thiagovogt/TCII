@@ -1,6 +1,5 @@
 package br.com.vsl.VSLSystem.model.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.vsl.VSLSystem.model.entity.Publication;

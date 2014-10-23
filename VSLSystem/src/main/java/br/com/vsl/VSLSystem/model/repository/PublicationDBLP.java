@@ -1,6 +1,5 @@
 package br.com.vsl.VSLSystem.model.repository;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URL;
 

@@ -1,6 +1,7 @@
 package br.com.vsl.VSLSystem;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,6 @@ import org.junit.Test;
 import br.com.vsl.VSLSystem.model.entity.Author;
 import br.com.vsl.VSLSystem.model.entity.Publication;
 import br.com.vsl.VSLSystem.model.exception.DBLPException;
-import br.com.vsl.VSLSystem.model.service.implementation.AuthorServiceImpl;
 import br.com.vsl.VSLSystem.model.service.implementation.PublicationServiceImpl;
 
 public class PublicationServiceImplTest {
