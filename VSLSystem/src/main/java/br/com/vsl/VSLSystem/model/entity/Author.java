@@ -1,6 +1,7 @@
 package br.com.vsl.VSLSystem.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Author implements Serializable{
 	/**
@@ -10,6 +11,7 @@ public class Author implements Serializable{
 	
 	private String urlKey;
 	private String name;
+	private List<Publication> publications;
 
 	public Author(String name, String urlKey) {
 		this.urlKey = urlKey;
@@ -22,6 +24,14 @@ public class Author implements Serializable{
 
 	public String getName() {
 		return name;
+	}
+
+	public List<Publication> getPublications() {
+		return publications;
+	}
+
+	public void setPublications(List<Publication> publications) {
+		this.publications = publications;
 	}
 
 	@Override

@@ -24,6 +24,7 @@
 				table.$('tr.selected').removeClass('selected');
 				$(this).addClass('selected');
 				table.$('tr.selected').find("input").attr("checked", "true");
+				$("#authorName").val(table.$('tr.selected').find("td").eq(1).html());
 			}
 		});
 
@@ -69,7 +70,7 @@
 					</c:forEach>
 		    	</tbody>
 		   	</table>
-			
+			<input type="hidden" name="name" id="authorName" value=""/>
 			<br> 
 			<input type="submit" title="Search" />
 		</center>

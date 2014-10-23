@@ -3,6 +3,8 @@ package br.com.vsl.VSLSystem.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -38,7 +40,6 @@ public class AuthorGraphController {
 		try{
 			
 			authors = authorService.searchAuthorByName(searchName);
-			authors = authorService.searchAuthorByName(searchName);
 			
 			mv.addObject("msg", "XML processado com sucesso!");
 			mv.addObject("authors", authors);
@@ -49,21 +50,19 @@ public class AuthorGraphController {
 		return mv;
 	}
 	@RequestMapping("/GenerateGraph")
-	public ModelAndView GenerateGraph(String urlKey) {
+	public ModelAndView GenerateGraph(String urlKey, String name) {
 		ModelAndView mv = new ModelAndView("AuthorGraph");
-		List<Publication> publications = new ArrayList<Publication>();
-
+		Author authorSearched = new Author(name, urlKey);
 		try {
 
-			publications = publicationService.searchPublicationsByAuthor(urlKey);
-
+			authorSearched.setPublications(publicationService.searchPublicationsByAuthor(urlKey));
+			
 			mv.addObject("msg", "XML processado com sucesso!");
-			mv.addObject("publications", publications);
+			mv.addObject("author", authorSearched);
 		} catch (DBLPException dblpe) {
 			mv.addObject("msg", dblpe.getMessage());
 		}
 
-		mv.addObject("key", urlKey);
 		return mv;
 	}
 }

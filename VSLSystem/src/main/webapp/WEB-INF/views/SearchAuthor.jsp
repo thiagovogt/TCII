@@ -16,6 +16,7 @@
 			<h2>Search by Author</h2>
 			Name: <input type="text" name="searchName" id="searchName" />
 			<br>
+			<br>
 			<input type="submit" title="Search"/>
 		</center>
 	</form>

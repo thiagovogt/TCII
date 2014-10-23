@@ -10,7 +10,7 @@
 
 </head>
 
-<body id="teste">
+<body>
 	<center>
 		<h1>VSLSystem</h1>
 		<h3>
