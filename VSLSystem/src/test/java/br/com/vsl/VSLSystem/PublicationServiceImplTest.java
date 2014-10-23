@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import br.com.vsl.VSLSystem.model.entity.Author;
 import br.com.vsl.VSLSystem.model.entity.Publication;
+import br.com.vsl.VSLSystem.model.exception.DBLPException;
 import br.com.vsl.VSLSystem.model.service.implementation.AuthorServiceImpl;
 import br.com.vsl.VSLSystem.model.service.implementation.PublicationServiceImpl;
 
@@ -34,13 +35,18 @@ public class PublicationServiceImplTest {
 	}
 
 	@Test
-	public void testSearchPublicationsByAuthorKey() {
-		fail("Not yet implemented");
+	public void testSearchPublicationsByAuthorKey() throws DBLPException {
+		publications = publicationService.searchPublicationsByAuthor(author.getUrlKey());
+		
+		assertTrue(publications.size() > 1);
 	}
 
 	@Test
-	public void testSearchPublication() {
-		fail("Not yet implemented");
+	public void testSearchPublication() throws DBLPException {
+		publications = publicationService.searchPublicationsByAuthor(author.getUrlKey());
+		String xmlInfoString = publicationService.searchPublication(publications.get(0));
+		
+		assertFalse(xmlInfoString.equals(""));
 	}
 
 }
