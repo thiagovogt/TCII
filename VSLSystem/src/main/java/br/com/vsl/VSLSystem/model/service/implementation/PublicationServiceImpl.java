@@ -14,6 +14,11 @@ import br.com.vsl.VSLSystem.model.repository.PublicationDBLP;
 import br.com.vsl.VSLSystem.model.service.PublicationService;
 
 public class PublicationServiceImpl implements PublicationService{
+	
+	/*
+	 * Método responsável por ler um xml que contém uma lista com as chaves que representam cada publicação do autor.
+	 * 
+	 */
 	@Override
 	public List<Publication> searchPublicationsByAuthor(String urlAuthorKey) throws DBLPException{
 		List<Publication> publications = new ArrayList<Publication>();
@@ -52,6 +57,11 @@ public class PublicationServiceImpl implements PublicationService{
 		return publications;
 	}
 
+	/*
+	 *
+	 * Método responsável por buscar as informações de uma uma publicação através de um xml com base em uma chave.
+	 * 
+	 */
 	@Override
 	public String searchPublication(Publication publication) throws DBLPException {
 		

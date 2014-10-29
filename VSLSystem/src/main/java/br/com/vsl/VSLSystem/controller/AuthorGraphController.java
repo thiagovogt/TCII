@@ -30,6 +30,10 @@ public class AuthorGraphController {
 		return mv;
 	}
 	
+	/*
+	 * Buscar e exibir uma lista de autores através de uma String que representa o nome ou sobrenome a ser buscado
+	 * 
+	 */
 	@RequestMapping("/ListAuthors")
 	public ModelAndView ListAuthors(String searchName) {
 		ModelAndView mv = new ModelAndView("ListAuthors");
@@ -51,6 +55,12 @@ public class AuthorGraphController {
 
 		return mv;
 	}
+	
+	/*
+	 * Buscar e exibir as informações referentes as publicações do autor pesquisado.
+	 * 
+	 * 
+	 */
 	@RequestMapping("/GenerateGraph")
 	public ModelAndView GenerateGraph(String urlKey, String name) {
 		ModelAndView mv = new ModelAndView("AuthorGraph");

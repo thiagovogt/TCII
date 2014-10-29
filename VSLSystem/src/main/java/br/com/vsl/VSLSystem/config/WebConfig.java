@@ -8,7 +8,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
- 
+
+/*
+ * Classe responsável por configurar o framework MVC, substituindo o arquivo dispatcher-servlet.xml
+ */
 @EnableWebMvc
 @Configuration
 @ComponentScan(basePackages = { "br.com.vsl.VSLSystem.controller" })

@@ -14,6 +14,12 @@ import br.com.vsl.VSLSystem.model.repository.AuthorDBLP;
 import br.com.vsl.VSLSystem.model.service.AuthorService;
 
 public class AuthorServiceImpl implements AuthorService{
+	
+	/*
+	 *
+	 * Classe responsável por ler um xml e obter as informações de uma lista de nomes dos autores que foram encontrados através da string buscada.
+	 * 
+	 */
 	@Override
 	public List<Author> searchAuthorByName(String searchName) throws DBLPException{
 

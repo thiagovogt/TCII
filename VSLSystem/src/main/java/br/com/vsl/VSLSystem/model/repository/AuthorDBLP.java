@@ -23,6 +23,9 @@ public class AuthorDBLP {
         return (instance);
     }
     
+    /*
+     * Método responsável por realizar uma requisição http para o repositório do DBLP e retornar o xml da informação buscada relacionada aos autores referentes a String buscada.
+     */
     public byte[] searchAuthorByName(String searchName) throws DBLPException {
     	
 	    try{

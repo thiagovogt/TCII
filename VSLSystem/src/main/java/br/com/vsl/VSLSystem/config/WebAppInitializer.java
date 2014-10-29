@@ -7,6 +7,10 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.DispatcherServlet;
  
+/*
+ * 
+ * Classe responsável por configurar o projeto WEB substituindo o arquivo web.xml
+ */
 public class WebAppInitializer implements WebApplicationInitializer {
  
     @Override

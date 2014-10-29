@@ -21,6 +21,9 @@ public class PublicationDBLP {
         return (instance);
     }
     
+    /*
+     * Método responsável por realizar uma requisição http para o repositório do DBLP e retornar o xml da informação buscada relacionada a uma lista de publicações de um autor.
+     */
     public byte[] searchPublicationsKeysByAuthor(String urlKeyAuthor) throws DBLPException {
 	    try{
 	    	
@@ -40,6 +43,9 @@ public class PublicationDBLP {
     	}
     }
     
+    /*
+     * Método responsável por realizar uma requisição http para o repositório do DBLP e retornar o xml da informação buscada relacionada a uma publicação.
+     */
     public String searchPublication(String urlKeyPublication) throws DBLPException {
     	try{
     		
