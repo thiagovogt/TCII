@@ -39,14 +39,14 @@ public class PublicationDBLP {
 	    	return xml.getBytes("UTF-8");
     	    
     	} catch (Exception e) {
-    		throw new DBLPException("Erro ao processar XML : " + e.getMessage(), e);
+    		throw new DBLPException("Erro ao processar XML1 : " + e.getMessage(), e);
     	}
     }
     
     /*
      * Método responsável por realizar uma requisição http para o repositório do DBLP e retornar o xml da informação buscada relacionada a uma publicação.
      */
-    public String searchPublication(String urlKeyPublication) throws DBLPException {
+    public byte[] searchPublication(String urlKeyPublication) throws DBLPException {
     	try{
     		
     		URL url = new URL("http://dblp.uni-trier.de/rec/bibtex/"+urlKeyPublication+".xml");
@@ -58,10 +58,30 @@ public class PublicationDBLP {
     		}
 //    		String xml = StringEscapeUtils.unescapeHtml4(builder.toString());
     		String xml = builder.toString();
-    		return xml;
+    		return xml.getBytes("UTF-8");
     		
     	} catch (Exception e) {
-    		throw new DBLPException("Erro ao processar XML : " + e.getMessage(), e);
+    		throw new DBLPException("Erro ao processar XML 2: " + e.getMessage(), e);
+    	}
+    }
+    
+    public byte[] searchPublicationsByAuthor(String urlKeyAuthor) throws DBLPException {
+	    try{
+	    	
+	    	URL url = new URL("http://dblp.uni-trier.de/pers/xx/" + urlKeyAuthor);
+    		InputStream input = url.openStream();
+    		int ptr = 0;
+    		StringBuilder builder = new StringBuilder();
+    		while ((ptr = input.read()) != -1) {
+    		    builder.append((char) ptr);
+    		}
+//    		String xml = StringEscapeUtils.unescapeHtml4(builder.toString());
+    		String xml = builder.toString();
+    		System.out.println(xml);
+	    	return xml.getBytes();
+    	    
+    	} catch (Exception e) {
+    		throw new DBLPException("Erro ao processar XML1 : " + e.getMessage(), e);
     	}
     }
 }

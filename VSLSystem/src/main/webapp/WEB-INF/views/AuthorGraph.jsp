@@ -44,7 +44,7 @@
 				<c:forEach items="${author.publications}" var="publication">
 					<tr>
 						<td>${publication.urlKey}</td>
-						<td><pre><c:out value="${publication.xmlInfo}"/></pre></td>
+						<td><pre><c:out value="${publication}"/></pre></td>
 					</tr>
 				</c:forEach>
 			</tbody>

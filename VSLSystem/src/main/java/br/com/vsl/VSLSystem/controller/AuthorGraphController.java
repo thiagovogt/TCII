@@ -69,9 +69,9 @@ public class AuthorGraphController {
 
 			authorSearched.setPublications(publicationService.searchPublicationsByAuthor(urlKey));
 			
-			for (Publication pubAux : authorSearched.getPublications()) {
-				pubAux.setXmlInfo(publicationService.searchPublication(pubAux));
-			}
+//			for (Publication pubAux : authorSearched.getPublications()) {
+//				pubAux = publicationService.searchPublication(pubAux);
+//			}
 			mv.addObject("msg", "XML processado com sucesso!");
 			mv.addObject("author", authorSearched);
 		} catch (DBLPException dblpe) {

@@ -23,40 +23,36 @@ public class AuthorServiceImpl implements AuthorService{
 	@Override
 	public List<Author> searchAuthorByName(String searchName) throws DBLPException{
 
-		List<Author> authors = null;
+		List<Author> authors = new ArrayList<Author>();
 		String currName = null;
 		String currUrlKey = null;
 
 		try {
 			ByteArrayInputStream byteArray = new ByteArrayInputStream(AuthorDBLP.getInstance().searchAuthorByName(searchName));
-			
 			XMLInputFactory factory = XMLInputFactory.newInstance();
-			XMLStreamReader reader = factory.createXMLStreamReader(byteArray, "UTF-8");
-			while (reader.hasNext()) {
-				int event = reader.next();
-
-				switch (event) {
-					case XMLStreamConstants.START_ELEMENT:
-						if ("author".equals(reader.getLocalName())) {
-							currUrlKey = reader.getAttributeValue(0);
-						}
-						if ("authors".equals(reader.getLocalName())) {
-							authors = new ArrayList<>();
-						}
-						break;
-					case XMLStreamConstants.CHARACTERS:
-						currName = reader.getText().trim();
-						break;
-					case XMLStreamConstants.END_ELEMENT:
-						if (!currName.equals("") && !currUrlKey.equals(""))
-							authors.add(new Author(currName, currUrlKey));
-						break;
-					case XMLStreamConstants.START_DOCUMENT:
-						authors = new ArrayList<>();
-						break;
-				}
-			}
-
+            XMLStreamReader xmlStreamReader = factory.createXMLStreamReader(byteArray, "UTF-8");
+            int event = xmlStreamReader.getEventType();
+            while(true){
+                switch(event) {
+                case XMLStreamConstants.START_ELEMENT:
+                    if(xmlStreamReader.getLocalName().equals("author")){
+                    	currUrlKey = xmlStreamReader.getAttributeValue(0);
+                    }
+                    break;
+                case XMLStreamConstants.CHARACTERS:
+                        currName = xmlStreamReader.getText();
+                    break;
+                case XMLStreamConstants.END_ELEMENT:
+                    if(xmlStreamReader.getLocalName().equals("author")){
+                        authors.add(new Author(currName, currUrlKey));
+                    }
+                    break;
+                }
+                if (!xmlStreamReader.hasNext())
+                    break;
+ 
+              event = xmlStreamReader.next();
+            }
 			return authors;
 
 		} catch (Exception e) {
