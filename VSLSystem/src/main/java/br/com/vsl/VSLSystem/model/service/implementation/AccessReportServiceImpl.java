@@ -39,13 +39,10 @@ public class AccessReportServiceImpl implements AccessReportService {
 				accessYear++;
 			} else if (todayDate.get(GregorianCalendar.YEAR) == accessLogDate.get(GregorianCalendar.YEAR)) {
 				accessYear++;
+			}else{
+				accessLogList.remove(accessLogDate);
 			}
-
-			// System.out.println(gregorianCalendar.getTime());
 		}
-		// System.out.println("Tamanho lista: " + accessLogList.size());
-		// System.out.println("Dia: " + accessDay + " | Mês: " + accessMonth
-		// + " | Ano: " + accessYear );
 
 		accessLogCount.put("accessDay", accessDay);
 		accessLogCount.put("accessMonth", accessMonth);
