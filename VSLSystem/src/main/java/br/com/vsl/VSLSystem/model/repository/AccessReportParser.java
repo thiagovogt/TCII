@@ -28,7 +28,7 @@ public class AccessReportParser {
 		try{
 			List<GregorianCalendar> accessLogList = getAccessLogList(); 
 			
-			FileOutputStream arquivoGrav = new FileOutputStream("/Users/LucasGentile/Desktop/teste.txt");
+			FileOutputStream arquivoGrav = new FileOutputStream("/Users/LucasGentile/Desktop/accessReport.txt");
 			ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
 			
 			accessLogList.add(accessLog);
@@ -48,7 +48,7 @@ public class AccessReportParser {
         List<GregorianCalendar> accessLogList = new ArrayList<GregorianCalendar>();
         try{
         	
-            FileInputStream arquivoLeitura = new FileInputStream("/Users/LucasGentile/Desktop/teste.txt");
+            FileInputStream arquivoLeitura = new FileInputStream("/Users/LucasGentile/Desktop/accessReport.txt");
             ObjectInputStream objLeitura = new ObjectInputStream(arquivoLeitura);
 
             accessLogList = (List<GregorianCalendar>) objLeitura.readObject();

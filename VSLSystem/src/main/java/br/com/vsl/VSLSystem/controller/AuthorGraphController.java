@@ -1,8 +1,6 @@
 package br.com.vsl.VSLSystem.controller;
 
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -10,11 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.vsl.VSLSystem.model.entity.Author;
-import br.com.vsl.VSLSystem.model.entity.Publication;
-import br.com.vsl.VSLSystem.model.exception.AccessReportException;
 import br.com.vsl.VSLSystem.model.exception.DBLPException;
-import br.com.vsl.VSLSystem.model.service.AccessReportService;
-import br.com.vsl.VSLSystem.model.service.implementation.AccessReportServiceImpl;
 import br.com.vsl.VSLSystem.model.service.implementation.AuthorServiceImpl;
 import br.com.vsl.VSLSystem.model.service.implementation.PublicationServiceImpl;
  
@@ -23,12 +17,10 @@ public class AuthorGraphController {
  
 	private AuthorServiceImpl authorService;
 	private PublicationServiceImpl publicationService;
-	private AccessReportServiceImpl accessReportService;
 	
 	public AuthorGraphController(){
 		this.authorService = new AuthorServiceImpl();
 		this.publicationService = new PublicationServiceImpl();
-		this.accessReportService = new AccessReportServiceImpl();
 	}
 	
 	@RequestMapping("/SearchAuthor")
@@ -85,34 +77,6 @@ public class AuthorGraphController {
 			mv.addObject("msg", dblpe.getMessage());
 		}
 
-		return mv;
-	}
-	
-	public String insertAccessLog() {
-		try {
-			accessReportService.insertAccessLog(new GregorianCalendar());
-			return "";
-		} catch (AccessReportException e) {
-			return e.getMessage();
-		}
-	}
-	
-	
-	@RequestMapping("/AccessReport")
-	public ModelAndView AccessReport() {
-		ModelAndView mv = new ModelAndView("AccessReport");
-
-		HashMap<String, Integer> accessReport;
-		try {
-			accessReport = accessReportService.getAccessLogReport();
-			
-			mv.addObject("accessDay", accessReport.get("accessDay"));
-			mv.addObject("accessMonth", accessReport.get("accessMonth"));
-			mv.addObject("accessYear", accessReport.get("accessYear"));
-		} catch (AccessReportException e) {
-			mv.addObject("msg", e.getMessage());
-		}
-		
 		return mv;
 	}
 }
