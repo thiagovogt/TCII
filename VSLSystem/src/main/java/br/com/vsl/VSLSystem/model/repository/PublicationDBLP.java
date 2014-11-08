@@ -58,6 +58,7 @@ public class PublicationDBLP {
     		}
 //    		String xml = StringEscapeUtils.unescapeHtml4(builder.toString());
     		String xml = builder.toString();
+    		System.out.println(xml);
     		return xml.getBytes("UTF-8");
     		
     	} catch (Exception e) {
@@ -75,10 +76,12 @@ public class PublicationDBLP {
     		while ((ptr = input.read()) != -1) {
     		    builder.append((char) ptr);
     		}
-//    		String xml = StringEscapeUtils.unescapeHtml4(builder.toString());
-    		String xml = builder.toString();
-    		System.out.println(xml);
-	    	return xml.getBytes();
+//    		String xml = StringEscapeUtils.unescapeHtml4(builder.toString().replace("<?xml version=\"1.0\"?>", "<?xml version=\"1.0\" encoding=\"US-ASCII\"?>"));
+//    		System.out.println(new String(xml.getBytes(), "US-ASCII").toString());
+    		String xml = builder.toString().replace("<?xml version=\"1.0\"?>", "<?xml version=\"1.0\" encoding=\"US-ASCII\"?>");
+    		System.out.println(xml); 
+    		
+	    	return xml.getBytes("US-ASCII");
     	    
     	} catch (Exception e) {
     		throw new DBLPException("Erro ao processar XML1 : " + e.getMessage(), e);
