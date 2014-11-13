@@ -1,38 +1,29 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-
-<title>VSLSystem</title>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>VSLSystem - Visualizer of Scientific Collaborations</title>
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" />
-<link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/DataTables-1.10.3/media/css/jquery.dataTables.css" />" />
-<link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/vis/css/vis.css" />" />
+  <link href="http://visjs.org/dist/vis.css" rel="stylesheet" type="text/css" />
+  <script src="http://visjs.org/dist/vis.js"></script>
+  
+  
+  <style>
+    body {
+      font: 10pt arial;
+    }
+    #mynetwork {
+      width: 1000px;
+      height: 600px;
+      border: 1px solid lightgray;
+      background: #F3F3F3;
+    }
+  </style>
 
-<script type="text/javascript" src="<c:url value="/resources/js/jQuery-2.1.1/jquery.min.js" />"> </script>
-<script type="text/javascript" src="<c:url value="/resources/js/DataTables-1.10.3/media/js/jquery.dataTables.js" />"> </script>
-<script type="text/javascript" src="<c:url value="/resources/js/vis/js/vis.js" />"> </script>
-
-<style>
-	body {
-		font: 10pt arial;
-	}
-	
-	#mynetwork {
-		width: 1000px;
-		height: 600px;
-		border: 1px solid lightgray;
-		background: #F3F3F3;
-	}
-</style>
-
-
-<script type="text/javascript">
-	$(document).ready(function() {
-		var table = $('#publications').DataTable();
-	});
-	
-    var DIR = '/VSLSystem/resources/js/vis/images/vis-network-icons/';
+  <script type="text/javascript">
+    var DIR = '/VSLSystem/resources/img/soft-scraps-icons/';
     var nodes = null;
     var edges = null;
     var network = null;
@@ -71,41 +62,20 @@
       network = new vis.Network(container, data, options);
     }
   </script>
+  
 </head>
 <body onload="draw()">
 	<center>
 		<h1>VSLSystem</h1>
-		<h2>Search by Author</h2>
-		<h2>Author: ${author.name}</h2>
 		<br>
 		<br>
-		<span class="errorMessage">${msg}</span>
 		<br>
 		<br>
-		<table id="publications" class="display" cellspacing="0" width="100%">
-		 	<thead>
-	            <tr>
-	                <th>Publication Key</th>
-	                <th>Publication XML</th>
-	            </tr>
-	        </thead>
-	        <tfoot>
-	            <tr>
- 					<th>Publication Key</th>
-	                <th>Publication XML</th>
-	            </tr>
-	        </tfoot>
-			<tbody>
-				<c:forEach items="${author.publications}" var="publication">
-					<tr>
-						<td>${publication.urlKey}</td>
-						<td><pre><c:out value="${publication}"/></pre></td>
-					</tr>
-				</c:forEach>
-			</tbody>
-		</table>
-		<br>
-		<div id="mynetwork"></div>
+		
+		
+<div id="mynetwork"></div>
+
+<div id="info"></div>
 	</center>
 </body>
 </html>

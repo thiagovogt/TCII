@@ -11,7 +11,6 @@ import br.com.vsl.VSLSystem.model.exception.DBLPException;
 public class AuthorDBLP {
 	
     private static AuthorDBLP instance;
-    private static String DBLP_SEARCH_AUTHOR_URL = "http://dblp.uni-trier.de/search/author?xauthor=";
     
     private AuthorDBLP() {
     }
@@ -24,12 +23,14 @@ public class AuthorDBLP {
     }
     
     /*
-     * Método responsável por realizar uma requisição http para o repositório do DBLP e retornar o xml da informação buscada relacionada aos autores referentes a String buscada.
+     * Método responsável por realizar uma requisição HTTP para o repositório do DBLP e 
+     * retornar o xml da informação buscada relacionada aos autores referentes ao texto buscado, 
+     * que remete ao nome ou sobrenome de um autor.
      */
     public byte[] searchAuthorByName(String searchName) throws DBLPException {
     	
 	    try{
-	    	URL url = new URL(DBLP_SEARCH_AUTHOR_URL + URLEncoder.encode(searchName, "UTF-8"));
+	    	URL url = new URL("http://dblp.uni-trier.de/search/author?xauthor=" + URLEncoder.encode(searchName, "UTF-8"));
     		InputStream input = url.openStream();
     		int ptr = 0;
     		StringBuilder builder = new StringBuilder();
@@ -41,7 +42,7 @@ public class AuthorDBLP {
     		return xml.getBytes("UTF-8");
     	    
     	} catch (Exception e) {
-    		throw new DBLPException("Erro ao processar XML : " + e.getMessage(), e);
+    		throw new DBLPException("Author - Failed to process the XML: " + e.getMessage(), e);
     	}
     }
 }

@@ -11,6 +11,13 @@ import br.com.vsl.VSLSystem.model.service.AccessReportService;
 
 public class AccessReportServiceImpl implements AccessReportService {
 
+	
+	/*
+	 * 
+	 * Método responsável por contar a quantidade de acessos realizados no sistema, 
+	 * levando em consideração o dia, mês e ano correntes.
+	 * 
+	 * */
 	@Override
 	public HashMap<String, Integer> getAccessLogReport() throws AccessReportException {
 
@@ -51,6 +58,11 @@ public class AccessReportServiceImpl implements AccessReportService {
 		return accessLogCount;
 	}
 
+	/*
+	 * 
+	 * Método responsável por armazenar um registro de acesso
+	 * 
+	 * */
 	@Override
 	public void insertAccessLog(GregorianCalendar accessLog) throws AccessReportException {
 		AccessReportParser.getInstance().insertAccessLog(accessLog);

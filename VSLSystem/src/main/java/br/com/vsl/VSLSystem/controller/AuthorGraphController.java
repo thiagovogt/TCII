@@ -79,4 +79,10 @@ public class AuthorGraphController {
 
 		return mv;
 	}
+	
+	@RequestMapping("/testVisJs")
+	public ModelAndView TestVisJs() {
+		ModelAndView mv = new ModelAndView("testVisJs");
+		return mv;
+	}
 }

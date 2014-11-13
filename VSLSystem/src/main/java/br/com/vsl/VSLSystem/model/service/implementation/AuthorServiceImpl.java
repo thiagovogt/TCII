@@ -17,7 +17,8 @@ public class AuthorServiceImpl implements AuthorService{
 	
 	/*
 	 *
-	 * Classe responsável por ler um xml e obter as informações de uma lista de nomes dos autores que foram encontrados através da string buscada.
+	 * Método responsável por processar um xml e obter as informações de uma lista de nomes dos 
+	 * autores que foram encontrados através do texto buscado referente ao nome ou sobrenome do autor.
 	 * 
 	 */
 	@Override

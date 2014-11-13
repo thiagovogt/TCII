@@ -7,5 +7,5 @@ import br.com.vsl.VSLSystem.model.exception.DBLPException;
 
 public interface PublicationService {
 	List<Publication> searchPublicationsByAuthor(String urlAuthorKey) throws DBLPException;
-	Publication searchPublication(Publication publication) throws DBLPException;
+//	Publication searchPublication(Publication publication) throws DBLPException;
 }
