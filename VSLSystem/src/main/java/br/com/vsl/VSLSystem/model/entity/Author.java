@@ -15,7 +15,7 @@ public class Author implements Serializable{
 
 	public Author(String name, String urlKey) {
 		this.urlKey = urlKey;
-		this.name = name;
+		this.name = name.trim();
 	}
 	
 	public String getUrlKey() {
