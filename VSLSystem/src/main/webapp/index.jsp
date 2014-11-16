@@ -10,7 +10,7 @@
 </head>
 <body>
 	<center>
-		<h1>VSLSystem</h1>
+		<h1>VSCSystem</h1>
 		<br>
 		<br>
 		<br>
@@ -22,17 +22,16 @@
 		<br>
 		<br>
 		<br>
-		<a class="menuButton" href="SearchAuthor" >Search by Author</a>
+		<a class="button menuButton" href="SearchAuthor" >Search by Author</a>
 		<br>
 		<br>
 		<br>
 		<br>
 		<br>
 		<br>
-		<a class="menuButton" href="AccessReport" target="_blank">Access Report</a>
+		<a class="button menuButton" href="AccessReport" target="_blank">Access Report</a>
 		<br>
 		<br>
-		<a href="testVisJs" target="_blank">Teste VisJS</a>
 	</center>
 </body>
 </html>

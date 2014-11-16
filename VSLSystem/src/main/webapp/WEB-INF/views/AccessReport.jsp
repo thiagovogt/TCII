@@ -23,17 +23,17 @@
 		<br>
 		<div id="report" >
 			<table style="width:560px;border-collapse: collapse;border:solid black 1px;font-size: 20px;" border="1">
-				<caption><b>Relatório de acessos ao sistema</b></caption>
+				<caption><b>Report System Access</b></caption>
 				<thead>
 					<tr>
 						<th align="center">
-							Acessos no dia
+							Day access
 						</th>
 						<th align="center">
-							Acessos no mês
+							Month access
 						</th>
 						<th align="center">
-							Acessos no ano
+							Year access
 						</th>
 					</tr>
 				</thead>

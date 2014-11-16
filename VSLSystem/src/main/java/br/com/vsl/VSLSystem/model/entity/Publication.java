@@ -10,7 +10,7 @@ public class Publication {
 	public Publication(String urlKey) {
 		this.urlKey = urlKey;
 	}
-
+	
 	public String getUrlKey() {
 		return urlKey;
 	}

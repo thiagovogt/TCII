@@ -47,12 +47,12 @@
 <body>
 	<form action="GenerateGraph" method="post">
 		<center>
-			<h1>VSLSystem</h1>
-			<h2>Search by Author</h2>
+			<h1><a href="Home" title="Home">VSCSystem</a></h1>
+			<h2><a href="SearchAuthor" title="Search new Author">Search by Author</a></h2>
 			<br>
 			<h2>Select one Author</h2>
 			<br>
-			${msg}
+			<span class="errorMessage">${msg}</span>
 			<br>
 			<br>
 			<table id="authorsSearchTable" class="display" cellspacing="0" width="100%">
@@ -83,7 +83,7 @@
 		   	</table>
 			<input type="hidden" name="name" id="authorName" value=""/>
 			<br> 
-			<input type="submit" title="Search" value="Search"/>
+			<input type="submit" class="button formButton" title="Search" value="Search"/>
 		</center>
 	</form>
 </body>

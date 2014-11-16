@@ -82,7 +82,7 @@ public class PublicationDBLP {
     		    builder.append((char) ptr);
     		}
     		String xml = StringEscapeUtils.unescapeHtml4(builder.toString());
-    		System.out.println(xml);
+    		//System.out.println(xml);
     		xml = xml.replace("<?xml version=\"1.0\"?>", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
     		
     		xml = xml.replace("<title>", "<title><![CDATA[");

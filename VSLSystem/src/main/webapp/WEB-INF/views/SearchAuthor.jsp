@@ -27,14 +27,14 @@
 <body>
 	<form action="ListAuthors" method="post">
 		<center>
-			<h1>VSLSystem</h1>
+			<h1><a href="Home" title="Home">VSCSystem</a></h1>
 			<h2>Search by Author</h2>
 			<br>
 			<br>
 			<h3>Name: <input type="text" name="searchName" id="searchName" value="" /></h3>
 			<br>
 			<br>
-			<input type="submit" title="Search" value="Search"/>
+			<input type="submit" class="button formButton" title="Search" value="Search"/>
 		</center>
 	</form>
 </body>

@@ -2,12 +2,17 @@ package br.com.vsl.VSLSystem.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.vsl.VSLSystem.model.entity.Author;
+import br.com.vsl.VSLSystem.model.entity.Publication;
 import br.com.vsl.VSLSystem.model.exception.DBLPException;
 import br.com.vsl.VSLSystem.model.service.implementation.AuthorServiceImpl;
 import br.com.vsl.VSLSystem.model.service.implementation.PublicationServiceImpl;
@@ -23,8 +28,14 @@ public class AuthorGraphController {
 		this.publicationService = new PublicationServiceImpl();
 	}
 	
+	@RequestMapping("/Home")
+	public String Home(HttpSession session) {
+		session.invalidate();
+		return "../../index";
+	}
+	
 	@RequestMapping("/SearchAuthor")
-	public ModelAndView SearchAuthor() {
+	public ModelAndView SearchAuthor(HttpSession session) {
 		ModelAndView mv = new ModelAndView("SearchAuthor");
 		return mv;
 	}
@@ -34,7 +45,7 @@ public class AuthorGraphController {
 	 * 
 	 */
 	@RequestMapping("/ListAuthors")
-	public ModelAndView ListAuthors(String searchName) {
+	public ModelAndView ListAuthors(String searchName, HttpSession session) {
 		ModelAndView mv = new ModelAndView("ListAuthors");
 		List<Author> authors = new ArrayList<Author>();
 		
@@ -43,10 +54,10 @@ public class AuthorGraphController {
 			authors = authorService.searchAuthorByName(searchName);
 			
 			if(authors.size() == 1){
-				return this.GenerateGraph(authors.get(0).getUrlKey(), searchName);
+				return this.GenerateGraph(authors.get(0).getUrlKey(), authors.get(0).getName(), session);
 			}
 			
-			mv.addObject("msg", "XML processado com sucesso!");
+			mv.addObject("msg", "XML successfully processed!");
 			mv.addObject("authors", authors);
 		} catch (DBLPException dblpe) {
 			mv.addObject("msg", dblpe.getMessage());
@@ -61,17 +72,20 @@ public class AuthorGraphController {
 	 * 
 	 */
 	@RequestMapping("/GenerateGraph")
-	public ModelAndView GenerateGraph(String urlKey, String name) {
+	public ModelAndView GenerateGraph(String urlKey, String name, HttpSession session) {
 		ModelAndView mv = new ModelAndView("AuthorGraph");
 		Author authorSearched = new Author(name, urlKey);
 		try {
-
+			
 			authorSearched.setPublications(publicationService.searchPublicationsByAuthor(urlKey));
 			
-//			for (Publication pubAux : authorSearched.getPublications()) {
-//				pubAux = publicationService.searchPublication(pubAux);
-//			}
-			mv.addObject("msg", "XML processado com sucesso!");
+			Set<Integer> yearsFilter = this.getYearsFilter(authorSearched);
+			
+			session.setAttribute("authorSearchedSession", authorSearched);
+			session.setAttribute("yearsFilterSession", yearsFilter);
+			
+			mv.addObject("msg", "XML successfully processed!");
+			mv.addObject("yearsFilter", yearsFilter);
 			mv.addObject("author", authorSearched);
 		} catch (DBLPException dblpe) {
 			mv.addObject("msg", dblpe.getMessage());
@@ -80,9 +94,36 @@ public class AuthorGraphController {
 		return mv;
 	}
 	
-	@RequestMapping("/testVisJs")
-	public ModelAndView TestVisJs() {
-		ModelAndView mv = new ModelAndView("testVisJs");
+	@RequestMapping("/FilterByYear")
+	public ModelAndView TestVisJs(int yearFilter, HttpSession session) {
+		ModelAndView mv = new ModelAndView("AuthorGraph");
+		
+		Author authorSession = (Author) session.getAttribute("authorSearchedSession");
+		List<Publication> publicationsByYear = new ArrayList<Publication>();
+		if(yearFilter == 0){
+			publicationsByYear.addAll(authorSession.getPublications());
+		}else{
+			for (Publication publication : authorSession.getPublications()) {
+				if(publication.getYear() == yearFilter){
+					publicationsByYear.add(publication);
+				}
+			}
+		}
+		
+		Author authorfilter = new Author(authorSession.getName(), authorSession.getUrlKey());
+		authorfilter.setPublications(publicationsByYear);
+		
+		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
+		mv.addObject("author", authorfilter);
+		mv.addObject("yearFiltered", yearFilter);
 		return mv;
+	}
+	
+	private Set<Integer> getYearsFilter(Author authorSearched){
+		Set<Integer> yearsFilter = new TreeSet<Integer>();
+		for (Publication publication : authorSearched.getPublications()) {
+			yearsFilter.add(publication.getYear());
+		}
+		return yearsFilter;
 	}
 }

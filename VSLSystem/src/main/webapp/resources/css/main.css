@@ -4,6 +4,13 @@ body {
     font-size: 			14px;
     color: 				black;
     background-color: 	#EBEBEB !important;
+	font-family: 		Consolas;
+}
+
+	
+a {
+	text-decoration: none;
+	color:			 black;
 }
 
 .errorMessage {
@@ -13,7 +20,19 @@ body {
 
 /* Main screen buttons */
 
-.menuButton {
+.menuButton{
+	width: 	200px;
+	padding:25px 76px;
+	font-size:15px;
+}
+
+.formButton{
+	width: 		100px;
+	padding: 	5px 0px;
+	font-size: 	14px;
+}
+
+.button {
 	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
 	box-shadow:inset 0px 1px 0px 0px #ffffff;
@@ -32,15 +51,12 @@ body {
 	display:inline-block;
 	cursor:pointer;
 	color:#666666;
-	font-family:Arial;
-	font-size:15px;
 	font-weight:bold;
-	padding:25px 76px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffffff;
-	width: 200px;
+
 }
-.menuButton:hover {
+.button:hover {
 	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #f6f6f6), color-stop(1, #ffffff));
 	background:-moz-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
 	background:-webkit-linear-gradient(top, #f6f6f6 5%, #ffffff 100%);
@@ -50,7 +66,7 @@ body {
 	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#f6f6f6', endColorstr='#ffffff',GradientType=0);
 	background-color:#f6f6f6;
 }
-.menuButton:active {
+.button:active {
 	position:relative;
 	top:1px;
 }
