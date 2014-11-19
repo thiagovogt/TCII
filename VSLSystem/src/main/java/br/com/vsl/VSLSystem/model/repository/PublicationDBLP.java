@@ -85,6 +85,9 @@ public class PublicationDBLP {
     		//System.out.println(xml);
     		xml = xml.replace("<?xml version=\"1.0\"?>", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
     		
+    		
+    		//Identificar mais possíbilidades para formatar o XML
+    		
     		xml = xml.replace("<title>", "<title><![CDATA[");
     		xml = xml.replace("</title>", "]]></title>");
     		
@@ -94,8 +97,17 @@ public class PublicationDBLP {
     		xml = xml.replace("<author>", "<author><![CDATA[");
     		xml = xml.replace("</author>", "]]></author>");
     		
+    		xml = xml.replace("<editor>", "<editor><![CDATA[");
+    		xml = xml.replace("</editor>", "]]></editor>");
+    		
+    		xml = xml.replace("<number>", "<number><![CDATA[");
+    		xml = xml.replace("</number>", "]]></number>");
+    		
     		xml = xml.replace("<journal>", "<journal><![CDATA[");
     		xml = xml.replace("</journal>", "]]></journal>");
+    		
+    		xml = xml.replace("<ee>", "<ee><![CDATA[");
+    		xml = xml.replace("</ee>", "]]></ee>");
     		
     		xml = xml.replace("<school>", "<school><![CDATA[");
     		xml = xml.replace("</school>", "]]></school>");

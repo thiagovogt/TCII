@@ -56,7 +56,8 @@ public class PublicationServiceImpl implements PublicationService{
 	                    	}
 	                    }else if(xmlStreamReader.getLocalName().equals("title")){
 	                    	isTitle = true;
-	                    }else if(xmlStreamReader.getLocalName().equals("author")){
+	                    }else if(xmlStreamReader.getLocalName().equals("author") ||
+	                    			xmlStreamReader.getLocalName().equals("editor")){
 	                    	isCoAuthor = true;
 	                    }else if(xmlStreamReader.getLocalName().equals("year")){
 	                    	isYear = true;
@@ -121,8 +122,8 @@ public class PublicationServiceImpl implements PublicationService{
 			return "Conference and Workshop Papers";
 		}else if(typeCode.equals("incollection")){
 			return "Parts in Books or Collections";
-		}else if(typeCode.equals("editor")){
-			return "Editorship";
+//		}else if(typeCode.equals("editor")){
+//			return "Editorship";
 		}else if(typeCode.equals("reference")){
 			return "Reference Works";
 		}else if(typeCode.equals("informal") || typeCode.equals("informal publication")){

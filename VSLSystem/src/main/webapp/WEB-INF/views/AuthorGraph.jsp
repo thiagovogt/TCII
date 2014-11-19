@@ -130,24 +130,27 @@
 			nodes : nodes,
 			edges : edges
 		};
-// 		var options = {
+		var options = {
 // 			configurePhysics:true,
 			
-// 		};
-var options = {physics: {barnesHut: {enabled: false}, repulsion: {nodeDistance: 300, springLength: 148, springConstant: 0.013, damping: 0.3}}, smoothCurves:false};
+		};
+// var options = {physics: {barnesHut: {enabled: false}, repulsion: {nodeDistance:150, springConstant: 0.013, damping: 0.3}}, smoothCurves:false};
 		network = new vis.Network(container, data, options);
 		network.on('doubleClick', function (properties) {
-			$("#publicationInformation").attr("title", 'Publication - ' + publications[properties.nodes].urlKey);
-			$("#publicationTitle").html(publications[properties.nodes].title);
-			$("#publicationYear").html(publications[properties.nodes].year);
-			$("#publicationLocal").html(publications[properties.nodes].local);
-			$("#publicationType").html(publications[properties.nodes].type);
-			
-			$("#publicationInformation").dialog({
-			      height: 250,
-			      width: 800,
-			      resizable: false
-			});
+			if(publications[properties.nodes] != null){
+				
+				$("#publicationInformation").attr("title", 'Publication - ' + publications[properties.nodes].urlKey);
+				$("#publicationTitle").html(publications[properties.nodes].title);
+				$("#publicationYear").html(publications[properties.nodes].year);
+				$("#publicationLocal").html(publications[properties.nodes].local);
+				$("#publicationType").html(publications[properties.nodes].type);
+				
+				$("#publicationInformation").dialog({
+				      height: 250,
+				      width: 800,
+				      resizable: false
+				});
+			}
 		});
 	}
 	
