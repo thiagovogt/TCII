@@ -22,6 +22,7 @@ public class AccessReportServiceImpl implements AccessReportService {
 	public HashMap<String, Integer> getAccessLogReport() throws AccessReportException {
 
 		List<GregorianCalendar> accessLogList = new ArrayList<GregorianCalendar>();
+		List<GregorianCalendar> accessLogListToRemove = new ArrayList<GregorianCalendar>();
 		HashMap<String, Integer> accessLogCount = new HashMap<String, Integer>();
 
 		accessLogList = AccessReportParser.getInstance().getAccessLogList();
@@ -47,10 +48,15 @@ public class AccessReportServiceImpl implements AccessReportService {
 			} else if (todayDate.get(GregorianCalendar.YEAR) == accessLogDate.get(GregorianCalendar.YEAR)) {
 				accessYear++;
 			}else{
-				accessLogList.remove(accessLogDate);
+				accessLogListToRemove.add(accessLogDate);
 			}
 		}
-
+		
+		if(accessLogListToRemove.size() > 0){
+			accessLogList.removeAll(accessLogListToRemove);
+			AccessReportParser.getInstance().cleanReportAccess(accessLogList);
+		}
+		
 		accessLogCount.put("accessDay", accessDay);
 		accessLogCount.put("accessMonth", accessMonth);
 		accessLogCount.put("accessYear", accessYear);
@@ -66,6 +72,11 @@ public class AccessReportServiceImpl implements AccessReportService {
 	@Override
 	public void insertAccessLog(GregorianCalendar accessLog) throws AccessReportException {
 		AccessReportParser.getInstance().insertAccessLog(accessLog);
+	}
+
+	@Override
+	public void cleanAccessReport(List<GregorianCalendar> accessLogListToClean) throws AccessReportException {
+		AccessReportParser.getInstance().cleanReportAccess(accessLogListToClean);
 	}
 	
 }

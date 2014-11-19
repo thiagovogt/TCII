@@ -29,7 +29,7 @@ a {
 .formButton{
 	width: 		100px;
 	padding: 	5px 0px;
-	font-size: 	14px;
+	font-size: 	12px !important;
 }
 
 .button {

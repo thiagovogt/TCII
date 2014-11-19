@@ -8,6 +8,7 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 
+import br.com.vsl.VSLSystem.model.entity.Author;
 import br.com.vsl.VSLSystem.model.entity.Publication;
 import br.com.vsl.VSLSystem.model.exception.DBLPException;
 import br.com.vsl.VSLSystem.model.repository.PublicationDBLP;
@@ -25,10 +26,12 @@ public class PublicationServiceImpl implements PublicationService{
 	public List<Publication> searchPublicationsByAuthor(String urlAuthorKey) throws DBLPException{
 		List<Publication> publications = new ArrayList<Publication>();
 		Publication currPublication = null;
+		String authorName = "";
 		boolean isPublication = false;
 		boolean isTitle = false;
 		boolean isYear = false;
 		boolean isLocal = false;
+		boolean isCoAuthor = false;
 		try {
 			ByteArrayInputStream byteArray = new ByteArrayInputStream(PublicationDBLP.getInstance().searchPublicationsByAuthor(urlAuthorKey));
 			XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -38,37 +41,49 @@ public class PublicationServiceImpl implements PublicationService{
             while(true){
                 switch(event) {
                 case XMLStreamConstants.START_ELEMENT:
-                	if(xmlStreamReader.getLocalName().equals("r")){
+                	if(xmlStreamReader.getLocalName().equals("dblpperson")){
+                		authorName = xmlStreamReader.getAttributeValue(0);
+                	}else if(xmlStreamReader.getLocalName().equals("r")){
                 		isPublication = true;
-                	}else if(isPublication && !this.getPublicationType(xmlStreamReader.getLocalName()).equals("")){
-                    	if(xmlStreamReader.getAttributeValue(0).equals("informal publication")){
-                    		currPublication = new Publication(xmlStreamReader.getAttributeValue(1));
-                    		currPublication.setType(this.getPublicationType(xmlStreamReader.getAttributeValue(0)) + " - " + this.getPublicationType(xmlStreamReader.getLocalName()));
-                    	}else{
-	                		currPublication = new Publication(xmlStreamReader.getAttributeValue(0));
-	                		currPublication.setType(this.getPublicationType(xmlStreamReader.getLocalName()));
-                    	}
-                    }else if(xmlStreamReader.getLocalName().equals("title")){
-                    	isTitle = true;
-                    }else if(xmlStreamReader.getLocalName().equals("year")){
-                    	isYear = true;
-                    }else if(xmlStreamReader.getLocalName().equals("booktitle") || 
-                    			xmlStreamReader.getLocalName().equals("journal") ||
-                    				xmlStreamReader.getLocalName().equals("school")){
-                    	isLocal = true;
-                    }
-                    break;
+                	}else if(isPublication){ 
+	                	if(!this.getPublicationType(xmlStreamReader.getLocalName()).equals("")){
+	                    	if(xmlStreamReader.getAttributeValue(0).equals("informal publication")){
+	                    		currPublication = new Publication(xmlStreamReader.getAttributeValue(1));
+	                    		currPublication.setType(this.getPublicationType(xmlStreamReader.getAttributeValue(0)) + " - " + this.getPublicationType(xmlStreamReader.getLocalName()));
+	                    	}else{
+		                		currPublication = new Publication(xmlStreamReader.getAttributeValue(0));
+		                		currPublication.setType(this.getPublicationType(xmlStreamReader.getLocalName()));
+	                    	}
+	                    }else if(xmlStreamReader.getLocalName().equals("title")){
+	                    	isTitle = true;
+	                    }else if(xmlStreamReader.getLocalName().equals("author")){
+	                    	isCoAuthor = true;
+	                    }else if(xmlStreamReader.getLocalName().equals("year")){
+	                    	isYear = true;
+	                    }else if(xmlStreamReader.getLocalName().equals("booktitle") || 
+	                    			xmlStreamReader.getLocalName().equals("journal") ||
+	                    				xmlStreamReader.getLocalName().equals("school")){
+	                    	isLocal = true;
+	                    }
+	                    break;
+                	}
                 case XMLStreamConstants.CHARACTERS:
                 	if(isPublication){
                 		if(isTitle){
-                			currPublication.setTitle(xmlStreamReader.getText());
+                			currPublication.setTitle(xmlStreamReader.getText().replaceAll("\"", "\\\\\""));
                 			isTitle = false;
                 		} else if(isYear){
                 			currPublication.setYear(Integer.parseInt(xmlStreamReader.getText()));
                 			isYear = false;
                 		} else if(isLocal){
-                			currPublication.setLocal(xmlStreamReader.getText());
+                			currPublication.setLocal(xmlStreamReader.getText().replaceAll("\"", "\\\\\""));
                 			isLocal = false;
+                		}else if(isCoAuthor){
+                			if(!xmlStreamReader.getText().equals(authorName) && 
+                						!xmlStreamReader.getText().equals("\n")){
+	                			currPublication.getCoAuthors().add(new Author(xmlStreamReader.getText().replaceAll("\"", "\\\\\""), ""));
+                			}
+                			isCoAuthor = false;
                 		}
                 	}
                     break;

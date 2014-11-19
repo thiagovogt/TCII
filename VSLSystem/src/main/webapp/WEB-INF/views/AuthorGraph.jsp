@@ -8,10 +8,13 @@
 
 <title>VSLSystem</title>
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" />
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/jQuery-ui-1.11.2/smoothness/jquery-ui.css" />" />
+<link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/jQuery-ui-1.11.2/smoothness/theme.css" />" />
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/DataTables-1.10.3/media/css/jquery.dataTables.css" />" />
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/vis/css/vis.css" />" />
 
 <script type="text/javascript" src="<c:url value="/resources/js/jQuery-2.1.1/jquery.min.js" />"> </script>
+<script type="text/javascript" src="<c:url value="/resources/js/jQuery-ui-1.11.2/jquery-ui.js" />"> </script>
 <script type="text/javascript" src="<c:url value="/resources/js/DataTables-1.10.3/media/js/jquery.dataTables.js" />"> </script>
 <script type="text/javascript" src="<c:url value="/resources/js/vis/js/vis.js" />"> </script>
 
@@ -26,34 +29,33 @@
 	
 	#dvFilters{
 		height: 38px !important;
-		padding-top: 10px;
+		padding-top: 13px;
 	}
 	
-	#dvYearFilter span{
+	#dvYearFilter span, #dvTypeFilter span, #dvLocalFilter span{
 		font-weight: bold;
+		font-size: 15px;
 	}
 	
-	#dvYearFilter, #dvButtonFilter{
+	#dvYearFilter, #dvTypeFilter, #dvButtonFilter, #dvLocalFilter{
 		display: inline;
 	}
 	
-	#dvYearFilter{
+	#dvYearFilter, #dvTypeFilter, #dvLocalFilter{
 		text-align: left;
-		margin: 	16px 0px 0px 20px;
-		width: 		150px;
+		margin-left: 95px;
 		position: relative;
-		left: -360px;
+		left: -110px;
 	}
 	#dvButtonFilter{
-		width: 150px;
 		position: relative;
-		right: -340px;
+		right: -20px;
 	}
 	
 </style>
 <script type="text/javascript">
 	
-	var DIR = '/VSLSystem/resources/js/vis/images/vis-network-icons/';
+	var DIR = '/VSLSystem/resources/js/vis/images/';
 	var nodes = null;
 	var edges = null;
 	var publications = null;
@@ -73,9 +75,10 @@
 		// create connections
 		var color = '#BFBFBF';
  		var edges = [];
-		var count = 2;
+		var countIdNodes = 2;
+		var countCoAuthors = 1;
 		<c:forEach items="${author.publications}" var="publication">
-			publications[count] = {
+			publications[countIdNodes] = {
 				urlKey 	: "${publication.urlKey}",
 				title 	: "${publication.title}",
 				year 	: "${publication.year}",
@@ -84,24 +87,42 @@
 			}
 			nodes.push(
 				{
-					id : count,
-					label :'${publication.urlKey}',
+					id : countIdNodes,
+					label : 'Publication - ' + '${publication.urlKey}',
 					image : DIR + 'Document-icon48.png',
-					shape : 'image',
-					teste : 'testeAqui'
+					shape : 'image'
 				}	
 			);
-			
 			edges.push(
 				{
 		 			from : 1,
-		 			to : count,
+		 			to : countIdNodes,
 		 			value : 2,
 		 			color : color
 				}
 			);
 			
-			count++;
+			var currPublicationId = countIdNodes;
+			countIdNodes++;
+			<c:forEach items="${publication.coAuthors}" var="coAuthor">
+				nodes.push(
+					{
+						id : countIdNodes,
+						label :'${coAuthor.name}',
+						image : DIR + 'User-Administrator-Green-icon.png',
+						shape : 'image'
+					}	
+				);
+				edges.push(
+					{
+			 			from : currPublicationId,
+			 			to : countIdNodes,
+			 			value : 2,
+			 			color : color
+					}
+				);
+				countIdNodes++;
+			</c:forEach>		
 		</c:forEach>		
 		// create a network
 		var container = document.getElementById('dvGraph');
@@ -109,12 +130,27 @@
 			nodes : nodes,
 			edges : edges
 		};
-		var options = {};
+// 		var options = {
+// 			configurePhysics:true,
+			
+// 		};
+var options = {physics: {barnesHut: {enabled: false}, repulsion: {nodeDistance: 300, springLength: 148, springConstant: 0.013, damping: 0.3}}, smoothCurves:false};
 		network = new vis.Network(container, data, options);
 		network.on('doubleClick', function (properties) {
-			alert("Title: " + publications[properties.nodes].title + "\nYear: " + publications[properties.nodes].year + "\nType: " + publications[properties.nodes].type + "\nLocal: " + publications[properties.nodes].local);
+			$("#publicationInformation").attr("title", 'Publication - ' + publications[properties.nodes].urlKey);
+			$("#publicationTitle").html(publications[properties.nodes].title);
+			$("#publicationYear").html(publications[properties.nodes].year);
+			$("#publicationLocal").html(publications[properties.nodes].local);
+			$("#publicationType").html(publications[properties.nodes].type);
+			
+			$("#publicationInformation").dialog({
+			      height: 250,
+			      width: 800,
+			      resizable: false
+			});
 		});
 	}
+	
 </script>
 </head>
 <body onload="draw()">
@@ -137,13 +173,47 @@
 						</c:forEach>
 					</select>
 				</div>
+				<div id="dvTypeFilter">
+					<span>Type:</span>
+					<select id="typeFilter" name="typeFilter">
+						<option value="0">Select a type...</option>
+					</select>
+				</div>
+				<div id="dvLocalFilter">
+					<span>Local:</span>
+					<select id="localFilter" name="localFilter">
+						<option value="0">Select a local...</option>
+					</select>
+				</div>
 				<div id="dvButtonFilter">
-					<input type="submit" class="button formButton" title="Filter" value="Filter"/>
+					<input type="submit" class="button formButton" title="Apply Filter" value="Apply Filter"/>
 				</div>
 			</div>	
 		</form>
 		<h4>GRAPH</h4>
 		<div id="dvGraph"></div>
+		
+		<div id="publicationInformation" style="display:none;" title="">
+			<table style="border-spacing: 15px;">
+				<tr>
+					<td align="right"><b>Title:</b></td>
+					<td id="publicationTitle"></td>
+				</tr>
+				<tr>
+					<td align="right"><b>Year:</b></td>
+					<td id="publicationYear"></td>
+				</tr>
+				<tr>
+					<td align="right"><b>Local:</b></td>
+					<td id="publicationLocal"></td>
+				</tr>
+				<tr>
+					<td align="right"><b>Type:</b></td>
+					<td id="publicationType"></td>
+				</tr>
+			</table>
+		</div>
+ 
 	</center>
 </body>
 </html>

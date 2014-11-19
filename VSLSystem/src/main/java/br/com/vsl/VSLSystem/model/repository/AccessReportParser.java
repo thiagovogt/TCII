@@ -51,6 +51,26 @@ public class AccessReportParser {
 	
 	/*
 	 * 
+	 * Método responsável por remover registros de acesso de anos anteriores ao atual.
+	 * 
+	 * */
+	public void cleanReportAccess(List<GregorianCalendar> accessLogListToClean) throws AccessReportException{
+		try{
+			
+			FileOutputStream arquivoGrav = new FileOutputStream(accessReportFilePath);
+			ObjectOutputStream objGravar = new ObjectOutputStream(arquivoGrav);
+			
+			objGravar.writeObject(accessLogListToClean);
+			objGravar.close();
+			
+		}catch (Exception e) {
+			throw new AccessReportException("Failed to clean report file: " + e.getMessage(), e);
+		}
+		
+	}
+	
+	/*
+	 * 
 	 * Método responsável por ler o arquivo de texto e 
 	 * retornar uma lista dos acessos armazenados
 	 * 

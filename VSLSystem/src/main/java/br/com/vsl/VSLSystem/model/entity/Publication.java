@@ -1,11 +1,15 @@
 package br.com.vsl.VSLSystem.model.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Publication {
 	private String urlKey;
 	private int year;
 	private String title;
 	private String type;
 	private String local;
+	private List<Author> coAuthors = new ArrayList<Author>();
 	
 	public Publication(String urlKey) {
 		this.urlKey = urlKey;
@@ -45,6 +49,14 @@ public class Publication {
 
 	public void setLocal(String local) {
 		this.local = local;
+	}
+	
+	public List<Author> getCoAuthors() {
+		return coAuthors;
+	}
+
+	public void setCoAuthors(List<Author> coAuthors) {
+		this.coAuthors = coAuthors;
 	}
 
 	@Override
