@@ -19,6 +19,10 @@ public class AccessReportController {
 		this.accessReportService = new AccessReportServiceImpl();
 	}
 	
+	/*
+	 * Inserir um registro de acesso ao arquivo texto (relatório de acessos)
+	 * 
+	 */
 	public String insertAccessLog() {
 		try {
 			accessReportService.insertAccessLog(new GregorianCalendar());
@@ -28,6 +32,10 @@ public class AccessReportController {
 		}
 	}
 	
+	/*
+	 * Buscar o arquivo texto referente ao relatório de acessos e exibir para o usuário
+	 * 
+	 */
 	@RequestMapping("/AccessReport")
 	public ModelAndView AccessReport() {
 		ModelAndView mv = new ModelAndView("AccessReport");

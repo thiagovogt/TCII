@@ -1,6 +1,5 @@
 package br.com.vsl.VSLSystem;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -35,18 +34,9 @@ public class PublicationServiceImplTest {
 	}
 
 	@Test
-	public void testSearchPublicationsByAuthorKey() throws DBLPException {
+	public void testSearchPublicationsByAuthor() throws DBLPException {
 		publications = publicationService.searchPublicationsByAuthor(author.getUrlKey());
 		
 		assertTrue(publications.size() > 1);
 	}
-
-//	@Test
-//	public void testSearchPublication() throws DBLPException {
-//		publications = publicationService.searchPublicationsByAuthor(author.getUrlKey());
-//		String xmlInfoString = publicationService.searchPublications(publications.get(0));
-//		
-//		assertFalse(xmlInfoString.equals(""));
-//	}
-
 }

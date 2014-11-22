@@ -28,12 +28,21 @@ public class AuthorGraphController {
 		this.publicationService = new PublicationServiceImpl();
 	}
 	
+	/*
+	 * Redirecionar para a tela inicial do sistema
+	 * 
+	 */
 	@RequestMapping("/Home")
 	public String Home(HttpSession session) {
 		session.invalidate();
 		return "../../index";
 	}
 	
+	
+	/*
+	 * Redirecionar para a tela de busca por nome do autor
+	 * 
+	 */
 	@RequestMapping("/SearchAuthor")
 	public ModelAndView SearchAuthor(HttpSession session) {
 		ModelAndView mv = new ModelAndView("SearchAuthor");
@@ -41,7 +50,8 @@ public class AuthorGraphController {
 	}
 	
 	/*
-	 * Buscar e exibir uma lista de autores através de uma String que representa o nome ou sobrenome a ser buscado
+	 * Buscar e exibir uma lista de autores através de uma String que
+	 * representa o nome ou sobrenome a ser buscado
 	 * 
 	 */
 	@RequestMapping("/ListAuthors")
@@ -67,7 +77,7 @@ public class AuthorGraphController {
 	}
 	
 	/*
-	 * Buscar e exibir as informações referentes as publicações do autor pesquisado.
+	 * Buscar e exibir as informações referentes as publicações do autor pesquisado em forma de grafo.
 	 * 
 	 * 
 	 */
@@ -94,8 +104,13 @@ public class AuthorGraphController {
 		return mv;
 	}
 	
+	/*
+	 * Filtrar as publicações do autor por um deterinado ano.
+	 * 
+	 * 
+	 */
 	@RequestMapping("/FilterByYear")
-	public ModelAndView TestVisJs(int yearFilter, HttpSession session) {
+	public ModelAndView FilterByYear(int yearFilter, HttpSession session) {
 		ModelAndView mv = new ModelAndView("AuthorGraph");
 		
 		Author authorSession = (Author) session.getAttribute("authorSearchedSession");
@@ -119,6 +134,11 @@ public class AuthorGraphController {
 		return mv;
 	}
 	
+	/*
+	 * Obter todos os anos das publicação do autor para montar o filtro por ano 
+	 * apenas com anos existentes nas publicações
+	 * 
+	 */
 	private Set<Integer> getYearsFilter(Author authorSearched){
 		Set<Integer> yearsFilter = new TreeSet<Integer>();
 		for (Publication publication : authorSearched.getPublications()) {

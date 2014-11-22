@@ -74,6 +74,11 @@ public class AccessReportServiceImpl implements AccessReportService {
 		AccessReportParser.getInstance().insertAccessLog(accessLog);
 	}
 
+	/*
+	 * 
+	 * Método responsável por limpar os registros que não são do ano atual
+	 * 
+	 * */
 	@Override
 	public void cleanAccessReport(List<GregorianCalendar> accessLogListToClean) throws AccessReportException {
 		AccessReportParser.getInstance().cleanReportAccess(accessLogListToClean);
