@@ -67,7 +67,7 @@
 		nodes.push(
 			{
 				id : 1,
-				label : '${author.name}',
+				label : "${author.name}",
 				image : DIR + 'User-Executive-Green-icon.png',
 				shape : 'image'
 			}				
@@ -88,7 +88,7 @@
 			nodes.push(
 				{
 					id : countIdNodes,
-					label : 'Publication - ' + '${publication.urlKey}',
+					label : "Publication - " + "${publication.urlKey}",
 					image : DIR + 'Document-icon48.png',
 					shape : 'image'
 				}	
@@ -108,7 +108,7 @@
 				nodes.push(
 					{
 						id : countIdNodes,
-						label :'${coAuthor.name}',
+						label :"${coAuthor.name}",
 						image : DIR + 'User-Administrator-Green-icon.png',
 						shape : 'image'
 					}	
