@@ -1,4 +1,4 @@
-package br.com.vsl.VSLSystem;
+package br.com.vsc.VSCSystem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.vsl.VSLSystem.model.entity.Author;
-import br.com.vsl.VSLSystem.model.exception.DBLPException;
-import br.com.vsl.VSLSystem.model.service.implementation.AuthorServiceImpl;
+import br.com.vsc.VSCSystem.model.entity.Author;
+import br.com.vsc.VSCSystem.model.exception.DBLPException;
+import br.com.vsc.VSCSystem.model.service.implementation.AuthorServiceImpl;
 
 public class AuthorServiceImplTest extends TestCase{
 	AuthorServiceImpl authorService = null; 

@@ -1,4 +1,4 @@
-package br.com.vsl.VSLSystem.controller;
+package br.com.vsc.VSCSystem.controller;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +11,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import br.com.vsl.VSLSystem.model.entity.Author;
-import br.com.vsl.VSLSystem.model.entity.Publication;
-import br.com.vsl.VSLSystem.model.exception.DBLPException;
-import br.com.vsl.VSLSystem.model.service.implementation.AuthorServiceImpl;
-import br.com.vsl.VSLSystem.model.service.implementation.PublicationServiceImpl;
+import br.com.vsc.VSCSystem.model.entity.Author;
+import br.com.vsc.VSCSystem.model.entity.Publication;
+import br.com.vsc.VSCSystem.model.exception.DBLPException;
+import br.com.vsc.VSCSystem.model.service.implementation.AuthorServiceImpl;
+import br.com.vsc.VSCSystem.model.service.implementation.PublicationServiceImpl;
  
 @Controller
 public class AuthorGraphController {

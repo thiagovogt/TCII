@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>VSLSystem</title>
+<title>VSCSystem</title>
 
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" />
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/DataTables-1.10.3/media/css/jquery.dataTables.css" />" />

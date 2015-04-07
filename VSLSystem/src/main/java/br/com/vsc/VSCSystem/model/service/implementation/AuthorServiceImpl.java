@@ -1,4 +1,4 @@
-package br.com.vsl.VSLSystem.model.service.implementation;
+package br.com.vsc.VSCSystem.model.service.implementation;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
@@ -8,10 +8,10 @@ import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamReader;
 
-import br.com.vsl.VSLSystem.model.entity.Author;
-import br.com.vsl.VSLSystem.model.exception.DBLPException;
-import br.com.vsl.VSLSystem.model.repository.AuthorDBLP;
-import br.com.vsl.VSLSystem.model.service.AuthorService;
+import br.com.vsc.VSCSystem.model.entity.Author;
+import br.com.vsc.VSCSystem.model.exception.DBLPException;
+import br.com.vsc.VSCSystem.model.repository.AuthorDBLP;
+import br.com.vsc.VSCSystem.model.service.AuthorService;
 
 public class AuthorServiceImpl implements AuthorService{
 	

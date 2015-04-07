@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>VSLSystem</title>
+<title>VSCSystem</title>
 
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" />
 <script type="text/javascript" src="<c:url value="/resources/js/jQuery-2.1.1/jquery.min.js" />"> </script>

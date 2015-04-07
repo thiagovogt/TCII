@@ -1,4 +1,4 @@
-package br.com.vsl.VSLSystem;
+package br.com.vsc.VSCSystem;
 
 import static org.junit.Assert.assertTrue;
 
@@ -9,10 +9,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import br.com.vsl.VSLSystem.model.entity.Author;
-import br.com.vsl.VSLSystem.model.entity.Publication;
-import br.com.vsl.VSLSystem.model.exception.DBLPException;
-import br.com.vsl.VSLSystem.model.service.implementation.PublicationServiceImpl;
+import br.com.vsc.VSCSystem.model.entity.Author;
+import br.com.vsc.VSCSystem.model.entity.Publication;
+import br.com.vsc.VSCSystem.model.exception.DBLPException;
+import br.com.vsc.VSCSystem.model.service.implementation.PublicationServiceImpl;
 
 public class PublicationServiceImplTest {
 	PublicationServiceImpl publicationService = null; 

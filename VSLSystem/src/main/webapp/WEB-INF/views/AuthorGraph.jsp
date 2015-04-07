@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@page import="br.com.vsl.VSLSystem.model.entity.Publication"%>
+<%@page import="br.com.vsc.VSCSystem.model.entity.Publication"%>
 <%@page import="java.util.HashMap"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 
-<title>VSLSystem</title>
+<title>VSCSystem</title>
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" />
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/jQuery-ui-1.11.2/smoothness/jquery-ui.css" />" />
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/jQuery-ui-1.11.2/smoothness/theme.css" />" />
@@ -55,7 +55,7 @@
 </style>
 <script type="text/javascript">
 	
-	var DIR = '/VSLSystem/resources/js/vis/images/';
+	var DIR = '/VSCSystem/resources/js/vis/images/';
 	var nodes = null;
 	var edges = null;
 	var publications = null;

@@ -1,4 +1,4 @@
-package br.com.vsl.VSLSystem.model.exception;
+package br.com.vsc.VSCSystem.model.exception;
 
 public class DBLPException extends Exception{
 	/**

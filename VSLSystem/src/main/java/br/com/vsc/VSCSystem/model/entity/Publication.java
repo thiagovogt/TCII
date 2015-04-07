@@ -1,4 +1,4 @@
-package br.com.vsl.VSLSystem.model.entity;
+package br.com.vsc.VSCSystem.model.entity;
 
 import java.util.ArrayList;
 import java.util.List;

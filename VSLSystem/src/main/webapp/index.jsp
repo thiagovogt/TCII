@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>VSLSystem - Visualizer of Scientific Collaborations</title>
+<title>VSCSystem - Visualizer of Scientific Collaborations</title>
 <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" />
 </head>
 <body>

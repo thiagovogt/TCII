@@ -1,4 +1,4 @@
-package br.com.vsl.VSLSystem.model.repository;
+package br.com.vsc.VSCSystem.model.repository;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -6,7 +6,7 @@ import java.net.URLEncoder;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
-import br.com.vsl.VSLSystem.model.exception.DBLPException;
+import br.com.vsc.VSCSystem.model.exception.DBLPException;
 
 public class AuthorDBLP {
 	

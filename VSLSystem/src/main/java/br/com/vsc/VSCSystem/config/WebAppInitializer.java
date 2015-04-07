@@ -1,4 +1,4 @@
-package br.com.vsl.VSLSystem.config;
+package br.com.vsc.VSCSystem.config;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
