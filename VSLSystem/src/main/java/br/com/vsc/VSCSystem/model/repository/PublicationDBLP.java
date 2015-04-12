@@ -2,6 +2,8 @@ package br.com.vsc.VSCSystem.model.repository;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 
@@ -10,8 +12,32 @@ import br.com.vsc.VSCSystem.model.exception.DBLPException;
 public class PublicationDBLP {
 	
     private static PublicationDBLP instance;
-    		
+    private List<String> tagListToFormat;		
+    
     private PublicationDBLP() {
+    	tagListToFormat = new ArrayList<String>();
+    	tagListToFormat.add("title");
+    	tagListToFormat.add("booktitle");
+    	tagListToFormat.add("author");
+    	tagListToFormat.add("editor");
+    	tagListToFormat.add("number");
+    	tagListToFormat.add("journal");
+    	tagListToFormat.add("ee");
+    	tagListToFormat.add("school");
+    	tagListToFormat.add("year");
+    	tagListToFormat.add("address");
+    	tagListToFormat.add("volume");
+    	tagListToFormat.add("month");
+    	tagListToFormat.add("url");
+    	tagListToFormat.add("cdrom");
+    	tagListToFormat.add("cite");
+    	tagListToFormat.add("publisher");
+    	tagListToFormat.add("note");
+    	tagListToFormat.add("crossref");
+    	tagListToFormat.add("isbn");
+    	tagListToFormat.add("series");
+    	tagListToFormat.add("chapter");
+    	tagListToFormat.add("pages");
     }
 
     static public PublicationDBLP getInstance() {
@@ -37,42 +63,24 @@ public class PublicationDBLP {
     		while ((ptr = input.read()) != -1) {
     		    builder.append((char) ptr);
     		}
-    		String xml = StringEscapeUtils.unescapeHtml4(builder.toString());
-    		//System.out.println(xml);
-    		xml = xml.replace("<?xml version=\"1.0\"?>", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-    		
-    		
-    		//Identificar mais possíbilidades para formatar o XML
-    		
-    		xml = xml.replace("<title>", "<title><![CDATA[");
-    		xml = xml.replace("</title>", "]]></title>");
-    		
-    		xml = xml.replace("<booktitle>", "<booktitle><![CDATA[");
-    		xml = xml.replace("</booktitle>", "]]></booktitle>");
-    		
-    		xml = xml.replace("<author>", "<author><![CDATA[");
-    		xml = xml.replace("</author>", "]]></author>");
-    		
-    		xml = xml.replace("<editor>", "<editor><![CDATA[");
-    		xml = xml.replace("</editor>", "]]></editor>");
-    		
-    		xml = xml.replace("<number>", "<number><![CDATA[");
-    		xml = xml.replace("</number>", "]]></number>");
-    		
-    		xml = xml.replace("<journal>", "<journal><![CDATA[");
-    		xml = xml.replace("</journal>", "]]></journal>");
-    		
-    		xml = xml.replace("<ee>", "<ee><![CDATA[");
-    		xml = xml.replace("</ee>", "]]></ee>");
-    		
-    		xml = xml.replace("<school>", "<school><![CDATA[");
-    		xml = xml.replace("</school>", "]]></school>");
-    		
-	    	return xml.getBytes("UTF-8");
+    		String xml = this.formatXml(StringEscapeUtils.unescapeHtml4(builder.toString()));
+//    		System.out.println(xml);
+
+    		return xml.getBytes("UTF-8");
     	    
     	} catch (Exception e) {
     		throw new DBLPException("Publications - Failed to process the XML: " + e.getMessage(), e);
     	}
+    }
+    
+    private String formatXml(String xmlText){
+    	xmlText = xmlText.replace("<?xml version=\"1.0\"?>", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
+    	
+    	for (String tagValue : tagListToFormat) {
+    		xmlText = xmlText.replace("<"+tagValue+">", "<"+tagValue+"><![CDATA[");
+    		xmlText = xmlText.replace("</"+tagValue+">", "]]></"+tagValue+">");
+		}
+    	return xmlText;
     }
     
     /*

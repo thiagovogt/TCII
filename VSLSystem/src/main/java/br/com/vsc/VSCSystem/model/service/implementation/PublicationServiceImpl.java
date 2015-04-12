@@ -27,6 +27,7 @@ public class PublicationServiceImpl implements PublicationService{
 		List<Publication> publications = new ArrayList<Publication>();
 		Publication currPublication = null;
 		String authorName = "";
+		String aliasKey = "";
 		boolean isPublication = false;
 		boolean isTitle = false;
 		boolean isYear = false;
@@ -43,6 +44,12 @@ public class PublicationServiceImpl implements PublicationService{
                 case XMLStreamConstants.START_ELEMENT:
                 	if(xmlStreamReader.getLocalName().equals("dblpperson")){
                 		authorName = xmlStreamReader.getAttributeValue(0);
+                		
+                		if(xmlStreamReader.getAttributeCount() > 2){
+                			if(xmlStreamReader.getAttributeLocalName(2).equals("f")){
+                				aliasKey = xmlStreamReader.getAttributeValue(2);
+                			}
+                		}
                 	}else if(xmlStreamReader.getLocalName().equals("r")){
                 		isPublication = true;
                 	}else if(isPublication){ 
@@ -71,18 +78,18 @@ public class PublicationServiceImpl implements PublicationService{
                 case XMLStreamConstants.CHARACTERS:
                 	if(isPublication){
                 		if(isTitle){
-                			currPublication.setTitle(xmlStreamReader.getText().replaceAll("\"", "\\\\\""));
+                			currPublication.setTitle(this.formatTextValue(xmlStreamReader.getText()));
                 			isTitle = false;
                 		} else if(isYear){
                 			currPublication.setYear(Integer.parseInt(xmlStreamReader.getText()));
                 			isYear = false;
                 		} else if(isLocal){
-                			currPublication.setLocal(xmlStreamReader.getText().replaceAll("\"", "\\\\\""));
+                			currPublication.setLocal(this.formatTextValue(xmlStreamReader.getText()));
                 			isLocal = false;
                 		}else if(isCoAuthor){
                 			if(!xmlStreamReader.getText().equals(authorName) && 
                 						!xmlStreamReader.getText().equals("\n")){
-	                			currPublication.getCoAuthors().add(new Author(xmlStreamReader.getText().replaceAll("\"", "\\\\\""), ""));
+	                			currPublication.getCoAuthors().add(new Author(this.formatTextValue(xmlStreamReader.getText()), ""));
                 			}
                 			isCoAuthor = false;
                 		}
@@ -101,7 +108,11 @@ public class PublicationServiceImpl implements PublicationService{
  
               event = xmlStreamReader.next();
             }
-			return publications;
+            if(publications.size() == 0 && !aliasKey.equals("")){
+            	return this.searchPublicationsByAuthor(aliasKey);
+            }else{
+            	return publications;
+            }
 		} catch (Exception e) {
 			throw new DBLPException(e.getMessage(), e);
 		}
@@ -114,7 +125,7 @@ public class PublicationServiceImpl implements PublicationService{
 	 * 
 	 * */
 	private String getPublicationType(String typeCode){
-		if(typeCode.equals("book")){
+		if(typeCode.equals("book") || typeCode.equals("phdthesis")){
 			return "Books and Theses";
 		}else if(typeCode.equals("article")){
 			return "Journal Article";
@@ -131,6 +142,15 @@ public class PublicationServiceImpl implements PublicationService{
 		}else{
 			return "";
 		}
+	}
+	
+	/*
+	 * 
+	 * Formata o valor do texto substituindo todas as ocorrências de '\' por '\\'
+	 * 
+	 * */
+	private String formatTextValue(String text){
+		return text.replaceAll("\"", "\\\\\"");
 	}
 	
 	/*

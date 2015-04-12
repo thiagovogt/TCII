@@ -38,7 +38,7 @@ public class AuthorDBLP {
     		    builder.append((char) ptr);
     		}
     		String xml = StringEscapeUtils.unescapeHtml4(builder.toString());
-	    	
+//	    	System.out.println(xml);
     		return xml.getBytes("UTF-8");
     	    
     	} catch (Exception e) {
