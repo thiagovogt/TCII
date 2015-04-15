@@ -54,11 +54,12 @@ public class PublicationServiceImpl implements PublicationService{
                 		isPublication = true;
                 	}else if(isPublication){ 
 	                	if(!this.getPublicationType(xmlStreamReader.getLocalName()).equals("")){
-	                    	if(xmlStreamReader.getAttributeValue(0).equals("informal publication")){
+	                    	if(xmlStreamReader.getAttributeValue(0).equals("informal publication") || 
+	                    			xmlStreamReader.getAttributeValue(0).equals("encyclopedia entry")){
 	                    		currPublication = new Publication(xmlStreamReader.getAttributeValue(1));
 	                    		currPublication.setType(this.getPublicationType(xmlStreamReader.getAttributeValue(0)) + " - " + this.getPublicationType(xmlStreamReader.getLocalName()));
 	                    	}else{
-		                		currPublication = new Publication(xmlStreamReader.getAttributeValue(0));
+	                    		currPublication = new Publication(xmlStreamReader.getAttributeValue(0));
 		                		currPublication.setType(this.getPublicationType(xmlStreamReader.getLocalName()));
 	                    	}
 	                    }else if(xmlStreamReader.getLocalName().equals("title")){
@@ -78,6 +79,7 @@ public class PublicationServiceImpl implements PublicationService{
                 case XMLStreamConstants.CHARACTERS:
                 	if(isPublication){
                 		if(isTitle){
+                			System.out.println(this.formatTextValue(xmlStreamReader.getText()));
                 			currPublication.setTitle(this.formatTextValue(xmlStreamReader.getText()));
                 			isTitle = false;
                 		} else if(isYear){
@@ -135,7 +137,7 @@ public class PublicationServiceImpl implements PublicationService{
 			return "Parts in Books or Collections";
 //		}else if(typeCode.equals("editor")){
 //			return "Editorship";
-		}else if(typeCode.equals("reference")){
+		}else if(typeCode.equals("reference") || typeCode.equals("encyclopedia entry")){
 			return "Reference Works";
 		}else if(typeCode.equals("informal") || typeCode.equals("informal publication")){
 			return "Informal Publications";

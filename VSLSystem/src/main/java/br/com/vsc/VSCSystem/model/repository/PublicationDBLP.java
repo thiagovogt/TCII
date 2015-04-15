@@ -75,7 +75,7 @@ public class PublicationDBLP {
     
     private String formatXml(String xmlText){
     	xmlText = xmlText.replace("<?xml version=\"1.0\"?>", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
-    	
+    	xmlText = xmlText.trim().replaceFirst("^([\\W]+)<","<");
     	for (String tagValue : tagListToFormat) {
     		xmlText = xmlText.replace("<"+tagValue+">", "<"+tagValue+"><![CDATA[");
     		xmlText = xmlText.replace("</"+tagValue+">", "]]></"+tagValue+">");
