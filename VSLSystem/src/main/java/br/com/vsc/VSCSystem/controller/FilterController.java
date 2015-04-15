@@ -13,9 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.vsc.VSCSystem.model.entity.Author;
 import br.com.vsc.VSCSystem.model.entity.Publication;
-import br.com.vsc.VSCSystem.model.exception.DBLPException;
-import br.com.vsc.VSCSystem.model.service.implementation.AuthorServiceImpl;
-import br.com.vsc.VSCSystem.model.service.implementation.PublicationServiceImpl;
  
 @Controller
 public class FilterController {
