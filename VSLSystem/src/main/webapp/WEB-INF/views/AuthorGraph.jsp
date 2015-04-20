@@ -32,16 +32,16 @@
 		padding-top: 13px;
 	}
 	
-	#dvYearFilter span, #dvTypeFilter span, #dvLocalFilter span{
+	#dvYearFilter span, #dvTypeFilter span, #dvVenueFilter span{
 		font-weight: bold;
 		font-size: 15px;
 	}
 	
-	#dvYearFilter, #dvTypeFilter, #dvButtonFilter, #dvLocalFilter{
+	#dvYearFilter, #dvTypeFilter, #dvButtonFilter, #dvVenueFilter{
 		display: inline;
 	}
 	
-	#dvYearFilter, #dvTypeFilter, #dvLocalFilter{
+	#dvYearFilter, #dvTypeFilter, #dvVenueFilter{
 		text-align: left;
 		margin-left: 95px;
 		position: relative;
@@ -83,7 +83,7 @@
 				title 	: "${publication.title}",
 				year 	: "${publication.year}",
 				type	: "${publication.type}",
-				local	: "${publication.local}"
+				venue	: "${publication.venue}"
 			}
 			nodes.push(
 				{
@@ -142,7 +142,7 @@
 				$("#publicationInformation").attr("title", 'Publication - ' + publications[properties.nodes].urlKey);
 				$("#publicationTitle").html(publications[properties.nodes].title);
 				$("#publicationYear").html(publications[properties.nodes].year);
-				$("#publicationLocal").html(publications[properties.nodes].local);
+				$("#publicationVenue").html(publications[properties.nodes].venue);
 				$("#publicationType").html(publications[properties.nodes].type);
 				
 				$("#publicationInformation").dialog({
@@ -182,10 +182,10 @@
 						<option value="0">Select a type...</option>
 					</select>
 				</div>
-				<div id="dvLocalFilter">
-					<span>Local:</span>
-					<select id="localFilter" name="localFilter">
-						<option value="0">Select a local...</option>
+				<div id="dvVenueFilter">
+					<span>Venue:</span>
+					<select id="venueFilter" name="venueFilter">
+						<option value="0">Select a venue...</option>
 					</select>
 				</div>
 				<div id="dvButtonFilter">
@@ -207,8 +207,8 @@
 					<td id="publicationYear"></td>
 				</tr>
 				<tr>
-					<td align="right"><b>Local:</b></td>
-					<td id="publicationLocal"></td>
+					<td align="right"><b>Venue:</b></td>
+					<td id="publicationVenue"></td>
 				</tr>
 				<tr>
 					<td align="right"><b>Type:</b></td>

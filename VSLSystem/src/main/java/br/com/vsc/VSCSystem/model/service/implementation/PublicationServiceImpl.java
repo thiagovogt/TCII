@@ -58,11 +58,11 @@ public class PublicationServiceImpl implements PublicationService{
 		    	currPublication.setYear(Integer.parseInt(publicationXml.getChildText("year")));
 		    	
 		    	if(publicationXml.getChild("booktitle") != null){
-		    		currPublication.setLocal(this.formatTextValue(publicationXml.getChildText("booktitle")));
+		    		currPublication.setVenue(this.formatTextValue(publicationXml.getChildText("booktitle")));
 		    	}else if(publicationXml.getChild("journal") != null){
-		    		currPublication.setLocal(this.formatTextValue(publicationXml.getChildText("journal")));
+		    		currPublication.setVenue(this.formatTextValue(publicationXml.getChildText("journal")));
 		    	}else if(publicationXml.getChild("school") != null){
-		    		currPublication.setLocal(this.formatTextValue(publicationXml.getChildText("school")));
+		    		currPublication.setVenue(this.formatTextValue(publicationXml.getChildText("school")));
 		    	}
 		    	
 		    	String coAuthorType = "";

@@ -13,7 +13,7 @@ public class Publication implements Serializable{
 	private int year;
 	private String title;
 	private String type;
-	private String local;
+	private String venue;
 	private List<Author> coAuthors = new ArrayList<Author>();
 	
 	public Publication(String urlKey) {
@@ -48,12 +48,12 @@ public class Publication implements Serializable{
 		this.type = type;
 	}
 
-	public String getLocal() {
-		return local;
+	public String getVenue() {
+		return venue;
 	}
 
-	public void setLocal(String local) {
-		this.local = local;
+	public void setVenue(String venue) {
+		this.venue = venue;
 	}
 	
 	public List<Author> getCoAuthors() {
@@ -67,6 +67,6 @@ public class Publication implements Serializable{
 	@Override
 	public String toString() {
 		return "Publication [\n urlKey: " + urlKey + ", \n year: " + year + ", \n title: "
-				+ title + ", \n type: " + type + ", \n local: " + local + "\n ]";
+				+ title + ", \n type: " + type + ", \n venue: " + venue + "\n ]";
 	}
 }
