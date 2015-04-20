@@ -1,9 +1,14 @@
 package br.com.vsc.VSCSystem.model.entity;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Publication {
+public class Publication implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String urlKey;
 	private int year;
 	private String title;

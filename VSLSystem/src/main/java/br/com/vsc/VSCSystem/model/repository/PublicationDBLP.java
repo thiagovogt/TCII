@@ -64,8 +64,6 @@ public class PublicationDBLP {
     		    builder.append((char) ptr);
     		}
     		String xml = this.formatXml(StringEscapeUtils.unescapeHtml4(builder.toString()));
-//    		System.out.println(xml);
-
     		return xml.getBytes("UTF-8");
     	    
     	} catch (Exception e) {
@@ -78,6 +76,8 @@ public class PublicationDBLP {
     	xmlText = xmlText.trim().replaceFirst("^([\\W]+)<","<");
     	for (String tagValue : tagListToFormat) {
     		xmlText = xmlText.replace("<"+tagValue+">", "<"+tagValue+"><![CDATA[");
+    	    xmlText = xmlText.replaceAll("(" + "<"+tagValue + ".{0,})(?i)" + "\">", "$1" + "\"><![CDATA[");
+    	    
     		xmlText = xmlText.replace("</"+tagValue+">", "]]></"+tagValue+">");
 		}
     	return xmlText;
