@@ -63,6 +63,8 @@ public class PublicationServiceImpl implements PublicationService{
 		    		currPublication.setVenue(this.formatTextValue(publicationXml.getChildText("journal")));
 		    	}else if(publicationXml.getChild("school") != null){
 		    		currPublication.setVenue(this.formatTextValue(publicationXml.getChildText("school")));
+		    	}else if(publicationXml.getChild("publisher") != null){
+		    		currPublication.setVenue(this.formatTextValue(publicationXml.getChildText("publisher")));
 		    	}
 		    	
 		    	String coAuthorType = "";
@@ -185,12 +187,12 @@ public class PublicationServiceImpl implements PublicationService{
 			return "Conference and Workshop Papers";
 		}else if(typeCode.equals("incollection")){
 			return "Parts in Books or Collections";
-		}else if(typeCode.equals("editor")){
+		}else if(typeCode.equals("editor") || typeCode.equals("edited publication")){
 			return "Editorship";
-		}else if(typeCode.equals("reference") || typeCode.equals("encyclopedia entry")){
+		}else if(typeCode.equals("reference") || typeCode.equals("encyclopedia entry") || typeCode.equals("survey")){
 			return "Reference Works";
-		}else if(typeCode.equals("informal") || typeCode.equals("informal publication")){
-			return "Informal Publications";
+		}else if(typeCode.equals("informal publication") || typeCode.equals("www")){
+			return "Informal and Other Publications";
 		}else{
 			return "";
 		}
