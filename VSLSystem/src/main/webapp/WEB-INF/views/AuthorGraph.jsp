@@ -59,9 +59,11 @@
 	var nodes = null;
 	var edges = null;
 	var publications = null;
+	var coauthors = null;
 	var network = null;
 	function draw() {
 		publications = [];
+		coauthors = [];
 		// create nodes
 		var nodes = [];
 		nodes.push(
@@ -83,8 +85,10 @@
 				title 	: "${publication.title}",
 				year 	: "${publication.year}",
 				type	: "${publication.type}",
+				eePath  : "<a href='${publication.eePath}' target='_blank'>${publication.eePath}</a>",
+				urlPath : "<a href='${publication.urlPath}' target='_blank'>${publication.urlPath}</a>",
 				venue	: "${publication.venue}"
-			}
+			};
 			nodes.push(
 				{
 					id : countIdNodes,
@@ -105,6 +109,7 @@
 			var currPublicationId = countIdNodes;
 			countIdNodes++;
 			<c:forEach items="${publication.coAuthors}" var="coAuthor">
+				coauthors[countIdNodes] = {name : "${coAuthor.name}"};
 				nodes.push(
 					{
 						id : countIdNodes,
@@ -144,14 +149,28 @@
 				$("#publicationYear").html(publications[properties.nodes].year);
 				$("#publicationVenue").html(publications[properties.nodes].venue);
 				$("#publicationType").html(publications[properties.nodes].type);
+				if(publications[properties.nodes].eePath != "" && publications[properties.nodes].urlPath != ""){
+					$("#publicationPath").html(publications[properties.nodes].eePath + "<br>"+ publications[properties.nodes].urlPath);
+				}else if(publications[properties.nodes].eePath != ""){
+					$("#publicationPath").html(publications[properties.nodes].eePath);
+				}else if(publications[properties.nodes].urlPath != ""){
+					$("#publicationPath").html(publications[properties.nodes].urlPath);
+				}
+				
 				
 				$("#publicationInformation").dialog({
-				      height: 250,
-				      width: 800,
+				      height: 280,
+				      width: 830,
 				      resizable: false
-				});
+				}
+				);
+			}
+			if(coauthors[properties.nodes] != null){
+				alert(coauthors[properties.nodes].name);
+				window.open(encodeURI('../VSCSystem/ListAuthors?searchName='+coauthors[properties.nodes].name), '_blank');
 			}
 		});
+		
 	}
 	
 </script>
@@ -213,6 +232,10 @@
 				<tr>
 					<td align="right"><b>Type:</b></td>
 					<td id="publicationType"></td>
+				</tr>
+				<tr>
+					<td align="right"><b>Path:</b></td>
+					<td id="publicationPath"></td>
 				</tr>
 			</table>
 		</div>

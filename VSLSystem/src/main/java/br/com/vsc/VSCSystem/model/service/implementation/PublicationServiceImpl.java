@@ -4,9 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamReader;
 
 import br.com.vsc.VSCSystem.model.entity.Author;
 import br.com.vsc.VSCSystem.model.entity.Publication;
@@ -17,7 +14,6 @@ import br.com.vsc.VSCSystem.model.service.PublicationService;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
 public class PublicationServiceImpl implements PublicationService{
 	
@@ -74,6 +70,15 @@ public class PublicationServiceImpl implements PublicationService{
 		    		coAuthorType = "editor";
 		    		currPublication.setType(this.getPublicationType("editor"));
 				}
+		    	
+		    	if(publicationXml.getChild("ee") != null){
+		    		currPublication.setEePath(this.formatTextValue(publicationXml.getChildText("ee")));
+		    	}
+		    	
+		    	if(publicationXml.getChild("url") != null){
+		    		currPublication.setUrlPath(this.formatTextValue(publicationXml.getChildText("url")));
+		    	}
+		    	
 		    	for (Element element : publicationXml.getChildren(coAuthorType)) {
 		    		if(!element.getValue().equals(authorName) && 
     						!element.getValue().equals("\n")){

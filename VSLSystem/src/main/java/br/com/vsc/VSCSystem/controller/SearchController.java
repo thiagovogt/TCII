@@ -12,17 +12,14 @@ import org.springframework.web.servlet.ModelAndView;
 import br.com.vsc.VSCSystem.model.entity.Author;
 import br.com.vsc.VSCSystem.model.exception.DBLPException;
 import br.com.vsc.VSCSystem.model.service.implementation.AuthorServiceImpl;
-import br.com.vsc.VSCSystem.model.service.implementation.PublicationServiceImpl;
  
 @Controller
 public class SearchController {
  
 	private AuthorServiceImpl authorService;
-	private PublicationServiceImpl publicationService;
 	
 	public SearchController(){
 		this.authorService = new AuthorServiceImpl();
-		this.publicationService = new PublicationServiceImpl();
 	}
 	
 	/*
