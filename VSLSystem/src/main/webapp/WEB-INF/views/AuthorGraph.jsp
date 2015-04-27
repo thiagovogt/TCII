@@ -37,19 +37,32 @@
 		font-size: 15px;
 	}
 	
-	#dvYearFilter, #dvTypeFilter, #dvButtonFilter, #dvVenueFilter{
+	#dvYearFilter, #dvTypeFilter, #dvButtonFilter, #dvVenueFilter, #dvButtonClearFilter{
 		display: inline;
 	}
 	
 	#dvYearFilter, #dvTypeFilter, #dvVenueFilter{
 		text-align: left;
-		margin-left: 95px;
+		margin-left: 10px;
 		position: relative;
-		left: -110px;
+		left: -10px;
+	}
+	#dvYearFilter{
+		width: 115px;
+	}
+	#dvTypeFilter, #dvVenueFilter{
+		width: 230px;
 	}
 	#dvButtonFilter{
 		position: relative;
-		right: -20px;
+		right: -5px;
+	}
+	#dvButtonClearFilter {
+		position: relative;
+		right: -10px;
+	}
+	#dvButtonClearFilter input {
+		width: 45px !important;
 	}
 	
 </style>
@@ -166,11 +179,16 @@
 				);
 			}
 			if(coauthors[properties.nodes] != null){
-				alert(coauthors[properties.nodes].name);
 				window.open(encodeURI('../VSCSystem/ListAuthors?searchName='+coauthors[properties.nodes].name), '_blank');
 			}
 		});
 		
+	}
+	
+	function clearFilter(){
+		$('#yearFilter option[value="0"]').prop('selected', true);
+		$('#typeFilter option[value=""]').prop('selected', true);
+		$('#venueFilter option[value=""]').prop('selected', true);
 	}
 	
 </script>
@@ -184,7 +202,7 @@
 		<span class="errorMessage">${msg}</span>
 		<br>
 		<h4>FILTERS</h4>
-		<form action="FilterByYear" method="post">
+		<form action="Filter" method="post">
 			<div id="dvFilters">
 				<div id="dvYearFilter">
 					<span>Year:</span>
@@ -198,17 +216,26 @@
 				<div id="dvTypeFilter">
 					<span>Type:</span>
 					<select id="typeFilter" name="typeFilter">
-						<option value="0">Select a type...</option>
+						<option value="">Select a type...</option>
+						<c:forEach items="${typesFilter}" var="typeValue">
+							<option ${typeValue == typeFiltered ? 'selected' : ''} value="${typeValue}">${typeValue}</option>
+						</c:forEach>
 					</select>
 				</div>
 				<div id="dvVenueFilter">
 					<span>Venue:</span>
 					<select id="venueFilter" name="venueFilter">
-						<option value="0">Select a venue...</option>
+						<option value="">Select a venue...</option>
+						<c:forEach items="${venuesFilter}" var="venueValue">
+							<option ${venueValue == venueFiltered ? 'selected' : ''} value="${venueValue}">${venueValue}</option>
+						</c:forEach>
 					</select>
 				</div>
 				<div id="dvButtonFilter">
 					<input type="submit" class="button formButton" title="Apply Filter" value="Apply Filter"/>
+				</div>
+				<div id="dvButtonClearFilter">
+					<input type="button" onclick="clearFilter()" class="button formButton" title="Clear" value="Clear"/>
 				</div>
 			</div>	
 		</form>

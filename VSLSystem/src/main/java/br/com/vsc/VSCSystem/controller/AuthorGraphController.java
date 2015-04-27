@@ -10,17 +10,14 @@ import org.springframework.web.servlet.ModelAndView;
 
 import br.com.vsc.VSCSystem.model.entity.Author;
 import br.com.vsc.VSCSystem.model.exception.DBLPException;
-import br.com.vsc.VSCSystem.model.service.implementation.AuthorServiceImpl;
 import br.com.vsc.VSCSystem.model.service.implementation.PublicationServiceImpl;
  
 @Controller
 public class AuthorGraphController {
  
-	private AuthorServiceImpl authorService;
 	private PublicationServiceImpl publicationService;
 	
 	public AuthorGraphController(){
-		this.authorService = new AuthorServiceImpl();
 		this.publicationService = new PublicationServiceImpl();
 	}
 	
@@ -38,12 +35,18 @@ public class AuthorGraphController {
 			authorSearched.setPublications(publicationService.searchPublicationsByAuthor(urlKey));
 			
 			Set<Integer> yearsFilter = FilterController.getYearsFilter(authorSearched);
+			Set<String> typesFilter = FilterController.getTypesFilter(authorSearched);
+			Set<String> venuesFilter = FilterController.getVenuesFilter(authorSearched);
 			
 			session.setAttribute("authorSearchedSession", authorSearched);
 			session.setAttribute("yearsFilterSession", yearsFilter);
+			session.setAttribute("typesFilterSession", typesFilter);
+			session.setAttribute("venuesFilterSession", venuesFilter);
 			
 			mv.addObject("msg", "XML successfully processed!");
 			mv.addObject("yearsFilter", yearsFilter);
+			mv.addObject("typesFilter", typesFilter);
+			mv.addObject("venuesFilter", venuesFilter);
 			mv.addObject("author", authorSearched);
 		} catch (DBLPException dblpe) {
 			mv.addObject("msg", dblpe.getMessage());
