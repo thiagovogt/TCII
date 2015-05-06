@@ -36,50 +36,50 @@ public class FilterController {
 		Author authorSession = (Author) session.getAttribute("authorSearchedSession");
 		List<Publication> publicationsFilter = new ArrayList<Publication>();
 		
-		if(yearFilter != 0){
+		if(yearFilter != 0)
 			yearFilterActive = true;
-		}
-		if(!typeFilter.equals("")){
+		
+		if(!typeFilter.equals(""))
 			typeFilterActive = true;
-		}
-		if(!venueFilter.equals("")){
+		
+		if(!venueFilter.equals(""))
 			venueFilterActive = true;
-		}
+		
 		
 		if(!yearFilterActive && !typeFilterActive && !venueFilterActive){ 
 			publicationsFilter.addAll(authorSession.getPublications());
 		}else{
 			for (Publication publication : authorSession.getPublications()) {
-				if(yearFilterActive && typeFilterActive && venueFilterActive){ 
-					if(publication.getYear() == yearFilter &&
-							publication.getType().equals(typeFilter) &&
-								publication.getVenue().equals(venueFilter)){
-						publicationsFilter.add(publication);
-					}
-				}else if(yearFilterActive && typeFilterActive && !venueFilterActive){ 
-					if(publication.getYear() == yearFilter &&
-							publication.getType().equals(typeFilter)){
-						publicationsFilter.add(publication);
-					}
-				}else if(yearFilterActive && !typeFilterActive && venueFilterActive){   
-					if(publication.getYear() == yearFilter &&
-								publication.getVenue().equals(venueFilter)){
-						publicationsFilter.add(publication);
-					}
-				}else if(!yearFilterActive && typeFilterActive && venueFilterActive){ 
-					if(publication.getType().equals(typeFilter) &&
-								publication.getVenue().equals(venueFilter)){
-						publicationsFilter.add(publication);
-					}
-				}else if(!yearFilterActive && !typeFilterActive && venueFilterActive){ 
-					if(publication.getVenue().equals(venueFilter)){
-						publicationsFilter.add(publication);
-					}
-				}else if(yearFilterActive && !typeFilterActive && !venueFilterActive){ 
-					if(publication.getYear() == yearFilter){
-						publicationsFilter.add(publication);
-					}
+				
+//				boolean sameYear = (yearFilterActive && yearFilter == publication.getYear());
+//				boolean sameType = (typeFilterActive && typeFilter.equals(publication.getType()));
+//				boolean sameVenue = (venueFilterActive && venueFilter.equals(publication.getVenue()));
+//				
+				      //T            F   = T
+//				if((sameYear || (!sameYear && !yearFilterActive)) &&
+//						//     F       T  =   T
+//						(sameType || (!sameType && !typeFilterActive)) &&
+//						//        F            = 
+//							(sameVenue || (!sameVenue && !venueFilterActive))){
+//					publicationsFilter.add(publication);
+//				}
+				
+				boolean isValid = true;
+				if (yearFilterActive) {
+					if (publication.getYear() != yearFilter)
+						isValid = false;
 				}
+				if (isValid) {
+					if (typeFilterActive)
+						if (!publication.getType().equals(typeFilter))
+							isValid = false;
+					
+					if (venueFilterActive)
+						if (!publication.getVenue().equals(venueFilter))
+							isValid = false;
+				} 
+				if(isValid)
+					publicationsFilter.add(publication);
 			}
 		}
 		
