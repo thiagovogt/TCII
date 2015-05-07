@@ -58,7 +58,7 @@ public class SearchController {
 			authors = authorService.searchAuthorByName(searchName);
 			
 			if(authors.size() == 1){
-				return new AuthorGraphController().GenerateGraph(authors.get(0).getUrlKey(), authors.get(0).getName(), session);
+				return new AuthorGraphController().GenerateAuthorGraph(authors.get(0).getUrlKey(), authors.get(0).getName(), session);
 			}
 			
 			mv.addObject("msg", "XML successfully processed!");

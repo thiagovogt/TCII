@@ -1,5 +1,6 @@
 package br.com.vsc.VSCSystem.model.utility;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -7,6 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.commons.lang3.StringEscapeUtils;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
 
 public final class XmlParseUtils {
 	public static byte[] getXmlBytesFromUrl(URL url, boolean containTagList) throws IOException{
@@ -57,6 +62,14 @@ public final class XmlParseUtils {
 //    	System.out.println(xml);
 		
 		return xml.getBytes("UTF-8");
+	}
+	
+	public static Element getRootElement(byte[] xmlBytes) throws IOException, JDOMException{
+		ByteArrayInputStream byteArray = new ByteArrayInputStream(xmlBytes);
+		SAXBuilder builder = new SAXBuilder();
+	    Document document = builder.build(byteArray);
+	    
+	    return document.getRootElement();
 	}
 
 }

@@ -2,8 +2,6 @@ package br.com.vsc.VSCSystem.model.repository;
 
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.lang3.StringEscapeUtils;
 

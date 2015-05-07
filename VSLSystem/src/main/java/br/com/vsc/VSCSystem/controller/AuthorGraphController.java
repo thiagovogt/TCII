@@ -26,8 +26,8 @@ public class AuthorGraphController {
 	 * 
 	 * 
 	 */
-	@RequestMapping("/GenerateGraph")
-	public ModelAndView GenerateGraph(String urlKey, String name, HttpSession session) {
+	@RequestMapping("/GenerateAuthorGraph")
+	public ModelAndView GenerateAuthorGraph(String urlKey, String name, HttpSession session) {
 		ModelAndView mv = new ModelAndView("AuthorGraph");
 		Author authorSearched = new Author(name, urlKey);
 		try {
