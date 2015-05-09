@@ -7,15 +7,21 @@
 <head>
 
 <title>VSCSystem</title>
-<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" />
-<link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/jQuery-ui-1.11.2/smoothness/jquery-ui.css" />" />
-<link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/jQuery-ui-1.11.2/smoothness/theme.css" />" />
-<link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/DataTables-1.10.3/media/css/jquery.dataTables.css" />" />
-<link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/vis/css/vis.css" />" />
+<%-- <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" /> --%>
 
-<script type="text/javascript" src="<c:url value="/resources/js/jQuery-2.1.1/jquery.min.js" />"> </script>
-<script type="text/javascript" src="<c:url value="/resources/js/jQuery-ui-1.11.2/jquery-ui.js" />"> </script>
-<script type="text/javascript" src="<c:url value="/resources/js/DataTables-1.10.3/media/js/jquery.dataTables.js" />"> </script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/theme.css">
+
+<!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" /> -->
+
+
+<link rel="stylesheet" href="<c:url value="/resources/js/vis/css/vis.css" />" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+
+<!-- <script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"> </script> -->
+
 <script type="text/javascript" src="<c:url value="/resources/js/vis/js/vis.js" />"> </script>
 
 <style>

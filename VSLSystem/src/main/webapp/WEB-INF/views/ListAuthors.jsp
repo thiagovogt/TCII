@@ -6,11 +6,12 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>VSCSystem</title>
 
-<link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" />
-<link type="text/css" rel="stylesheet" href="<c:url value="/resources/js/DataTables-1.10.3/media/css/jquery.dataTables.css" />" />
+<%-- <link type="text/css" rel="stylesheet" href="<c:url value="/resources/css/main.css" />" /> --%>
 
-<script type="text/javascript" src="<c:url value="/resources/js/jQuery-2.1.1/jquery.min.js" />"> </script>
-<script type="text/javascript" src="<c:url value="/resources/js/DataTables-1.10.3/media/js/jquery.dataTables.js" />"> </script>
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.7/css/jquery.dataTables.css" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"> </script>
 
 <script type="text/javascript">
 
@@ -45,7 +46,7 @@
 </script>
 </head>
 <body>
-	<form action="GenerateGraph" method="post">
+	<form action="GenerateAuthorGraph" method="post">
 		<center>
 			<h1><a href="Home" title="Home">VSCSystem</a></h1>
 			<h2><a href="SearchAuthor" title="Search new Author">Search by Author</a></h2>

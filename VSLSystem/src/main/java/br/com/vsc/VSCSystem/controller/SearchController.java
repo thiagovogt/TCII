@@ -27,9 +27,9 @@ public class SearchController {
 	 * 
 	 */
 	@RequestMapping("/Home")
-	public String Home(HttpSession session) {
+	public ModelAndView Home(HttpSession session) {
 		session.invalidate();
-		return "../../index";
+		return this.SearchAuthor(session);
 	}
 	
 	
