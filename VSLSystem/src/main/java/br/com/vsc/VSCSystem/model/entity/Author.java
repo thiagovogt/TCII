@@ -2,6 +2,7 @@ package br.com.vsc.VSCSystem.model.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class Author implements Serializable{
@@ -13,6 +14,7 @@ public class Author implements Serializable{
 	private String urlKey;
 	private String name;
 	private List<Publication> publications = new ArrayList<Publication>();
+	private HashMap<Author, Integer> collaborations = new HashMap<Author, Integer>();
 
 	public Author(String name, String urlKey) {
 		this.urlKey = urlKey;
@@ -33,6 +35,14 @@ public class Author implements Serializable{
 
 	public void setPublications(List<Publication> publications) {
 		this.publications = publications;
+	}
+
+	public HashMap<Author, Integer> getCollaborations() {
+		return collaborations;
+	}
+
+	public void setCollaborations(HashMap<Author, Integer> collaborations) {
+		this.collaborations = collaborations;
 	}
 
 	@Override
