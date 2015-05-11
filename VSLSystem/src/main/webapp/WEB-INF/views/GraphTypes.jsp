@@ -35,7 +35,7 @@
 		</div>
 		<div class="center-block text-center" style="max-width: 450px;" >
 			<button type="button" class="btn btn-primary btn-lg btn-block" onClick="window.location.href='GenerateAuthorGraph'">Publications</button>
-			<button type="button" class="btn btn-primary btn-lg btn-block">Collaborations</button>
+			<button type="button" class="btn btn-primary btn-lg btn-block" onClick="window.location.href='GenerateCollaborationsGraph'">Collaborations</button>
 			<span style="color: #337ab7; cursor: pointer; font-size: 20px;" id="infoIcon" class="glyphicon glyphicon-info-sign" aria-hidden="true"
 				data-content="The first graph shows the author and their publications, and the other one shows the author's collaborations with other coauthors and the resulting publications" 
 				rel="popover" data-placement="bottom" data-original-title="Types Information"></span>

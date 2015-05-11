@@ -24,6 +24,12 @@ public class GraphController {
 		this.collaborationService = new CollaborationServiceImpl();
 	}
 	
+	/*
+	 * Buscar as informações referentes as publicações do autor e colaborações em publicações 
+	 * dos coautores com o autor pesquisado  .
+	 * 
+	 * 
+	 */
 	@RequestMapping("/LoadGraphInformation")
 	public ModelAndView LoadGraphInformation(String urlKey, String name, HttpSession session) {
 		ModelAndView mv = new ModelAndView("GraphTypes");
@@ -55,7 +61,7 @@ public class GraphController {
 	}
 	
 	/*
-	 * Buscar e exibir as informações referentes as publicações do autor pesquisado em forma de grafo.
+	 * Exibir as informações referentes as publicações do autor pesquisado em forma de grafo.
 	 * 
 	 * 
 	 */
@@ -63,7 +69,6 @@ public class GraphController {
 	public ModelAndView GenerateAuthorGraph(String urlKey, String name, HttpSession session) {
 		ModelAndView mv = new ModelAndView("AuthorGraph");
 			
-		mv.addObject("msg", "XML successfully processed!");
 		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
 		mv.addObject("typesFilter", session.getAttribute("typesFilterSession"));
 		mv.addObject("venuesFilter", session.getAttribute("venuesFilterSession"));
@@ -73,13 +78,19 @@ public class GraphController {
 	}
 	
 	/*
-	 * Buscar e exibir as informações referentes as colaborações em publicações 
-	 * dos coautores com o autor pesquisado, em forma de grafo.
+	 * Buscar e exibir a colaborações em publicações dos coautores com o autor pesquisadoem em forma de grafo.
 	 * 
 	 */
 	@RequestMapping("/GenerateCollaborationsGraph")
 	public ModelAndView GenerateCollaborationsGraph(String urlKey, String name, HttpSession session) {
-		return null;
+		ModelAndView mv = new ModelAndView("CollaborationsGraph");
+		
+		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
+		mv.addObject("typesFilter", session.getAttribute("typesFilterSession"));
+		mv.addObject("venuesFilter", session.getAttribute("venuesFilterSession"));
+		mv.addObject("author", session.getAttribute("authorSearchedSession"));
+
+		return mv;
 	}
 	
 
