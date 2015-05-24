@@ -18,6 +18,7 @@
 		$(function(){
 			$("form").submit(function(event) {
 				if ($("#searchName").val() === "") {
+					$(".input-group").addClass("has-error");
 					$("#errorMsg").show().delay(2000).fadeOut("slow");
 					event.preventDefault();
 				}
@@ -31,6 +32,13 @@
 	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Search by Author</small></h1>
 		</div>
 		<div class="row">
+			<div class="center-block"  style="max-width: 500px;height: 72px;">
+				<div class="alert alert-danger" role="alert" style="display: none;" id="errorMsg">
+		      		<strong>Error!</strong> The "Author's Name" field is required.
+		    	</div>
+	    	</div>
+	    </div>
+		<div class="row">
 			<form action="ListAuthors" method="post">
 				<div class="center-block"  style="max-width: 500px;">
 					<div class="input-group">
@@ -43,13 +51,6 @@
 				</div>
 			</form>
 		</div>
-		<div class="row">
-			<div class="center-block"  style="max-width: 500px;">
-				<div class="alert alert-danger" role="alert" style="margin-top: 17px; display: none;" id="errorMsg">
-		      		<strong>Error!</strong> The "Author's Name" field is required.
-		    	</div>
-	    	</div>
-	    </div>
 	</div>
 	<div class="footer">
       <div class="container text-center">
