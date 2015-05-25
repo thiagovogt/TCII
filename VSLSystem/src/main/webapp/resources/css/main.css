@@ -1,24 +1,87 @@
 @CHARSET "ISO-8859-1";
-.footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  height: 40px;
-  background-color: #f5f5f5;
-  padding: 10px 0;
-}
 
-body {
-	font-family: "Consolas",Helvetica,Consolas,sans-serif !important;
-}
+/* General */
 
+	body {
+		font-family: "Consolas",Helvetica,Consolas,sans-serif !important;
+	}
+		
+	a {
+		text-decoration: none !important;
+	}
 	
-a {
-	text-decoration: none !important;
-}
+	.validation-error-alert{
+		max-width: 500px;
+		height: 72px;
+	}
+	
+	.loading-message{
+		max-width: 450px; 
+		margin-top:100px;
+	}
+	
+	.popover-title{
+		background-color: #0075b0 !important;
+		color: #fff !important;
+		font-weight: 700 !important;
+	}
 
-.errorMessage {
-	font-weight: 	bold;
-	color:			red;
-}
+/* SearchAuthor.jsp */
+	.footer {
+	  position: absolute;
+	  bottom: 0;
+	  width: 100%;
+	  height: 40px;
+	  background-color: #f5f5f5;
+	  padding: 10px 0;
+	}
 
+/* AuthorGraph.jsp */
+
+	.panel-heading-custom{
+		height:25px !important; 
+		padding: 3px 15px !important;
+		font-size: 13px !important;
+		background-color: #265a88 !important;
+		background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%) !important;
+		border-color: #265a88 !important;
+	}
+	label{
+		font-size: 12px;
+	}
+	.select-filter{
+		height: 27px !important;
+ 		font-size: 11px !important;
+ 		padding: 0px 5px !important;
+	}
+	.panel-body-graph{
+		height: 490px;
+	}
+	.dv-graph{
+		height: 470px;
+	}
+	.dvFilters{
+		
+	}
+	#yearFilter{
+		width: 135px;
+	}
+	#typeFilter{
+		width: 225px;
+	}
+	#venueFilter{
+		width: 265px;
+	}
+	
+/* GraphTypes.jsp */
+	.types-buttons{
+		max-width: 450px;
+		margin-top:72px;"
+	}
+	
+	.margin-graph-type-view{
+		margin-top:25px !important;
+	}
+	span.margin-graph-type-view:hover{
+		color: #265a88 !important;
+	}

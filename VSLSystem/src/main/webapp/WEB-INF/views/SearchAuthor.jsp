@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -32,15 +32,15 @@
 	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Search by Author</small></h1>
 		</div>
 		<div class="row">
-			<div class="center-block"  style="max-width: 500px;height: 72px;">
+			<div class="center-block validation-error-alert">
 				<div class="alert alert-danger" role="alert" style="display: none;" id="errorMsg">
-		      		<strong>Error!</strong> The "Author's Name" field is required.
+		      		<strong> Error!</strong> The "Author's Name" field is required.
 		    	</div>
 	    	</div>
 	    </div>
 		<div class="row">
 			<form action="ListAuthors" method="post">
-				<div class="center-block"  style="max-width: 500px;">
+				<div class="center-block" style="max-width: 500px;">
 					<div class="input-group">
 						<label for="searchName" class="sr-only">Author's Name:</label> 
 						<input  class="form-control" type="text" name="searchName" id="searchName" value="" placeholder="Author's Name..." />

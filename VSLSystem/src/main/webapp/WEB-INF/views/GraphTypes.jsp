@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -20,24 +20,21 @@
 			$('#infoIcon').popover({ trigger: "hover" });
 		});
 	</script>
-	<style>
-		button, span{
-			margin-top:25px !important;
-		}
-		span:hover{
-			color: #265a88 !important;
-		}
-	</style>
 <body>
 	<div class="container" style="max-width:600px">	
 		<div class="page-header text-center">
-	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Types of Graph</small></h1>
+	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Types of graph</small></h1>
+	  		<h3><small>Selected Author: ${author.name}</small></h3>
 		</div>
-		<div class="center-block text-center" style="max-width: 450px;" >
-			<button type="button" class="btn btn-primary btn-lg btn-block" onClick="window.location.href='GenerateAuthorGraph'">Publications</button>
-			<button type="button" class="btn btn-primary btn-lg btn-block" onClick="window.location.href='GenerateCollaborationsGraph'">Collaborations</button>
-			<span style="color: #337ab7; cursor: pointer; font-size: 20px;" id="infoIcon" class="glyphicon glyphicon-info-sign" aria-hidden="true"
-				data-content="The first graph shows the author and their publications, and the other one shows the author's collaborations with other coauthors and the resulting publications" 
+		<div class="center-block text-center types-buttons">
+			<button type="button" class="btn btn-primary btn-lg btn-block margin-graph-type-view" onClick="window.location.href='GenerateAuthorGraph'">Publications</button>
+			<button type="button" class="btn btn-primary btn-lg btn-block margin-graph-type-view" onClick="window.location.href='GenerateCollaborationsGraph'">Collaborations</button>
+		</div>
+		<div class="center-block text-center" style="max-width: 160px;" >	
+			<button type="button" class="btn btn-primary btn-xs btn-block margin-graph-type-view" onClick="history.go(-1)">Select another Author</button>
+			<span style="color: #337ab7; cursor: pointer; font-size: 20px;" id="infoIcon" class="glyphicon glyphicon-info-sign margin-graph-type-view" aria-hidden="true"
+				data-content="The first graph shows the author and her publications, and the second shows the author's collaborations with her coauthors and their respective publications. 
+				You can also back to the previous page and select another author" 
 				rel="popover" data-placement="bottom" data-original-title="Types Information"></span>
 		</div>
 	</div>

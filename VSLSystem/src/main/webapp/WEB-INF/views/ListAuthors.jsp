@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
@@ -21,7 +21,6 @@
 	<script type="text/javascript">
 	
 		$(function(){
-		
 			$("form").submit(function(event) {
 				if (!$("input[type='radio'][name='urlKey']").is(':checked')) {
 					$("#errorMsg").show().delay(2000).fadeOut("slow");
@@ -71,13 +70,13 @@
 	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Author selection</small></h1>
 		</div>
 		<div class="row" id="loadingRow">
-			<div class="center-block text-center" style="max-width: 450px; margin-top:100px;" >
-				 <img src="/VSCSystem/resources/images/Loading1.png" width="36" height="36">
+			<div class="center-block text-center loading-message">
+				<img src="/VSCSystem/resources/images/Loading1.png" width="32" height="32">
 				<h5 style="font-weight: bold;">Loading...</h5>
 			</div>
 		</div>		
 		<div class="row">
-			<div class="center-block"  style="max-width: 500px;height: 72px;">
+			<div class="center-block validation-error-alert">
 				<div class="alert alert-danger" role="alert" style="display: none;" id="errorMsg">
 		      		<strong>Error!</strong> You must select an Author!
 		    	</div>
@@ -86,7 +85,7 @@
 		<div class="row">
 			<form id="dataTableForm" action="LoadGraphInformation" method="post" style="display:none; ">
 				<div>
-					<table id="authorsSearchTable" class="table table-condensed table-hover" cellspacing="0" >
+					<table id="authorsSearchTable" class="table table-condensed table-hover" >
 				        <thead>
 				            <tr>
 				                <th>&nbsp;</th>

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="br.com.vsc.VSCSystem.model.entity.Publication"%>
 <%@page import="java.util.HashMap"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -12,72 +12,17 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/theme.css">
 
-
-
 <link rel="stylesheet" href="<c:url value="/resources/js/vis/css/vis.css" />" />
-
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
-
 <script type="text/javascript" src="<c:url value="/resources/js/vis/js/vis.js" />"> </script>
-
-<style>
-	
-	#dvGraph, #dvFilters {
-		width: 1000px;
-		height: 450px;
-		border: 1px solid lightgray;
-		background: #F3F3F3;
-	}
-	
-	#dvFilters{
-		height: 38px !important;
-		padding-top: 13px;
-	}
-	
-	#dvYearFilter span, #dvTypeFilter span, #dvVenueFilter span{
-		font-weight: bold;
-		font-size: 15px;
-	}
-	
-	#dvYearFilter, #dvTypeFilter, #dvButtonFilter, #dvVenueFilter, #dvButtonClearFilter{
-		display: inline;
-	}
-	
-	#dvYearFilter, #dvTypeFilter, #dvVenueFilter{
-		text-align: left;
-		margin-left: 10px;
-		position: relative;
-		left: -10px;
-	}
-	#dvYearFilter{
-		width: 115px;
-	}
-	#dvTypeFilter, #dvVenueFilter{
-		width: 230px;
-	}
-	#dvButtonFilter{
-		position: relative;
-		right: -5px;
-	}
-	#dvButtonClearFilter {
-		position: relative;
-		right: -10px;
-	}
-	#dvButtonClearFilter input {
-		width: 45px !important;
-	}
-	
-</style>
 <script type="text/javascript">
-	
 	var DIR = '/VSCSystem/resources/js/vis/images/';
 	var nodes = null;
 	var edges = null;
@@ -204,54 +149,57 @@
 </script>
 </head>
 <body onload="draw()">
-	<center>
-		<h1><a href="Home" title="Home">VSCSystem</a></h1>
-		<h2><a href="SearchAuthor" title="Search new Author">Search by Author</a></h2>
-		<h2>Author: ${author.name}</h2>
-		<br>
-		<span class="errorMessage">${msg}</span>
-		<br>
-		<h4>FILTERS</h4>
-		<form action="Filter" method="post">
-			<div id="dvFilters">
-				<div id="dvYearFilter">
-					<span>Year:</span>
-					<select id="yearFilter" name="yearFilter">
-						<option value="0">Select a year...</option>
-						<c:forEach items="${yearsFilter}" var="yearValue">
-							<option ${yearValue == yearFiltered ? 'selected' : ''} value="${yearValue}">${yearValue}</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div id="dvTypeFilter">
-					<span>Type:</span>
-					<select id="typeFilter" name="typeFilter">
-						<option value="">Select a type...</option>
-						<c:forEach items="${typesFilter}" var="typeValue">
-							<option ${typeValue == typeFiltered ? 'selected' : ''} value="${typeValue}">${typeValue}</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div id="dvVenueFilter">
-					<span>Venue:</span>
-					<select id="venueFilter" name="venueFilter">
-						<option value="">Select a venue...</option>
-						<c:forEach items="${venuesFilter}" var="venueValue">
-							<option ${venueValue == venueFiltered ? 'selected' : ''} value="${venueValue}">${venueValue}</option>
-						</c:forEach>
-					</select>
-				</div>
-				<div id="dvButtonFilter">
-					<input type="submit" class="button formButton" title="Apply Filter" value="Apply Filter"/>
-				</div>
-				<div id="dvButtonClearFilter">
-					<input type="button" onclick="clearFilter()" class="button formButton" title="Clear" value="Clear"/>
-				</div>
-			</div>	
-		</form>
-		<h4>GRAPH</h4>
-		<div id="dvGraph"></div>
-		
+	<div class="container" style="width:1007px">	
+		<div class="page-header text-center">
+	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Author's publications</small></h1>
+	  		<h3><small>Selected Author: ${author.name}</small></h3>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading panel-heading-custom">
+				FILTERS
+			</div>
+			<div class="panel-body">
+				<form class="form-inline" action="Filter" method="post">
+					<div class="form-group">
+  						<label for="yearFilter">Year:</label>
+						<select id="yearFilter" name="yearFilter" class="form-control select-filter">
+							<option value="0">Select a year...</option>
+							<c:forEach items="${yearsFilter}" var="yearValue">
+								<option ${yearValue == yearFiltered ? 'selected' : ''} value="${yearValue}">${yearValue}</option>
+							</c:forEach>
+						</select>
+  					</div>
+					<div class="form-group">
+						<label for="typeFilter">Type:</label>
+						<select id="typeFilter" name="typeFilter" class="form-control select-filter">
+							<option value="">Select a type...</option>
+							<c:forEach items="${typesFilter}" var="typeValue">
+								<option ${typeValue == typeFiltered ? 'selected' : ''} value="${typeValue}">${typeValue}</option>
+							</c:forEach>
+						</select>  
+  					</div>
+					<div class="form-group">
+						<label for="typeFilter">Venue:</label>
+						<select id="venueFilter" name="venueFilter" class="form-control select-filter">
+							<option value="">Select a venue...</option>
+							<c:forEach items="${venuesFilter}" var="venueValue">
+								<option ${venueValue == venueFiltered ? 'selected' : ''} value="${venueValue}">${venueValue}</option>
+							</c:forEach>
+						</select>
+  					</div>
+					<button type="submit" class="btn btn-primary btn-sm" type="button">Apply Filter</button>
+					<button type="button" class="btn btn-default btn-sm" onClick="clearFilter()">Clear</button>
+				</form>
+			</div>
+		</div>
+		<div class="panel panel-primary">
+			<div class="panel-heading panel-heading-custom">
+				GRAPH
+			</div>
+			<div class="panel-body panel-body-graph">
+				<div id="dvGraph" class="dv-graph" ></div>
+			</div>
+		</div>
 		<div id="publicationInformation" style="display:none;" title="">
 			<table style="border-spacing: 15px;">
 				<tr>
@@ -276,7 +224,6 @@
 				</tr>
 			</table>
 		</div>
- 
-	</center>
+	</div>
 </body>
 </html>
