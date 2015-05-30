@@ -48,11 +48,11 @@
 		var countIdNodes = 2;
 		
 		<c:forEach items="${author.collaborations}" var="collaboration">
-			collaborations[countIdNodes] = {name : "${collaboration.key.name}"};
+			collaborations[countIdNodes] = {name : "${collaboration.coAuthor.name}"};
 			nodes.push(
 				{
 					id : countIdNodes,
-					label :"${collaboration.key.name}",
+					label :"${collaboration.coAuthor.name}",
 					image : DIR + 'User-Administrator-Green-icon.png',
 					shape : 'image'
 				}	
@@ -61,8 +61,8 @@
 				{
 		 			from : 1,
 		 			to : countIdNodes,
-		 			value : "${collaboration.value}",
-		 			label : "${collaboration.value}",
+		 			value : "${collaboration.numberOfCollaborations}",
+		 			label : "${collaboration.numberOfCollaborations}",
 		 			color : color
 				}
 			);

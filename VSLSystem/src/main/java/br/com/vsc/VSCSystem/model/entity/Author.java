@@ -14,7 +14,7 @@ public class Author implements Serializable{
 	private String urlKey;
 	private String name;
 	private List<Publication> publications = new ArrayList<Publication>();
-	private HashMap<Author, Integer> collaborations = new HashMap<Author, Integer>();
+	private List<Collaboration> collaborations = new ArrayList<Collaboration>();
 
 	public Author(String name, String urlKey) {
 		this.urlKey = urlKey;
@@ -36,12 +36,12 @@ public class Author implements Serializable{
 	public void setPublications(List<Publication> publications) {
 		this.publications = publications;
 	}
-
-	public HashMap<Author, Integer> getCollaborations() {
+	
+	public List<Collaboration> getCollaborations() {
 		return collaborations;
 	}
 
-	public void setCollaborations(HashMap<Author, Integer> collaborations) {
+	public void setCollaborations(List<Collaboration> collaborations) {
 		this.collaborations = collaborations;
 	}
 
