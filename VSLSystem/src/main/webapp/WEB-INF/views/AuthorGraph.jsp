@@ -60,7 +60,7 @@
 			nodes.push(
 				{
 					id : countIdNodes,
-					label : "Publication - " + "${publication.urlKey}",
+					label : "${publication.urlKey}",
 					image : DIR + 'Document-icon48.png',
 					shape : 'image'
 				}	
@@ -150,9 +150,9 @@
 </head>
 <body onload="draw()">
 	<div class="container" style="width:1007px">	
-		<div class="page-header text-center">
+		<div class="page-header text-center page-header-custom">
 	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Author's publications</small></h1>
-	  		<h3><small>Selected Author: ${author.name}</small></h3>
+	  		<h3 class="sub-page-header"><small>Selected Author: ${author.name}</small></h3>
 		</div>
 		<div class="panel panel-primary">
 			<div class="panel-heading panel-heading-custom">
@@ -199,6 +199,9 @@
 			<div class="panel-body panel-body-graph">
 				<div id="dvGraph" class="dv-graph" ></div>
 			</div>
+		</div>
+		<div class="center-block text-center" style="max-width: 160px;" >	
+			<button style="margin-top:-10px !important;" type="button" class="btn btn-primary btn-xs btn-block margin-graph-type-view" onClick="window.location.href='LoadGraphInformation?urlKey=${author.urlKey}&name=${author.name}'">Select another Graph</button>
 		</div>
 		<div id="publicationInformation" style="display:none;" title="">
 			<table style="border-spacing: 15px;">

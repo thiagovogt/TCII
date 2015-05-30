@@ -28,7 +28,7 @@
 </head>
 <body>
 	<div class="container" style="width:600px">	
-		<div class="page-header text-center">
+		<div class="page-header text-center page-header-custom">
 	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Search by Author</small></h1>
 		</div>
 		<div class="row">

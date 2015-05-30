@@ -27,18 +27,8 @@ public class SearchController {
 	 * 
 	 */
 	@RequestMapping("/Home")
-	public ModelAndView Home(HttpSession session) {
-		session.invalidate();
-		return this.SearchAuthor(session);
-	}
-	
-	
-	/*
-	 * Redirecionar para a tela de busca por nome do autor
-	 * 
-	 */
-	@RequestMapping("/SearchAuthor")
 	public ModelAndView SearchAuthor(HttpSession session) {
+		session.invalidate();
 		ModelAndView mv = new ModelAndView("SearchAuthor");
 		return mv;
 	}
@@ -52,8 +42,12 @@ public class SearchController {
 	public ModelAndView ListAuthors(String searchName, HttpSession session) {
 		ModelAndView mv = new ModelAndView("ListAuthors");
 		List<Author> authors = new ArrayList<Author>();
-		
 		try{
+			if(searchName.equals("")){
+				searchName = String.valueOf(session.getAttribute("searchName"));
+			}else{
+				session.setAttribute("searchName", searchName);
+			}
 			
 			authors = authorService.searchAuthorByName(searchName);
 			

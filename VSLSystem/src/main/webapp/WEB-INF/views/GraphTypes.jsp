@@ -22,16 +22,16 @@
 	</script>
 <body>
 	<div class="container" style="max-width:600px">	
-		<div class="page-header text-center">
+		<div class="page-header text-center page-header-custom">
 	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Types of graph</small></h1>
-	  		<h3><small>Selected Author: ${author.name}</small></h3>
+	  		<h3 class="sub-page-header"><small>Selected Author: ${author.name}</small></h3>
 		</div>
 		<div class="center-block text-center types-buttons">
 			<button type="button" class="btn btn-primary btn-lg btn-block margin-graph-type-view" onClick="window.location.href='GenerateAuthorGraph'">Publications</button>
 			<button type="button" class="btn btn-primary btn-lg btn-block margin-graph-type-view" onClick="window.location.href='GenerateCollaborationsGraph'">Collaborations</button>
 		</div>
 		<div class="center-block text-center" style="max-width: 160px;" >	
-			<button type="button" class="btn btn-primary btn-xs btn-block margin-graph-type-view" onClick="history.go(-1)">Select another Author</button>
+			<button type="button" class="btn btn-primary btn-xs btn-block margin-graph-type-view" onClick="window.location.href='ListAuthors?searchName'">Select another Author</button>
 			<span style="color: #337ab7; cursor: pointer; font-size: 20px;" id="infoIcon" class="glyphicon glyphicon-info-sign margin-graph-type-view" aria-hidden="true"
 				data-content="The first graph shows the author and her publications, and the second shows the author's collaborations with her coauthors and their respective publications. 
 				You can also back to the previous page and select another author" 

@@ -25,6 +25,14 @@
 		color: #fff !important;
 		font-weight: 700 !important;
 	}
+	
+	.page-header-custom{
+		margin: 20px 0px 20px !important;
+	}
+	
+	.sub-page-header{
+		margin-top: 10px !important;
+	}
 
 /* SearchAuthor.jsp */
 	.footer {
@@ -36,7 +44,7 @@
 	  padding: 10px 0;
 	}
 
-/* AuthorGraph.jsp */
+/* AuthorGraph.jsp & CollaborationGraph.jsp*/
 
 	.panel-heading-custom{
 		height:25px !important; 
@@ -55,10 +63,10 @@
  		padding: 0px 5px !important;
 	}
 	.panel-body-graph{
-		height: 490px;
+		height: 500px;
 	}
 	.dv-graph{
-		height: 470px;
+		height: 480px;
 	}
 	.dvFilters{
 		

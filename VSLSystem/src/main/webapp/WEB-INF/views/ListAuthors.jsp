@@ -66,7 +66,7 @@
 </head>
 <body>
 	<div class="container" style="width:780px">
-		<div class="page-header text-center">
+		<div class="page-header text-center page-header-custom">
 	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Author selection</small></h1>
 		</div>
 		<div class="row" id="loadingRow">
