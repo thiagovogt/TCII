@@ -1,7 +1,6 @@
 package br.com.vsc.VSCSystem.model.service.implementation;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import org.jdom2.Element;

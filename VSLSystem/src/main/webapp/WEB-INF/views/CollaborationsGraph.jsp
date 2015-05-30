@@ -129,7 +129,7 @@
 						</select>  
   					</div>
 					<div class="form-group">
-						<label for="typeFilter">Venue:</label>
+						<label for="venueFilter">Venue:</label>
 						<select id="venueFilter" name="venueFilter" class="form-control select-filter">
 							<option value="">Select a venue...</option>
 							<c:forEach items="${venuesFilter}" var="venueValue">

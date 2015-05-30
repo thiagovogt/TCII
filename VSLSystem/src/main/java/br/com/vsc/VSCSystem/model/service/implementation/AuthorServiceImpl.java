@@ -4,10 +4,6 @@ import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.stream.XMLInputFactory;
-import javax.xml.stream.XMLStreamConstants;
-import javax.xml.stream.XMLStreamReader;
-
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
@@ -15,7 +11,6 @@ import org.jdom2.input.SAXBuilder;
 import br.com.vsc.VSCSystem.model.entity.Author;
 import br.com.vsc.VSCSystem.model.exception.DBLPException;
 import br.com.vsc.VSCSystem.model.repository.AuthorDBLP;
-import br.com.vsc.VSCSystem.model.repository.PublicationDBLP;
 import br.com.vsc.VSCSystem.model.service.AuthorService;
 
 public class AuthorServiceImpl implements AuthorService{

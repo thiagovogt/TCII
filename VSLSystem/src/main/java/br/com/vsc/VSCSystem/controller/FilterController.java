@@ -1,6 +1,7 @@
 package br.com.vsc.VSCSystem.controller;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.vsc.VSCSystem.model.entity.Author;
+import br.com.vsc.VSCSystem.model.entity.Collaboration;
 import br.com.vsc.VSCSystem.model.entity.Publication;
  
 @Controller
@@ -45,7 +47,7 @@ public class FilterController {
 	}
 	
 	/*
-	 * Filtrar as colaborações do autor
+	 * Retornar para a tela do grafo de publicações, todas as publicações filtradas
 	 * 
 	 */
 	@RequestMapping("/FilterCollaborations")
@@ -55,7 +57,9 @@ public class FilterController {
 		Author authorSession = (Author) session.getAttribute("authorSearchedSession");
 		
 		Author filteredAuthor = new Author(authorSession.getName(), authorSession.getUrlKey());
-		filteredAuthor.setPublications(getFilteredPublications(yearFilter, typeFilter, venueFilter, authorSession.getPublications()));
+		filteredAuthor.setPublications(this.getFilteredPublications(yearFilter, typeFilter, venueFilter, authorSession.getPublications()));
+		
+		filteredAuthor.setCollaborations(this.getFilteredCollaborations(filteredAuthor.getPublications(), authorSession.getCollaborations()));
 		
 		mv.addObject("author", filteredAuthor);
 		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
@@ -65,6 +69,26 @@ public class FilterController {
 		mv.addObject("typeFiltered", typeFilter);
 		mv.addObject("venueFiltered", venueFilter);
 		return mv;
+	}
+	
+	private List<Collaboration> getFilteredCollaborations(List<Publication> publications, List<Collaboration> collaborations){
+		List<Collaboration> filteredCollaborations = new ArrayList<Collaboration>();
+		Set<String> coAuthorsNames = new TreeSet<String>();
+		
+		for (Publication publication : publications) {
+			for (Author author : publication.getCoAuthors()) {
+				coAuthorsNames.add(author.getName());
+			}
+		}
+		
+		Iterator<Collaboration> iterator = collaborations.iterator();
+		while(iterator.hasNext()) {
+			Collaboration collaboration = iterator.next();
+			if(coAuthorsNames.contains(collaboration.getCoAuthor().getName()))
+				filteredCollaborations.add(collaboration); 
+		}
+		
+		return filteredCollaborations;
 	}
 
 	/*

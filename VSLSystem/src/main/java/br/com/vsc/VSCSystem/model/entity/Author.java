@@ -2,8 +2,9 @@ package br.com.vsc.VSCSystem.model.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Author implements Serializable{
 	/**
@@ -13,6 +14,7 @@ public class Author implements Serializable{
 	
 	private String urlKey;
 	private String name;
+	private Set<String> otherNames = new TreeSet<String>();
 	private List<Publication> publications = new ArrayList<Publication>();
 	private List<Collaboration> collaborations = new ArrayList<Collaboration>();
 
@@ -23,6 +25,10 @@ public class Author implements Serializable{
 	
 	public String getUrlKey() {
 		return urlKey;
+	}
+	
+	public void setUrlKey(String urlKey) {
+		this.urlKey= urlKey ;
 	}
 
 	public String getName() {
@@ -43,6 +49,15 @@ public class Author implements Serializable{
 
 	public void setCollaborations(List<Collaboration> collaborations) {
 		this.collaborations = collaborations;
+	}
+
+	public Set<String> getOtherNames() {
+		return otherNames;
+	}
+
+	public void setOtherNames(Set<String> otherNames) {
+		this.otherNames = otherNames;
+		this.otherNames.remove(this.name);
 	}
 
 	@Override

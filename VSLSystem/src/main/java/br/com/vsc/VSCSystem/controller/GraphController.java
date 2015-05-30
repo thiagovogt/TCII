@@ -1,6 +1,7 @@
 package br.com.vsc.VSCSystem.controller;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpSession;
 
@@ -36,14 +37,21 @@ public class GraphController {
 		Author authorSearched = new Author(name, urlKey);
 		try {
 			
-			authorSearched.setPublications(publicationService.searchPublicationsByAuthor(urlKey));
-			authorSearched.setCollaborations(collaborationService.searchAuthorsCollaborations(urlKey));
+			authorSearched.setPublications(publicationService.searchPublicationsByAuthor(urlKey, session));
+			if(session.getAttribute("fUrlAuthorKey") != null && !session.getAttribute("fUrlAuthorKey").equals("null")){
+				authorSearched.setUrlKey(String.valueOf(session.getAttribute("fUrlAuthorKey")));
+				session.setAttribute("fUrlAuthorKey", "null");
+			}
+			authorSearched.setCollaborations(collaborationService.searchAuthorsCollaborations(authorSearched.getUrlKey()));
+			
+			authorSearched.setOtherNames((TreeSet<String>)session.getAttribute("otherAuthorNames"));
+			
+			session.setAttribute("authorSearchedSession", authorSearched);
 			
 			Set<Integer> yearsFilter = FilterController.getYearsFilter(authorSearched);
 			Set<String> typesFilter = FilterController.getTypesFilter(authorSearched);
 			Set<String> venuesFilter = FilterController.getVenuesFilter(authorSearched);
 			
-			session.setAttribute("authorSearchedSession", authorSearched);
 			session.setAttribute("yearsFilterSession", yearsFilter);
 			session.setAttribute("typesFilterSession", typesFilter);
 			session.setAttribute("venuesFilterSession", venuesFilter);
