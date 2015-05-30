@@ -22,19 +22,59 @@ public class FilterController {
 	
 	
 	/*
-	 * Filtrar as publicações do autor
-	 * 
+	 * Retornar para a tela do grafo de publicações, todas as publicações filtradas
 	 * 
 	 */
-	@RequestMapping("/Filter")
-	public ModelAndView Filter(int yearFilter, String typeFilter, String venueFilter, HttpSession session) {
+	@RequestMapping("/FilterAuthorGraph")
+	public ModelAndView FilterAuthorGraph(int yearFilter, String typeFilter, String venueFilter, HttpSession session) {
 		ModelAndView mv = new ModelAndView("AuthorGraph");
+
+		Author authorSession = (Author) session.getAttribute("authorSearchedSession");
+		
+		Author filteredAuthor = new Author(authorSession.getName(), authorSession.getUrlKey());
+		filteredAuthor.setPublications(getFilteredPublications(yearFilter, typeFilter, venueFilter, authorSession.getPublications()));
+		
+		mv.addObject("author", filteredAuthor);
+		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
+		mv.addObject("typesFilter", session.getAttribute("typesFilterSession"));
+		mv.addObject("venuesFilter", session.getAttribute("venuesFilterSession"));
+		mv.addObject("yearFiltered", yearFilter);
+		mv.addObject("typeFiltered", typeFilter);
+		mv.addObject("venueFiltered", venueFilter);
+		return mv;
+	}
+	
+	/*
+	 * Filtrar as colaborações do autor
+	 * 
+	 */
+	@RequestMapping("/FilterCollaborations")
+	public ModelAndView FilterCollaboration(int yearFilter, String typeFilter, String venueFilter, HttpSession session) {
+		ModelAndView mv = new ModelAndView("CollaborationsGraph");
+		
+		Author authorSession = (Author) session.getAttribute("authorSearchedSession");
+		
+		Author filteredAuthor = new Author(authorSession.getName(), authorSession.getUrlKey());
+		filteredAuthor.setPublications(getFilteredPublications(yearFilter, typeFilter, venueFilter, authorSession.getPublications()));
+		
+		mv.addObject("author", filteredAuthor);
+		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
+		mv.addObject("typesFilter", session.getAttribute("typesFilterSession"));
+		mv.addObject("venuesFilter", session.getAttribute("venuesFilterSession"));
+		mv.addObject("yearFiltered", yearFilter);
+		mv.addObject("typeFiltered", typeFilter);
+		mv.addObject("venueFiltered", venueFilter);
+		return mv;
+	}
+
+	/*
+	 * Filtrar as publicações do autor
+	 * */
+	private List<Publication> getFilteredPublications(int yearFilter, String typeFilter, String venueFilter, List<Publication> publications) {
 		boolean yearFilterActive = false;
 		boolean typeFilterActive = false;
 		boolean venueFilterActive = false;
-		
-		Author authorSession = (Author) session.getAttribute("authorSearchedSession");
-		List<Publication> publicationsFilter = new ArrayList<Publication>();
+		List<Publication> filteredPublications = new ArrayList<Publication>();
 		
 		if(yearFilter != 0)
 			yearFilterActive = true;
@@ -47,9 +87,9 @@ public class FilterController {
 		
 		
 		if(!yearFilterActive && !typeFilterActive && !venueFilterActive){ 
-			publicationsFilter.addAll(authorSession.getPublications());
+			return publications;
 		}else{
-			for (Publication publication : authorSession.getPublications()) {
+			for (Publication publication : publications) {
 				
 //				boolean sameYear = (yearFilterActive && yearFilter == publication.getYear());
 //				boolean sameType = (typeFilterActive && typeFilter.equals(publication.getType()));
@@ -79,21 +119,10 @@ public class FilterController {
 							isValid = false;
 				} 
 				if(isValid)
-					publicationsFilter.add(publication);
+					filteredPublications.add(publication);
 			}
 		}
-		
-		Author authorfilter = new Author(authorSession.getName(), authorSession.getUrlKey());
-		authorfilter.setPublications(publicationsFilter);
-		
-		mv.addObject("author", authorfilter);
-		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
-		mv.addObject("typesFilter", session.getAttribute("typesFilterSession"));
-		mv.addObject("venuesFilter", session.getAttribute("venuesFilterSession"));
-		mv.addObject("yearFiltered", yearFilter);
-		mv.addObject("typeFiltered", typeFilter);
-		mv.addObject("venueFiltered", venueFilter);
-		return mv;
+		return filteredPublications;
 	}
 	
 	/*

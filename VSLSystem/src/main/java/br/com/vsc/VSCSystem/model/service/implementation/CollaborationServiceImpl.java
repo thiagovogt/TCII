@@ -25,7 +25,6 @@ public class CollaborationServiceImpl implements CollaborationService{
 			
 		    Element coauthors = XmlParseUtils.getRootElement(CollaborationsDBLP.getInstance().searchAuthorsCollaborations(urlAuthorKey));
 		    
-		    
 		    List<Element> authorsListXml = coauthors.getChildren("author");
 		    
 		    for (Element authorXml : authorsListXml) {

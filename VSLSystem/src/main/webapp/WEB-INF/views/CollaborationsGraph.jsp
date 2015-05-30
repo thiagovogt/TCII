@@ -109,7 +109,7 @@
 				FILTERS
 			</div>
 			<div class="panel-body">
-				<form class="form-inline" action="Filter" method="post">
+				<form class="form-inline" action="FilterCollaborations" method="post">
 					<div class="form-group">
   						<label for="yearFilter">Year:</label>
 						<select id="yearFilter" name="yearFilter" class="form-control select-filter">
