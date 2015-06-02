@@ -8,7 +8,7 @@ import org.jdom2.Element;
 import br.com.vsc.VSCSystem.model.entity.Author;
 import br.com.vsc.VSCSystem.model.entity.Collaboration;
 import br.com.vsc.VSCSystem.model.exception.DBLPException;
-import br.com.vsc.VSCSystem.model.repository.CollaborationsDBLP;
+import br.com.vsc.VSCSystem.model.repository.CollaborationDBLP;
 import br.com.vsc.VSCSystem.model.service.CollaborationService;
 import br.com.vsc.VSCSystem.model.utility.XmlParseUtils;
 
@@ -23,7 +23,7 @@ public class CollaborationServiceImpl implements CollaborationService{
 		List<Collaboration> collaborations = new ArrayList<Collaboration>();
 		try {
 			
-		    Element coauthors = XmlParseUtils.getRootElement(CollaborationsDBLP.getInstance().searchAuthorsCollaborations(urlAuthorKey));
+		    Element coauthors = XmlParseUtils.getRootElement(CollaborationDBLP.getInstance().searchAuthorsCollaborations(urlAuthorKey));
 		    
 		    List<Element> authorsListXml = coauthors.getChildren("author");
 		    Collaboration collaboration = null;

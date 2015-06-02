@@ -1,9 +1,10 @@
 package br.com.vsc.VSCSystem.controller;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpSession;
@@ -27,9 +28,9 @@ public class FilterController {
 	 * Retornar para a tela do grafo de publicações, todas as publicações filtradas
 	 * 
 	 */
-	@RequestMapping("/FilterAuthorGraph")
+	@RequestMapping("/FilterPublicationsGraph")
 	public ModelAndView FilterAuthorGraph(int yearFilter, String typeFilter, String venueFilter, HttpSession session) {
-		ModelAndView mv = new ModelAndView("AuthorGraph");
+		ModelAndView mv = new ModelAndView("PublicationsGraph");
 
 		Author authorSession = (Author) session.getAttribute("authorSearchedSession");
 		
@@ -71,21 +72,31 @@ public class FilterController {
 		return mv;
 	}
 	
+	/*
+	 * Filtrar as colaborações do autor
+	 * */
 	private List<Collaboration> getFilteredCollaborations(List<Publication> publications, List<Collaboration> collaborations){
 		List<Collaboration> filteredCollaborations = new ArrayList<Collaboration>();
-		Set<String> coAuthorsNames = new TreeSet<String>();
-		
+		String coAuthorNameAux = null;
+		Map<String, Integer> coAuthorsCollaborations = new TreeMap<String, Integer>();
+	
 		for (Publication publication : publications) {
 			for (Author author : publication.getCoAuthors()) {
-				coAuthorsNames.add(author.getName());
+				coAuthorNameAux = author.getName();
+				if(coAuthorsCollaborations.containsKey(coAuthorNameAux)){
+					coAuthorsCollaborations.put(coAuthorNameAux, (coAuthorsCollaborations.get(coAuthorNameAux)+1));
+				}else{
+					coAuthorsCollaborations.put(coAuthorNameAux,1);
+				}
 			}
 		}
 		
-		Iterator<Collaboration> iterator = collaborations.iterator();
-		while(iterator.hasNext()) {
-			Collaboration collaboration = iterator.next();
-			if(coAuthorsNames.contains(collaboration.getCoAuthor().getName()))
-				filteredCollaborations.add(collaboration); 
+		for (Collaboration collaboration : collaborations) {
+			coAuthorNameAux = collaboration.getCoAuthor().getName();
+			if(coAuthorsCollaborations.containsKey(coAuthorNameAux)){
+				int numberOfFilteredCollaborations = coAuthorsCollaborations.get(coAuthorNameAux);
+				filteredCollaborations.add(new Collaboration(collaboration.getCoAuthor(), numberOfFilteredCollaborations));
+			}
 		}
 		
 		return filteredCollaborations;

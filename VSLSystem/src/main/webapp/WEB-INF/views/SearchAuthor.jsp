@@ -54,7 +54,7 @@
 	</div>
 	<div class="footer">
       <div class="container text-center">
-        <p>Made by Lucas Gentile and Thiago Vogt, based on <a target="_blank" href="http://dblp.uni-trier.de/db/" title="DBLP">DBLP - Computer Science Bibliography</a> </p>
+        <p>Developed by Lucas Gentile and Thiago Vogt, based on <a target="_blank" href="http://dblp.uni-trier.de/db/" title="DBLP">DBLP - Computer Science Bibliography</a> </p>
       </div>
     </div>
 </body>

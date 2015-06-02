@@ -73,9 +73,9 @@ public class GraphController {
 	 * 
 	 * 
 	 */
-	@RequestMapping("/GenerateAuthorGraph")
+	@RequestMapping("/GeneratePublicationsGraph")
 	public ModelAndView GenerateAuthorGraph(String urlKey, String name, HttpSession session) {
-		ModelAndView mv = new ModelAndView("AuthorGraph");
+		ModelAndView mv = new ModelAndView("PublicationsGraph");
 			
 		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
 		mv.addObject("typesFilter", session.getAttribute("typesFilterSession"));

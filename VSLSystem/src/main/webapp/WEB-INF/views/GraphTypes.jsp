@@ -27,7 +27,7 @@
 	  		<h3 class="sub-page-header"><small>Selected Author: ${author.name}</small></h3>
 		</div>
 		<div class="center-block text-center types-buttons">
-			<button type="button" class="btn btn-primary btn-lg btn-block margin-graph-type-view" onClick="window.location.href='GenerateAuthorGraph'">Publications</button>
+			<button type="button" class="btn btn-primary btn-lg btn-block margin-graph-type-view" onClick="window.location.href='GeneratePublicationsGraph'">Publications</button>
 			<button type="button" class="btn btn-primary btn-lg btn-block margin-graph-type-view" onClick="window.location.href='GenerateCollaborationsGraph'">Collaborations</button>
 		</div>
 		<div class="center-block text-center" style="max-width: 160px;" >	

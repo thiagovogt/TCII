@@ -23,6 +23,10 @@ public class Author implements Serializable{
 		this.name = name.trim();
 	}
 	
+	public Author(String name) {
+		this.name = name.trim();
+	}
+	
 	public String getUrlKey() {
 		return urlKey;
 	}
@@ -77,9 +81,7 @@ public class Author implements Serializable{
 	    if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
 	        return false;
 	    }
-	    if ((this.urlKey == null) ? (other.urlKey != null) : !this.urlKey.equals(urlKey)) {
-	    	return false;
-	    }
+	    
 	    return true;
 	}
 	
@@ -87,7 +89,6 @@ public class Author implements Serializable{
 	public int hashCode() {
 	    int hash = 3;
 	    hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
-	    hash = 53 * hash + (this.urlKey != null ? this.urlKey.hashCode() : 0);
 	    return hash;
 	}
 }

@@ -7,13 +7,13 @@ import org.apache.commons.lang3.StringEscapeUtils;
 
 import br.com.vsc.VSCSystem.model.exception.DBLPException;
 
-public class CollaborationsDBLP {
+public class CollaborationDBLP {
 	
-    private static CollaborationsDBLP instance;
+    private static CollaborationDBLP instance;
 
-    static public CollaborationsDBLP getInstance() {
+    static public CollaborationDBLP getInstance() {
         if (instance == null) {
-            instance = new CollaborationsDBLP();
+            instance = new CollaborationDBLP();
         }
         return (instance);
     }

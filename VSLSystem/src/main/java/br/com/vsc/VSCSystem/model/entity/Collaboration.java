@@ -15,6 +15,10 @@ public class Collaboration implements Serializable{
 		this.coAuthor = coAuthor;
 		this.numberOfCollaborations = numberOfCollaborations;
 	}
+	
+	public Collaboration(Author coAuthor) {
+		this.coAuthor = coAuthor;
+	}
 
 	public Author getCoAuthor() {
 		return coAuthor;
@@ -30,6 +34,10 @@ public class Collaboration implements Serializable{
 
 	public void setNumberOfCollaborations(int numberOfCollaborations) {
 		this.numberOfCollaborations = numberOfCollaborations;
+	}
+	
+	public void increaseCollaborationNumber(){
+		this.numberOfCollaborations++;
 	}
 
 	@Override

@@ -90,7 +90,7 @@ public class PublicationServiceImpl implements PublicationService{
 		    	for (Element element : publicationXml.getChildren(coAuthorType)) {
 		    		String coAuthorName = element.getValue();
 		    		if(!coAuthorName.equals(authorName) && !coAuthorName.equals("\n") && !otherNames.contains(coAuthorName)){
-		    			currPublication.getCoAuthors().add(new Author(element.getText(), ""));
+		    			currPublication.getCoAuthors().add(new Author(element.getText()));
 		    		}
 		    	}
 		    	
