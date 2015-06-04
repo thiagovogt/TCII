@@ -54,9 +54,41 @@
 		background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%) !important;
 		border-color: #265a88 !important;
 	}
+	
+	.modal-header-custom{
+		height: 45px !important;
+	  	padding: 10px 20px !important;
+	  	background-color: #265a88 !important;
+	  	background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%) !important;
+	  	border-color: #265a88 !important;
+	  	color: #fff;
+	  	border-bottom: 1px solid transparent;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
+	}
+	
 	label{
 		font-size: 12px;
 	}
+	label.control-label{
+		font-size: 16px;
+		text-align: right;
+	}
+	
+	.close-custom{
+		margin-top: -7px !important;
+	  	margin-right: -5px !important;
+	  	font-size: 31px !important;
+	}
+	
+	label + div.col-md-10{
+		padding-left: 0px;
+	}
+	
+	p.form-control-static{
+		font-size: 17px;
+	}
+	
 	.select-filter{
 		height: 27px !important;
  		font-size: 11px !important;

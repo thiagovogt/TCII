@@ -110,13 +110,8 @@
 // var options = {physics: {barnesHut: {enabled: false}, repulsion: {nodeDistance:150, springConstant: 0.013, damping: 0.3}}, smoothCurves:false};
 		network = new vis.Network(container, data, options);
 		network.on('doubleClick', function (properties) {
-			if(publications[properties.nodes] != null){
+			if(publications[properties.nodes] !== null){
 				
-				$("#publicationInformation").attr("title", 'Publication - ' + publications[properties.nodes].urlKey);
-				$("#publicationTitle").html(publications[properties.nodes].title);
-				$("#publicationYear").html(publications[properties.nodes].year);
-				$("#publicationVenue").html(publications[properties.nodes].venue);
-				$("#publicationType").html(publications[properties.nodes].type);
 				if(publications[properties.nodes].eePath != "" && publications[properties.nodes].urlPath != ""){
 					$("#publicationPath").html(publications[properties.nodes].eePath + "<br>"+ publications[properties.nodes].urlPath);
 				}else if(publications[properties.nodes].eePath != ""){
@@ -124,14 +119,15 @@
 				}else if(publications[properties.nodes].urlPath != ""){
 					$("#publicationPath").html(publications[properties.nodes].urlPath);
 				}
+								
+				$("#publicationInformationModalLabel").html('Publication - ' + publications[properties.nodes].urlKey);
+				$("#publicationTitle").html(publications[properties.nodes].title);
+				$("#publicationYear").html(publications[properties.nodes].year);
+				$("#publicationVenue").html(publications[properties.nodes].venue);
+				$("#publicationType").html(publications[properties.nodes].type);
 				
+				$('#publicationInformationModal').modal();
 				
-				$("#publicationInformation").dialog({
-				      height: 280,
-				      width: 830,
-				      resizable: false
-				}
-				);
 			}
 			if(coauthors[properties.nodes] != null){
 				window.open(encodeURI('../VSCSystem/ListAuthors?searchName='+coauthors[properties.nodes].name), '_blank');
@@ -203,29 +199,54 @@
 		<div class="center-block text-center" style="max-width: 160px;" >	
 			<button style="margin-top:-10px !important;" type="button" class="btn btn-primary btn-xs btn-block margin-graph-type-view" onClick="window.location.href='LoadGraphInformation?urlKey=${author.urlKey}&name=${author.name}'">Select another Graph</button>
 		</div>
-		<div id="publicationInformation" style="display:none;" title="">
-			<table style="border-spacing: 15px;">
-				<tr>
-					<td align="right"><b>Title:</b></td>
-					<td id="publicationTitle"></td>
-				</tr>
-				<tr>
-					<td align="right"><b>Year:</b></td>
-					<td id="publicationYear"></td>
-				</tr>
-				<tr>
-					<td align="right"><b>Venue:</b></td>
-					<td id="publicationVenue"></td>
-				</tr>
-				<tr>
-					<td align="right"><b>Type:</b></td>
-					<td id="publicationType"></td>
-				</tr>
-				<tr>
-					<td align="right"><b>Path:</b></td>
-					<td id="publicationPath"></td>
-				</tr>
-			</table>
+		<div class="modal bs-example-modal-lg" role="dialog" id="publicationInformationModal" aria-labelledby="publicationInformationModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header modal-header-custom">
+						<button type="button" class="close close-custom" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="publicationInformationModalLabel"></h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+						  <div class="form-group">
+						    <label class="col-md-2 control-label">Title:</label>
+						    <div class="col-md-10">
+						      <p class="form-control-static" id="publicationTitle"></p>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label class="col-md-2 control-label">Year:</label>
+						    <div class="col-md-10">
+						      <p class="form-control-static" id="publicationYear"></p>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label class="col-md-2 control-label">Venue:</label>
+						    <div class="col-md-10">
+						      <p class="form-control-static" id="publicationVenue"></p>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label class="col-md-2 control-label">Type:</label>
+						    <div class="col-md-10">
+						      <p class="form-control-static" id="publicationType"></p>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label class="col-md-2 control-label">Path:</label>
+						    <div class="col-md-10">
+						      <p class="form-control-static" id="publicationPath"></p>
+						    </div>
+						  </div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>
