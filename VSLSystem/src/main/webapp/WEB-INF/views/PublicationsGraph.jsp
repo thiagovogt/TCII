@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/theme.css">
 
-<link rel="stylesheet" href="<c:url value="/resources/js/vis/css/vis.css" />" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.1.0/vis.min.css">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
@@ -21,79 +21,77 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
-<script type="text/javascript" src="<c:url value="/resources/js/vis/js/vis.js" />"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.1.0/vis.min.js"></script>
+
+<script type="text/javascript" src="<c:url value="/resources/js/functions.js" />"> </script>
+
 <script type="text/javascript">
-	var DIR = '/VSCSystem/resources/js/vis/images/';
-	var nodes = null;
-	var edges = null;
-	var publications = null;
-	var coauthors = null;
+	var DIR = '/VSCSystem/resources/js/vis/images/';	
+    var nodes = new vis.DataSet();
+	var edges = new vis.DataSet();
 	var network = null;
 	function draw() {
-		publications = [];
-		coauthors = [];
 		// create nodes
-		var nodes = [];
-		nodes.push(
-			{
-				id : 1,
-				label : "${author.name}",
-				image : DIR + 'User-Executive-Green-icon.png',
-				shape : 'image'
-			}				
-		);
+		nodes.add([
+				{
+					id : 1,
+					label : "${author.name}",
+					image : DIR + 'User-Executive-Green-icon.png',
+					shape : 'image',
+					isCoAuthor: false
+				}		
+		]);
+
 		// create connections
 		var color = '#BFBFBF';
- 		var edges = [];
 		var countIdNodes = 2;
 		var countCoAuthors = 1;
 		<c:forEach items="${author.publications}" var="publication">
-			publications[countIdNodes] = {
-				urlKey 	: "${publication.urlKey}",
-				title 	: "${publication.title}",
-				year 	: "${publication.year}",
-				type	: "${publication.type}",
-				eePath  : "<a href='${publication.eePath}' target='_blank'>${publication.eePath}</a>",
-				urlPath : "<a href='${publication.urlPath}' target='_blank'>${publication.urlPath}</a>",
-				venue	: "${publication.venue}"
-			};
-			nodes.push(
-				{
-					id : countIdNodes,
-					label : "${publication.urlKey}",
-					image : DIR + 'Document-icon48.png',
-					shape : 'image'
-				}	
-			);
-			edges.push(
-				{
-		 			from : 1,
-		 			to : countIdNodes,
-		 			value : 2,
-		 			color : color
-				}
-			);
+			nodes.add([
+			   		{
+			   			id : countIdNodes,
+						label : "${publication.urlKey}",
+						image : DIR + 'Document-icon48.png',
+						shape : 'image',
+						urlKey 	: "${publication.urlKey}",
+						title 	: "${publication.title}",
+						year 	: "${publication.year}",
+						type	: "${publication.type}",
+						eePath  : "<a href='${publication.eePath}' target='_blank'>${publication.eePath}</a>",
+						urlPath : "<a href='${publication.urlPath}' target='_blank'>${publication.urlPath}</a>",
+						venue	: "${publication.venue}",
+						isCoAuthor: false
+			   		}		
+			]);
 			
+			edges.add([
+			   		{
+			   			from : 1,
+			 			to : countIdNodes,
+			 			color : color
+			   		}		
+	   		]);
+
 			var currPublicationId = countIdNodes;
 			countIdNodes++;
 			<c:forEach items="${publication.coAuthors}" var="coAuthor">
-				coauthors[countIdNodes] = {name : "${coAuthor.name}"};
-				nodes.push(
-					{
-						id : countIdNodes,
-						label :"${coAuthor.name}",
-						image : DIR + 'User-Administrator-Green-icon.png',
-						shape : 'image'
-					}	
-				);
-				edges.push(
-					{
-			 			from : currPublicationId,
-			 			to : countIdNodes,
-			 			value : 2,
-			 			color : color
-					}
-				);
+				nodes.add([
+					   		{
+								id : countIdNodes,
+								label :"${coAuthor.name}",
+								image : DIR + 'User-Administrator-Green-icon.png',
+								shape : 'image',
+								isCoAuthor: true
+					   		}		
+		   		]);
+				edges.add([
+					   		{
+					   			from : currPublicationId,
+					 			to : countIdNodes,
+					 			color : color
+					   		}		
+		   		]);
+
 				countIdNodes++;
 			</c:forEach>		
 		</c:forEach>		
@@ -109,31 +107,17 @@
 		};
 // var options = {physics: {barnesHut: {enabled: false}, repulsion: {nodeDistance:150, springConstant: 0.013, damping: 0.3}}, smoothCurves:false};
 		network = new vis.Network(container, data, options);
-		network.on('doubleClick', function (properties) {
-			if(publications[properties.nodes] !== null){
-				
-				if(publications[properties.nodes].eePath != "" && publications[properties.nodes].urlPath != ""){
-					$("#publicationPath").html(publications[properties.nodes].eePath + "<br>"+ publications[properties.nodes].urlPath);
-				}else if(publications[properties.nodes].eePath != ""){
-					$("#publicationPath").html(publications[properties.nodes].eePath);
-				}else if(publications[properties.nodes].urlPath != ""){
-					$("#publicationPath").html(publications[properties.nodes].urlPath);
-				}
-								
-				$("#publicationInformationModalLabel").html('Publication - ' + publications[properties.nodes].urlKey);
-				$("#publicationTitle").html(publications[properties.nodes].title);
-				$("#publicationYear").html(publications[properties.nodes].year);
-				$("#publicationVenue").html(publications[properties.nodes].venue);
-				$("#publicationType").html(publications[properties.nodes].type);
-				
-				$('#publicationInformationModal').modal();
-				
-			}
-			if(coauthors[properties.nodes] != null){
-				window.open(encodeURI('../VSCSystem/ListAuthors?searchName='+coauthors[properties.nodes].name), '_blank');
-			}
+
+		network.on('click', function (properties) {
+			onClick(properties)
 		});
 		
+		network.on('doubleClick', function (properties) {
+			if(properties.nodes != 1){
+			    var node = nodes.get(properties.nodes)[0];
+				onDoubleClick(properties, node);
+			}
+		});
 	}
 	
 	function clearFilter(){

@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/theme.css">
 
-<link rel="stylesheet" href="<c:url value="/resources/js/vis/css/vis.css" />" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.1.0/vis.min.css">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
@@ -21,51 +21,47 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
-<script type="text/javascript" src="<c:url value="/resources/js/vis/js/vis.js" />"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.1.0/vis.min.js"></script>
 
 <script type="text/javascript">
 	
 	var DIR = '/VSCSystem/resources/js/vis/images/';
-	var nodes = null;
-	var edges = null;
-	var collaborations = null;
+    var nodes = new vis.DataSet();
+	var edges = new vis.DataSet();
 	var network = null;
 	function draw() {
-		collaborations = [];
 		// create nodes
-		var nodes = [];
-		nodes.push(
-			{
-				id : 1,
-				label : "${author.name}",
-				image : DIR + 'User-Executive-Green-icon.png',
-				shape : 'image'
-			}				
-		);
+		nodes.add([
+					{
+						id : 1,
+						label : "${author.name}",
+						image : DIR + 'User-Executive-Green-icon.png',
+						shape : 'image',
+					}		
+		]);
+
 		// create connections
 		var color = '#BFBFBF';
- 		var edges = [];
 		var countIdNodes = 2;
 		
 		<c:forEach items="${author.collaborations}" var="collaboration">
-			collaborations[countIdNodes] = {name : "${collaboration.coAuthor.name}"};
-			nodes.push(
-				{
-					id : countIdNodes,
-					label :"${collaboration.coAuthor.name}",
-					image : DIR + 'User-Administrator-Green-icon.png',
-					shape : 'image'
-				}	
-			);
-			edges.push(
-				{
-		 			from : 1,
-		 			to : countIdNodes,
-		 			value : "${collaboration.numberOfCollaborations}",
-		 			label : "${collaboration.numberOfCollaborations}",
-		 			color : color
-				}
-			);
+			nodes.add([
+						{
+							id : countIdNodes,
+							label :"${collaboration.coAuthor.name}",
+							image : DIR + 'User-Administrator-Green-icon.png',
+							shape : 'image'
+						}		
+			]);
+			edges.add([
+						{
+							from : 1,
+				 			to : countIdNodes,
+				 			value : "${collaboration.numberOfCollaborations}",
+				 			label : "${collaboration.numberOfCollaborations}",
+				 			color : color
+						}		
+			]);
 			countIdNodes++;
 			
 		</c:forEach>		
@@ -81,12 +77,13 @@
 		};
 // var options = {physics: {barnesHut: {enabled: false}, repulsion: {nodeDistance:150, springConstant: 0.013, damping: 0.3}}, smoothCurves:false};
 		network = new vis.Network(container, data, options);
+
 		network.on('doubleClick', function (properties) {
-			if(collaborations[properties.nodes] != null){
-				window.open(encodeURI('../VSCSystem/ListAuthors?searchName='+collaborations[properties.nodes].name), '_blank');
+			if(properties.nodes != 1){
+			    var node = nodes.get(properties.nodes)[0];
+			    window.open(encodeURI('../VSCSystem/ListAuthors?searchName='+node.label), '_blank');
 			}
 		});
-		
 	}
 	
 	function clearFilter(){
