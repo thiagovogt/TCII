@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@page import="br.com.vsc.VSCSystem.model.entity.Publication"%>
 <%@page import="java.util.HashMap"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html lang="en">
 <head>
 
@@ -23,11 +23,14 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.1.0/vis.min.js"></script>
 
+<script type="text/javascript" src="<c:url value="/resources/js/functions.js" />"></script>
+
 <script type="text/javascript">
 	
-	var DIR = '/VSCSystem/resources/js/vis/images/';
+	var DIR = '/VSCSystem/resources/images/';
     var nodes = new vis.DataSet();
 	var edges = new vis.DataSet();
+	var collaborations = [];
 	var network = null;
 	function draw() {
 		// create nodes
@@ -63,8 +66,15 @@
 						}		
 			]);
 			countIdNodes++;
-			
-		</c:forEach>		
+			var countAux = 1;
+			var arrayAux = [];
+			<c:forEach items="${collaboration.publications}" var="publication">
+				arrayAux[countAux] = "<b>${publication.title}</b> ${publication.venue} (${publication.year})";
+				countAux++;
+			</c:forEach>	
+			collaborations[countIdNodes] = arrayAux; 
+			console.log(collaborations);
+		</c:forEach>	
 		// create a network
 		var container = document.getElementById('dvGraph');
 		var data = {
@@ -84,8 +94,15 @@
 			    window.open(encodeURI('../VSCSystem/ListAuthors?searchName='+node.label), '_blank');
 			}
 		});
+		network.on('selectEdge', function (properties) {
+		    var edge = edges.get(properties.edges)[0];
+		    var nodeAuthor = nodes.get(edge.from);
+		    var nodeCoAuthor = nodes.get(edge.to);
+
+		    onSelectEdge(nodeAuthor, nodeCoAuthor, edge.value, collaborations[edge.to]);
+		});
 	}
-	
+
 	function clearFilter(){
 		$('#yearFilter option[value="0"]').prop('selected', true);
 		$('#typeFilter option[value=""]').prop('selected', true);
@@ -149,6 +166,28 @@
 		</div>
 		<div class="center-block text-center" style="max-width: 160px;" >	
 			<button style="margin-top:-10px !important;" type="button" class="btn btn-primary btn-xs btn-block margin-graph-type-view" onClick="window.location.href='LoadGraphInformation?urlKey=${author.urlKey}&name=${author.name}'">Select another Graph</button>
+		</div>
+		<div class="modal bs-example-modal-lg" role="dialog" id="publicationListModal" aria-labelledby="publicationListModalLabel" aria-hidden="true">
+			<div class="modal-dialog modal-lg">
+				<div class="modal-content">
+					<div class="modal-header modal-header-custom">
+						<button type="button" class="close close-custom" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+						<h4 class="modal-title" id="publicationListModalLabel"></h4>
+					</div>
+					<div class="modal-body">
+						<form class="form-horizontal">
+						  <div class="form-group" id="publications">
+						    
+						  </div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </body>

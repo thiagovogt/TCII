@@ -79,6 +79,7 @@ public class FilterController {
 		List<Collaboration> filteredCollaborations = new ArrayList<Collaboration>();
 		String coAuthorNameAux = null;
 		Map<String, Integer> coAuthorsCollaborations = new TreeMap<String, Integer>();
+		Map<String, List<Publication>> collaborationPublications = new TreeMap<String, List<Publication>>();
 	
 		for (Publication publication : publications) {
 			for (Author author : publication.getCoAuthors()) {
@@ -87,7 +88,9 @@ public class FilterController {
 					coAuthorsCollaborations.put(coAuthorNameAux, (coAuthorsCollaborations.get(coAuthorNameAux)+1));
 				}else{
 					coAuthorsCollaborations.put(coAuthorNameAux,1);
+					collaborationPublications.put(coAuthorNameAux, new ArrayList<Publication>());
 				}
+				collaborationPublications.get(coAuthorNameAux).add(publication);
 			}
 		}
 		
@@ -95,10 +98,12 @@ public class FilterController {
 			coAuthorNameAux = collaboration.getCoAuthor().getName();
 			if(coAuthorsCollaborations.containsKey(coAuthorNameAux)){
 				int numberOfFilteredCollaborations = coAuthorsCollaborations.get(coAuthorNameAux);
-				filteredCollaborations.add(new Collaboration(collaboration.getCoAuthor(), numberOfFilteredCollaborations));
+				List<Publication> publicationsAux = collaborationPublications.get(coAuthorNameAux);
+				Collaboration collaborationAux = new Collaboration(collaboration.getCoAuthor(), numberOfFilteredCollaborations);
+				collaborationAux.setPublications(publicationsAux);
+				filteredCollaborations.add(collaborationAux);
 			}
 		}
-		
 		return filteredCollaborations;
 	}
 
@@ -125,20 +130,6 @@ public class FilterController {
 			return publications;
 		}else{
 			for (Publication publication : publications) {
-				
-//				boolean sameYear = (yearFilterActive && yearFilter == publication.getYear());
-//				boolean sameType = (typeFilterActive && typeFilter.equals(publication.getType()));
-//				boolean sameVenue = (venueFilterActive && venueFilter.equals(publication.getVenue()));
-//				
-				      //T            F   = T
-//				if((sameYear || (!sameYear && !yearFilterActive)) &&
-//						//     F       T  =   T
-//						(sameType || (!sameType && !typeFilterActive)) &&
-//						//        F            = 
-//							(sameVenue || (!sameVenue && !venueFilterActive))){
-//					publicationsFilter.add(publication);
-//				}
-				
 				boolean isValid = true;
 				if (yearFilterActive) {
 					if (publication.getYear() != yearFilter)

@@ -26,7 +26,7 @@
 <script type="text/javascript" src="<c:url value="/resources/js/functions.js" />"> </script>
 
 <script type="text/javascript">
-	var DIR = '/VSCSystem/resources/js/vis/images/';	
+	var DIR = '/VSCSystem/resources/images/';	
     var nodes = new vis.DataSet();
 	var edges = new vis.DataSet();
 	var network = null;
@@ -116,7 +116,7 @@
 		network.on('selectNode', function (properties) {
 			if(properties.nodes != 1){
 			    var node = nodes.get(properties.nodes)[0];
-				onClick(properties, node);
+			    onSelectNode(node);
 			}
 		});
 	}

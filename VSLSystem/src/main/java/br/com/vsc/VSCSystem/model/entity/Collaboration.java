@@ -1,6 +1,7 @@
 package br.com.vsc.VSCSystem.model.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Collaboration implements Serializable{
 	/**
@@ -10,6 +11,7 @@ public class Collaboration implements Serializable{
 	
 	private Author coAuthor;
 	private int numberOfCollaborations;
+	private List<Publication> publications;
 	
 	public Collaboration(Author coAuthor, int numberOfCollaborations) {
 		this.coAuthor = coAuthor;
@@ -36,8 +38,12 @@ public class Collaboration implements Serializable{
 		this.numberOfCollaborations = numberOfCollaborations;
 	}
 	
-	public void increaseCollaborationNumber(){
-		this.numberOfCollaborations++;
+	public List<Publication> getPublications() {
+		return publications;
+	}
+
+	public void setPublications(List<Publication> publications) {
+		this.publications = publications;
 	}
 
 	@Override
