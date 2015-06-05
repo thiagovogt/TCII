@@ -1,22 +1,4 @@
-var doubleClickTime = 0;
-var threshold = 200;
-
-function onClick(properties) {
-    var t0 = new Date();
-    if (t0 - doubleClickTime > threshold) {
-        setTimeout(function () {
-            if (t0 - doubleClickTime > threshold) {
-                doOnClick(properties);
-            }
-        },threshold);
-    }
-}
-function doOnClick(properties) {
-//    console.log("execute onClick function -  properties:" + properties.nodes );
-    
-}
-
-function onDoubleClick(properties, node) {
+function onClick(properties, node) {
     doubleClickTime = new Date();
 	if(node.isCoAuthor){
 		window.open(encodeURI('../VSCSystem/ListAuthors?searchName='+node.label), '_blank');

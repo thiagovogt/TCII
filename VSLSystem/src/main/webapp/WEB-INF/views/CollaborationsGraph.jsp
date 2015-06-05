@@ -78,7 +78,7 @@
 // var options = {physics: {barnesHut: {enabled: false}, repulsion: {nodeDistance:150, springConstant: 0.013, damping: 0.3}}, smoothCurves:false};
 		network = new vis.Network(container, data, options);
 
-		network.on('doubleClick', function (properties) {
+		network.on('selectNode', function (properties) {
 			if(properties.nodes != 1){
 			    var node = nodes.get(properties.nodes)[0];
 			    window.open(encodeURI('../VSCSystem/ListAuthors?searchName='+node.label), '_blank');
