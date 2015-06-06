@@ -25,14 +25,12 @@ function onSelectEdge(nodeAuthor, nodeCoAuthor, countPublications, publications)
 	console.log(publications);
 	$("#publicationListModalLabel").html('Collaborations with ' + nodeCoAuthor.label + ' (' + countPublications + ')');
 	
+	$("#publications").html("");
 	for (var int = 1; int < publications.length; int++) {
-		$('#publications').append('<label class="col-md-1 control-label">' + int + '</label><div class="col-md-11"><p class="form-control-static">' + publications[int] + '</p></div>');	
+		$('#publications').append('<div class="col-md-12" style="padding: 0 20px;">' + 
+									'<p class="form-control-static">' + publications[int] + '</p><hr class="soften"></div>');	
 	}
-	
-//	$("#publicationTitle").html(node.title);
-//	$("#publicationYear").html(node.year);
-//	$("#publicationVenue").html(node.venue);
-//	$("#publicationType").html(node.type);
+	$("#publications hr").last().remove();
 	
 	$('#publicationListModal').modal();
 }

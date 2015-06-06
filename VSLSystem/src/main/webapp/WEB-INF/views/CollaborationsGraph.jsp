@@ -65,15 +65,29 @@
 				 			color : color
 						}		
 			]);
-			countIdNodes++;
+			
 			var countAux = 1;
 			var arrayAux = [];
 			<c:forEach items="${collaboration.publications}" var="publication">
-				arrayAux[countAux] = "<b>${publication.title}</b> ${publication.venue} (${publication.year})";
+				var publicationLine = "<span style='color: #666666; font-weight:700;'> ${publication.title}</span>" + 
+										" <span style='color:#7d848a;'>${publication.venue}</span> (${publication.year}) ";
+				var hasPath = "";						
+				<c:choose>
+					<c:when test="${not empty publication.eePath}">
+						hasPath = '${publication.eePath}';
+					</c:when>
+					<c:when test="${not empty publication.urlPath}">
+						hasPath = '${publication.urlPath}';
+					</c:when>
+				</c:choose>
+				if(hasPath != ""){
+					publicationLine = publicationLine + "<a href='" + hasPath + "' target='_blank'><img title='Publication path' src='" +  DIR + "Document-icon24.png'></a>";
+				}
+				arrayAux[countAux] = publicationLine;
 				countAux++;
 			</c:forEach>	
 			collaborations[countIdNodes] = arrayAux; 
-			console.log(collaborations);
+			countIdNodes++;
 		</c:forEach>	
 		// create a network
 		var container = document.getElementById('dvGraph');
