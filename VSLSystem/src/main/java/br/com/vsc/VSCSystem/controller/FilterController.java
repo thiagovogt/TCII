@@ -53,7 +53,7 @@ public class FilterController {
 	 * 
 	 */
 	@RequestMapping("/FilterCollaborationsGraph")
-	public ModelAndView FilterCollaboration(@RequestParam(value = "yearFilter", required = false, defaultValue = "0") int[] yearFilter, String typeFilter, String venueFilter, HttpSession session) {
+	public ModelAndView FilterCollaboration(@RequestParam(value = "yearFilter", required = false, defaultValue = "0") int[] yearFilter, String typeFilter, String venueFilter, @RequestParam(value = "minNumberFilter", required = false, defaultValue = "0") int minNumberFilter, HttpSession session) {
 		ModelAndView mv = new ModelAndView("CollaborationsGraph");
 		
 		Author authorSession = (Author) session.getAttribute("authorSearchedSession");
@@ -67,9 +67,11 @@ public class FilterController {
 		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
 		mv.addObject("typesFilter", session.getAttribute("typesFilterSession"));
 		mv.addObject("venuesFilter", session.getAttribute("venuesFilterSession"));
+		mv.addObject("minNumbersFilter", session.getAttribute("minNumbersFilterSession"));
 		mv.addObject("yearFiltered", yearFilter);
 		mv.addObject("typeFiltered", typeFilter);
 		mv.addObject("venueFiltered", venueFilter);
+		mv.addObject("minNumbersFiltered", minNumberFilter);
 		return mv;
 	}
 	
@@ -191,6 +193,19 @@ public class FilterController {
 			venuesFilter.add(publication.getVenue());
 		}
 		return venuesFilter;
+	}
+	
+	/*
+	 * Obter todos os números referentes as colaborações do autor para montar o filtro 
+	 * por número mínimo de colaborações
+	 * 
+	 */
+	public static Set<Integer> getMinimumNumCollaborationsFilter(Author authorSearched){
+		Set<Integer> minNumbersFilter = new TreeSet<Integer>();
+		for (Collaboration collaboration : authorSearched.getCollaborations()) {
+			minNumbersFilter.add(collaboration.getNumberOfCollaborations());
+		}
+		return minNumbersFilter;
 	}
 	
 }

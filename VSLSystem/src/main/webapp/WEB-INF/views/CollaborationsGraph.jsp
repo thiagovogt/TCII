@@ -146,6 +146,7 @@
 		$('#yearFilter').val(null).trigger("change");
 		$('#typeFilter').val(null).trigger("change");
 		$('#venueFilter').val(null).trigger("change");
+		$('#venueFilter').val(null).trigger("change");
 	}
 	
 	$(document).ready(function() {
@@ -163,6 +164,10 @@
 		});
 		$('#venueFilter').select2({
 			placeholder: "Select a venue...",
+			theme: "bootstrap"
+		});
+		$('#minNumberFilter').select2({
+			placeholder: "Select a number...",
 			theme: "bootstrap"
 		});
 	});
@@ -206,6 +211,15 @@
 								<option></option>
 								<c:forEach items="${venuesFilter}" var="venueValue">
 									<option ${venueValue == venueFiltered ? 'selected' : ''} value="${venueValue}">${venueValue}</option>
+								</c:forEach>
+							</select>
+	  					</div>
+						<div class="form-group form-group-filter">
+							<label for="minNumberFilter">Minimun number of collaborations:</label>
+							<select id="minNumberFilter" name="minNumberFilter" class="form-control">
+								<option></option>
+								<c:forEach items="${minNumbersFilter}" var="minNumberValue">
+									<option ${minNumberValue == minNumbersFiltered ? 'selected' : ''} value="${minNumberValue}">${minNumberValue}</option>
 								</c:forEach>
 							</select>
 	  					</div>

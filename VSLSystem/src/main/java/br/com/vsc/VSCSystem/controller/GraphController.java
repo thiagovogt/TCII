@@ -48,18 +48,18 @@ public class GraphController {
 			
 			session.setAttribute("authorSearchedSession", authorSearched);
 			
+			
 			Set<Integer> yearsFilter = FilterController.getYearsFilter(authorSearched);
 			Set<String> typesFilter = FilterController.getTypesFilter(authorSearched);
 			Set<String> venuesFilter = FilterController.getVenuesFilter(authorSearched);
+			Set<Integer> minNumbersFilter = FilterController.getMinimumNumCollaborationsFilter(authorSearched);
 			
 			session.setAttribute("yearsFilterSession", yearsFilter);
 			session.setAttribute("typesFilterSession", typesFilter);
 			session.setAttribute("venuesFilterSession", venuesFilter);
+			session.setAttribute("minNumbersFilterSession", minNumbersFilter);
 			
 			mv.addObject("msg", "XML successfully processed!");
-			mv.addObject("yearsFilter", yearsFilter);
-			mv.addObject("typesFilter", typesFilter);
-			mv.addObject("venuesFilter", venuesFilter);
 			mv.addObject("author", authorSearched);
 		} catch (DBLPException dblpe) {
 			mv.addObject("msg", dblpe.getMessage());
@@ -96,6 +96,7 @@ public class GraphController {
 		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
 		mv.addObject("typesFilter", session.getAttribute("typesFilterSession"));
 		mv.addObject("venuesFilter", session.getAttribute("venuesFilterSession"));
+		mv.addObject("minNumbersFilter", session.getAttribute("minNumbersFilterSession"));
 		mv.addObject("author", session.getAttribute("authorSearchedSession"));
 
 		return mv;
