@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import br.com.vsc.VSCSystem.model.entity.Author;
@@ -29,7 +30,7 @@ public class FilterController {
 	 * 
 	 */
 	@RequestMapping("/FilterPublicationsGraph")
-	public ModelAndView FilterAuthorGraph(int yearFilter, String typeFilter, String venueFilter, HttpSession session) {
+	public ModelAndView FilterAuthorGraph(@RequestParam(value = "yearFilter", required = false, defaultValue = "0") int[] yearFilter, String typeFilter, String venueFilter, HttpSession session) {
 		ModelAndView mv = new ModelAndView("PublicationsGraph");
 
 		Author authorSession = (Author) session.getAttribute("authorSearchedSession");
@@ -51,8 +52,8 @@ public class FilterController {
 	 * Retornar para a tela do grafo de publicações, todas as publicações filtradas
 	 * 
 	 */
-	@RequestMapping("/FilterCollaborations")
-	public ModelAndView FilterCollaboration(int yearFilter, String typeFilter, String venueFilter, HttpSession session) {
+	@RequestMapping("/FilterCollaborationsGraph")
+	public ModelAndView FilterCollaboration(@RequestParam(value = "yearFilter", required = false, defaultValue = "0") int[] yearFilter, String typeFilter, String venueFilter, HttpSession session) {
 		ModelAndView mv = new ModelAndView("CollaborationsGraph");
 		
 		Author authorSession = (Author) session.getAttribute("authorSearchedSession");
@@ -110,14 +111,18 @@ public class FilterController {
 	/*
 	 * Filtrar as publicações do autor
 	 * */
-	private List<Publication> getFilteredPublications(int yearFilter, String typeFilter, String venueFilter, List<Publication> publications) {
+	private List<Publication> getFilteredPublications(int[] yearFilter, String typeFilter, String venueFilter, List<Publication> publications) {
 		boolean yearFilterActive = false;
 		boolean typeFilterActive = false;
 		boolean venueFilterActive = false;
+		Set<Integer> yearFilterAux = new TreeSet<Integer>();
 		List<Publication> filteredPublications = new ArrayList<Publication>();
-		
-		if(yearFilter != 0)
+		if(yearFilter[0] != 0){
 			yearFilterActive = true;
+			for (int i = 0; i < yearFilter.length; i++) {
+				yearFilterAux.add(yearFilter[i]);
+			}
+		}
 		
 		if(!typeFilter.equals(""))
 			typeFilterActive = true;
@@ -132,7 +137,7 @@ public class FilterController {
 			for (Publication publication : publications) {
 				boolean isValid = true;
 				if (yearFilterActive) {
-					if (publication.getYear() != yearFilter)
+					if (!yearFilterAux.contains(publication.getYear()))
 						isValid = false;
 				}
 				if (isValid) {

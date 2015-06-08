@@ -10,6 +10,11 @@
 		text-decoration: none !important;
 	}
 	
+	.container{
+		width: 100% !important;
+		height: 650px !important;
+	}
+	
 	.validation-error-alert{
 		max-width: 500px;
 		height: 72px;
@@ -45,6 +50,19 @@
 	}
 
 /* AuthorGraph.jsp & CollaborationGraph.jsp*/
+	.grid-panel-filter{
+		padding: 0px !important;
+		height: 100%;
+	}
+	
+	.grid-panel-graph{
+		padding-right: 0px !important;
+		height: 100%;
+	}
+	
+	.panel{
+		height: 100%;
+	}
 
 	.panel-heading-custom{
 		height:25px !important; 
@@ -66,10 +84,7 @@
 		border-top-left-radius: 5px;
 		border-top-right-radius: 5px;
 	}
-	
-	label{
-		font-size: 12px;
-	}
+
 	label.control-label{
 		font-size: 16px;
 		text-align: right;
@@ -109,24 +124,23 @@
  		font-size: 11px !important;
  		padding: 0px 5px !important;
 	}
-	.panel-body-graph{
-		height: 500px;
-	}
+
 	.dv-graph{
-		height: 480px;
+		height: 600px;
 	}
-	.dvFilters{
-		
+	
+	.form-group-filter{
+		margin-top: 25px;
 	}
-	#yearFilter{
-		width: 135px;
-	}
-	#typeFilter{
-		width: 225px;
-	}
-	#venueFilter{
-		width: 265px;
-	}
+/* 	#yearFilter{ */
+/* 		width: 135px; */
+/* 	} */
+/* 	#typeFilter{ */
+/* 		width: 225px; */
+/* 	} */
+/* 	#venueFilter{ */
+/* 		width: 265px; */
+/* 	} */
 	
 /* GraphTypes.jsp */
 	.types-buttons{
