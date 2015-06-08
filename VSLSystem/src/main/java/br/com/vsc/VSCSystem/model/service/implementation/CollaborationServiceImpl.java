@@ -2,11 +2,15 @@ package br.com.vsc.VSCSystem.model.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.jdom2.Element;
 
 import br.com.vsc.VSCSystem.model.entity.Author;
 import br.com.vsc.VSCSystem.model.entity.Collaboration;
+import br.com.vsc.VSCSystem.model.entity.Publication;
 import br.com.vsc.VSCSystem.model.exception.DBLPException;
 import br.com.vsc.VSCSystem.model.repository.CollaborationDBLP;
 import br.com.vsc.VSCSystem.model.service.CollaborationService;
@@ -19,8 +23,9 @@ public class CollaborationServiceImpl implements CollaborationService{
 	 * colaborações em publicações do autor buscado e retornar uma lista de colaborações.
 	 * 
 	 * */
-	public List<Collaboration> searchAuthorsCollaborations(String urlAuthorKey) throws DBLPException{
+	public List<Collaboration> searchAuthorsCollaborations(String urlAuthorKey, HttpSession session) throws DBLPException{
 		List<Collaboration> collaborations = new ArrayList<Collaboration>();
+		Map<String, List<Publication>> collaborationPublications = (Map<String, List<Publication>>) session.getAttribute("collaborationsPublications");
 		try {
 			
 		    Element coauthors = XmlParseUtils.getRootElement(CollaborationDBLP.getInstance().searchAuthorsCollaborations(urlAuthorKey));
@@ -35,6 +40,8 @@ public class CollaborationServiceImpl implements CollaborationService{
 		    	int numberOfCollaborations = Integer.valueOf(authorXml.getAttributeValue("count"));
 		    	
 		    	collaboration = new Collaboration(new Author(authorsName,urlCoauthorKey), numberOfCollaborations);
+		    	List<Publication> publicationsAux = collaborationPublications.get(authorsName);
+		    	collaboration.setPublications(publicationsAux);
 		    	collaborations.add(collaboration);
 			}
 		} catch (Exception e) {

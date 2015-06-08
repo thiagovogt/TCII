@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/theme.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.1.0/vis.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.2.0/vis.min.css">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
@@ -21,7 +21,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.1.0/vis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.2.0/vis.min.js"></script>
 
 <script type="text/javascript" src="<c:url value="/resources/js/functions.js" />"></script>
 
@@ -38,7 +38,7 @@
 					{
 						id : 1,
 						label : "${author.name}",
-						image : DIR + 'User-Executive-Green-icon.png',
+						image : DIR + 'Author1.png',
 						shape : 'image',
 					}		
 		]);
@@ -52,7 +52,7 @@
 						{
 							id : countIdNodes,
 							label :"${collaboration.coAuthor.name}",
-							image : DIR + 'User-Administrator-Green-icon.png',
+							image : DIR + 'CoAuthor1.png',
 							shape : 'image'
 						}		
 			]);
@@ -81,7 +81,7 @@
 					</c:when>
 				</c:choose>
 				if(hasPath != ""){
-					publicationLine = publicationLine + "<a href='" + hasPath + "' target='_blank'><img title='Publication path' src='" +  DIR + "Document-icon24.png'></a>";
+					publicationLine = publicationLine + "<a href='" + hasPath + "' target='_blank'><img title='Publication path' height='24' width='24' src='" +  DIR + "Paper.png'></a>";
 				}
 				arrayAux[countAux] = publicationLine;
 				countAux++;
@@ -114,6 +114,7 @@
 		    var nodeCoAuthor = nodes.get(edge.to);
 
 		    onSelectEdge(nodeAuthor, nodeCoAuthor, edge.value, collaborations[edge.to]);
+		    network.unselectAll();
 		});
 	}
 
@@ -176,6 +177,14 @@
 			</div>
 			<div class="panel-body panel-body-graph">
 				<div id="dvGraph" class="dv-graph"></div>
+				<div id="loadingBar" style="opacity: 0; display: none;">
+        <div class="outerBorder">
+            <div id="text">100%</div>
+            <div id="border">
+                <div id="bar" style="width: 496px;"></div>
+            </div>
+        </div>
+    </div>
 			</div>
 		</div>
 		<div class="center-block text-center" style="max-width: 160px;" >	

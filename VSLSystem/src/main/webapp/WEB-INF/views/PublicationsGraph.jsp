@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/jquery-ui.css">
 <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/themes/smoothness/theme.css">
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.1.0/vis.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.2.0/vis.min.css">
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
@@ -21,7 +21,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.1.0/vis.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.2.0/vis.min.js"></script>
 
 <script type="text/javascript" src="<c:url value="/resources/js/functions.js" />"> </script>
 
@@ -36,7 +36,7 @@
 				{
 					id : 1,
 					label : "${author.name}",
-					image : DIR + 'User-Executive-Green-icon.png',
+					image : DIR + 'Author1.png',
 					shape : 'image',
 					isCoAuthor: false
 				}		
@@ -51,7 +51,7 @@
 			   		{
 			   			id : countIdNodes,
 						label : "${publication.urlKey}",
-						image : DIR + 'Document-icon48.png',
+						image : DIR + 'Paper.png',
 						shape : 'image',
 						urlKey 	: "${publication.urlKey}",
 						title 	: "${publication.title}",
@@ -79,7 +79,7 @@
 					   		{
 								id : countIdNodes,
 								label :"${coAuthor.name}",
-								image : DIR + 'User-Administrator-Green-icon.png',
+								image : DIR + 'CoAuthor1.png',
 								shape : 'image',
 								isCoAuthor: true
 					   		}		
@@ -101,10 +101,28 @@
 			nodes : nodes,
 			edges : edges
 		};
-		var options = {
-// 			configurePhysics:true,
-			
-		};
+		 var options = {
+	               
+// 	                layout:{
+// 	                    randomSeed:34
+// 	                },
+// 	                physics: {
+// 	                    forceAtlas2Based: {
+// 	                        gravitationalConstant: -26,
+// 	                        centralGravity: 0.005,
+// 	                        springLength: 230,
+// 	                        springConstant: 0.18
+// 	                    },
+// 	                    maxVelocity: 146,
+// 	                    solver: 'forceAtlas2Based',
+// 	                    timestep: 0.35,
+// 	                    stabilization: {
+// 	                        enabled:true,
+// 	                        iterations:2000,
+// 	                        updateInterval:25
+// 	                    }
+// 	                }
+	            };
 // var options = {physics: {barnesHut: {enabled: false}, repulsion: {nodeDistance:150, springConstant: 0.013, damping: 0.3}}, smoothCurves:false};
 		network = new vis.Network(container, data, options);
 
@@ -113,7 +131,7 @@
 // 		});
 		
 // 		network.on('doubleClick', function (properties) {
-		network.on('selectNode', function (properties) {
+		network.on('doubleClick', function (properties) {
 			if(properties.nodes != 1){
 			    var node = nodes.get(properties.nodes)[0];
 			    onSelectNode(node);

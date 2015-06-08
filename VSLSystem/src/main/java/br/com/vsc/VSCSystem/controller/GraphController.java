@@ -42,7 +42,7 @@ public class GraphController {
 				authorSearched.setUrlKey(String.valueOf(session.getAttribute("fUrlAuthorKey")));
 				session.setAttribute("fUrlAuthorKey", "null");
 			}
-			authorSearched.setCollaborations(collaborationService.searchAuthorsCollaborations(authorSearched.getUrlKey()));
+			authorSearched.setCollaborations(collaborationService.searchAuthorsCollaborations(authorSearched.getUrlKey(), session));
 			
 			authorSearched.setOtherNames((TreeSet<String>)session.getAttribute("otherAuthorNames"));
 			

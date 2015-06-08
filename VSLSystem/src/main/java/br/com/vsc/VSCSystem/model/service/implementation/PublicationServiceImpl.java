@@ -2,7 +2,9 @@ package br.com.vsc.VSCSystem.model.service.implementation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
 import java.util.TreeSet;
 
 import javax.servlet.http.HttpSession;
@@ -24,6 +26,7 @@ public class PublicationServiceImpl implements PublicationService{
 	 * */
 	public List<Publication> searchPublicationsByAuthor(String urlAuthorKey, HttpSession session) throws DBLPException{
 		List<Publication> publications = new ArrayList<Publication>();
+		Map<String, List<Publication>> collaborationPublications = new TreeMap<String, List<Publication>>();
 		Publication currPublication = null;
 		String authorName = "";
 
@@ -91,9 +94,14 @@ public class PublicationServiceImpl implements PublicationService{
 		    		String coAuthorName = element.getValue();
 		    		if(!coAuthorName.equals(authorName) && !coAuthorName.equals("\n") && !otherNames.contains(coAuthorName)){
 		    			currPublication.getCoAuthors().add(new Author(element.getText()));
+		    			if(!collaborationPublications.containsKey(coAuthorName)){
+		    				collaborationPublications.put(coAuthorName, new ArrayList<Publication>());
+		    			}
+		    			collaborationPublications.get(coAuthorName).add(currPublication);
+		    			
 		    		}
 		    	}
-		    	
+		    	session.setAttribute("collaborationsPublications", collaborationPublications);
 		    	publications.add(currPublication);
 			}
 		    return publications;
