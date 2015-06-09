@@ -58,7 +58,10 @@ public class GraphController {
 			session.setAttribute("typesFilterSession", typesFilter);
 			session.setAttribute("venuesFilterSession", venuesFilter);
 			session.setAttribute("minNumbersFilterSession", minNumbersFilter);
+			session.setAttribute("minNumbersFilterSession", minNumbersFilter);
 			
+			boolean hideBackToListButton = (boolean)session.getAttribute("hideBackToListButton");
+			mv.addObject("hideBackToListButton", hideBackToListButton);
 			mv.addObject("msg", "XML successfully processed!");
 			mv.addObject("author", authorSearched);
 		} catch (DBLPException dblpe) {

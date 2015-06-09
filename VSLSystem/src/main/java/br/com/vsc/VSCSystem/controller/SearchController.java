@@ -51,7 +51,9 @@ public class SearchController {
 			
 			authors = authorService.searchAuthorByName(searchName);
 			
+			session.setAttribute("hideBackToListButton", false);
 			if(authors.size() == 1){
+				session.setAttribute("hideBackToListButton", true);
 				return new GraphController().LoadGraphInformation(authors.get(0).getUrlKey(), authors.get(0).getName(), session);
 			}
 			

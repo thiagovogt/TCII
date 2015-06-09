@@ -18,6 +18,10 @@
 	<script type="text/javascript">
 		$(function(){
 			$('#infoIcon').popover({ trigger: "hover" });
+			
+			if(<c:out value="${hideBackToListButton}" />){
+				$("#backButton").hide();
+			}
 		});
 	</script>
 <body>
@@ -31,7 +35,7 @@
 			<button type="button" class="btn btn-primary btn-lg btn-block margin-graph-type-view" onClick="window.location.href='GenerateCollaborationsGraph'">Collaborations</button>
 		</div>
 		<div class="center-block text-center" style="max-width: 160px;" >	
-			<button type="button" class="btn btn-primary btn-xs btn-block margin-graph-type-view" onClick="window.location.href='ListAuthors?searchName'">Select another Author</button>
+			<button type="button" id="backButton" class="btn btn-primary btn-xs btn-block margin-graph-type-view" onClick="window.location.href='ListAuthors?searchName'">Select another Author</button>
 			<span style="color: #337ab7; cursor: pointer; font-size: 20px;" id="infoIcon" class="glyphicon glyphicon-info-sign margin-graph-type-view" aria-hidden="true"
 				data-content="The first graph shows the author and her publications, and the second shows the author's collaborations with her coauthors and their respective publications. 
 				You can also back to the previous page and select another author" 
