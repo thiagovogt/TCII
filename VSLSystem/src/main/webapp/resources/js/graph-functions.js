@@ -34,3 +34,36 @@ function onSelectEdge(nodeAuthor, nodeCoAuthor, countPublications, publications)
 	
 	$('#publicationListModal').modal();
 }
+
+function loadSelectFilter(isCollaboration){
+	$('#yearFilter').select2({
+		placeholder: "Select a year...",
+		theme: "bootstrap",
+		maximumSelectionLength: 5
+	});
+	$('#typeFilter').select2({
+		placeholder: "Select a type...",
+		theme: "bootstrap"
+	});
+	$('#venueFilter').select2({
+		placeholder: "Select a venue...",
+		theme: "bootstrap"
+	});
+	
+	if(isCollaboration){
+		$('#minNumberFilter').select2({
+			placeholder: "Select a number...",
+			theme: "bootstrap"
+		});
+	}
+}
+
+function clearFilter(isCollaboration){
+	$('#yearFilter').val(null).trigger("change");
+	$('#typeFilter').val(null).trigger("change");
+	$('#venueFilter').val(null).trigger("change");
+	
+	if(isCollaboration){
+		$('#minNumberFilter').val(null).trigger("change");
+	}
+}

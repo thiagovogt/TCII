@@ -26,16 +26,29 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.2.0/vis.min.js"></script>
 
-<script type="text/javascript" src="<c:url value="/resources/js/functions.js" />"> </script>
+<script type="text/javascript" src="<c:url value="/resources/js/graph-functions.js" />"> </script>
+<script type="text/javascript" src="<c:url value="/resources/js/loading-modal.js" />"> </script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 
 <script type="text/javascript">
+
+	$(document).ready(function() {	
+		waitingDialog.show();
+		<c:forEach items="${yearFiltered}" var="yearValue">
+			$("#yearFilter option[value='" + <c:out value="${yearValue}" /> + "']").prop("selected", true);
+		</c:forEach>
+		
+		loadSelectFilter(false);
+	});
+
 	var DIR = '/VSCSystem/resources/images/';	
     var nodes = new vis.DataSet();
 	var edges = new vis.DataSet();
 	var network = null;
+	
 	function draw() {
+
 		// create nodes
 		nodes.add([
 				{
@@ -130,45 +143,18 @@
 	            };
 // var options = {physics: {barnesHut: {enabled: false}, repulsion: {nodeDistance:150, springConstant: 0.013, damping: 0.3}}, smoothCurves:false};
 		network = new vis.Network(container, data, options);
-
-// 		network.on('click', function (properties) {
-// 			onClick(properties)
-// 		});
 		
-// 		network.on('doubleClick', function (properties) {
 		network.on('doubleClick', function (properties) {
 			if(properties.nodes != 1){
 			    var node = nodes.get(properties.nodes)[0];
 			    onSelectNode(node);
 			}
 		});
+
+		network.once("stabilizationIterationsDone", function() {
+			waitingDialog.hide();
+		});
 	}
-	
-	function clearFilter(){
-		$('#yearFilter').val(null).trigger("change");
-		$('#typeFilter').val(null).trigger("change");
-		$('#venueFilter').val(null).trigger("change");
-	}
-	
-	$(document).ready(function() {
-		<c:forEach items="${yearFiltered}" var="yearValue">
-			$("#yearFilter option[value='" + <c:out value="${yearValue}" /> + "']").prop("selected", true);
-		</c:forEach>
-		$('#yearFilter').select2({
-			placeholder: "Select a year...",
-			theme: "bootstrap",
-			maximumSelectionLength: 5
-		});
-		$('#typeFilter').select2({
-			placeholder: "Select a type...",
-			theme: "bootstrap"
-		});
-		$('#venueFilter').select2({
-			placeholder: "Select a venue...",
-			theme: "bootstrap"
-		});
-	});
-	
 </script>
 </head>
 <body onload="draw()">
@@ -213,7 +199,7 @@
 	  					</div>
 	  					<div class="center-block text-center" style="margin-top: 40px;" >
 							<button type="submit" class="btn btn-primary btn-sm" type="button">Apply Filter</button>
-							<button type="button" class="btn btn-default btn-sm" onClick="clearFilter()">Clear</button>
+							<button type="button" class="btn btn-default btn-sm" onClick="clearFilter(false)">Clear</button>
 							<button type="button" class="btn btn-primary btn-sm" 
 									onClick="window.location.href='LoadGraphInformation?urlKey=${author.urlKey}&name=${author.name}'">Select another Graph</button>
 	  					</div>

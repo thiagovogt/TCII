@@ -48,7 +48,14 @@
 	  background-color: #f5f5f5;
 	  padding: 10px 0;
 	}
-
+	
+	.welcome-text{
+		color: #337ab7;
+		text-align: center;
+		line-height: 40px;
+		font-weight: 700;
+		font-style: italic;
+	}
 /* AuthorGraph.jsp & CollaborationGraph.jsp*/
 	.grid-panel-filter{
 		padding: 0px !important;
@@ -136,15 +143,6 @@
 	.form-group-filter{
 		margin-top: 25px;
 	}
-/* 	#yearFilter{ */
-/* 		width: 135px; */
-/* 	} */
-/* 	#typeFilter{ */
-/* 		width: 225px; */
-/* 	} */
-/* 	#venueFilter{ */
-/* 		width: 265px; */
-/* 	} */
 	
 /* GraphTypes.jsp */
 	.types-buttons{
