@@ -27,91 +27,101 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.2.0/vis.min.js"></script>
 
 <script type="text/javascript" src="<c:url value="/resources/js/graph-functions.js" />"> </script>
-
-<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
 <script type="text/javascript" src="<c:url value="/resources/js/loading-modal.js" />"> </script>
 
+<script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+
 <script type="text/javascript">
-	$(document).ready(function() {
+
+	$(document).ready(function() {	
 		waitingDialog.show();
-		
 		<c:forEach items="${yearFiltered}" var="yearValue">
 			$("#yearFilter option[value='" + <c:out value="${yearValue}" /> + "']").prop("selected", true);
 		</c:forEach>
-
-		loadSelectFilter(true);
+		
+		loadSelectFilter(false);
 	});
-	
-	var DIR = '/VSCSystem/resources/images/';
+
+	var DIR = '/VSCSystem/resources/images/';	
     var nodes = new vis.DataSet();
 	var edges = new vis.DataSet();
-	var collaborations = [];
 	var network = null;
+	
 	function draw() {
+
 		// create nodes
 		nodes.add([
-					{
-						id : 1,
-						label : "${author.name}",
-						image : DIR + 'Author1.png',
-						shape : 'image',
-					}		
+				{
+					id : 1,
+					label : "${author.name}",
+					image : DIR + 'Author1.png',
+					shape : 'image',
+					isCoAuthor: false
+				}		
 		]);
 
 		// create connections
 		var color = '#BFBFBF';
 		var countIdNodes = 2;
-		
-		<c:forEach items="${author.collaborations}" var="collaboration">
+		var countCoAuthors = 1;
+		<c:forEach items="${author.publications}" var="publication">
 			nodes.add([
-						{
-							id : countIdNodes,
-							label :"${collaboration.coAuthor.name}",
-							image : DIR + 'CoAuthor1.png',
-							shape : 'image'
-						}		
-			]);
-			edges.add([
-						{
-							from : 1,
-				 			to : countIdNodes,
-				 			value : "${collaboration.numberOfCollaborations}",
-				 			label : "${collaboration.numberOfCollaborations}",
-				 			color : color
-						}		
+			   		{
+			   			id : countIdNodes,
+						label : "${publication.urlKey}",
+						image : DIR + 'Paper.png',
+						shape : 'image',
+						urlKey 	: "${publication.urlKey}",
+						title 	: "${publication.title}",
+						year 	: "${publication.year}",
+						type	: "${publication.type}",
+						eePath  : "<a href='${publication.eePath}' target='_blank'>${publication.eePath}</a>",
+						urlPath : "<a href='${publication.urlPath}' target='_blank'>${publication.urlPath}</a>",
+						venue	: "${publication.venue}",
+						isCoAuthor: false
+			   		}		
 			]);
 			
-			var countAux = 1;
-			var arrayAux = [];
-			<c:forEach items="${collaboration.publications}" var="publication">
-				var publicationLine = "<span style='color: #666666; font-weight:700;'> ${publication.title}</span>" + 
-										" <span style='color:#7d848a;'>${publication.venue}</span> (${publication.year}) ";
-				var hasPath = "";						
-				<c:choose>
-					<c:when test="${not empty publication.eePath}">
-						hasPath = '${publication.eePath}';
-					</c:when>
-					<c:when test="${not empty publication.urlPath}">
-						hasPath = '${publication.urlPath}';
-					</c:when>
-				</c:choose>
-				if(hasPath != ""){
-					publicationLine = publicationLine + "<a href='" + hasPath + "' target='_blank'><img title='Publication path' height='24' width='24' src='" +  DIR + "Paper.png'></a>";
-				}
-				arrayAux[countAux] = publicationLine;
-				countAux++;
-			</c:forEach>	
-			collaborations[countIdNodes] = arrayAux; 
+			edges.add([
+			   		{
+			   			from : 1,
+			 			to : countIdNodes,
+			 			color : color
+			   		}		
+	   		]);
+
+			var currPublicationId = countIdNodes;
 			countIdNodes++;
-		</c:forEach>	
+			<c:forEach items="${publication.coAuthors}" var="coAuthor">
+				nodes.add([
+					   		{
+								id : countIdNodes,
+								label :"${coAuthor.name}",
+								image : DIR + 'CoAuthor1.png',
+								shape : 'image',
+								isCoAuthor: true
+					   		}		
+		   		]);
+				edges.add([
+					   		{
+					   			from : currPublicationId,
+					 			to : countIdNodes,
+					 			color : color
+					   		}		
+		   		]);
+
+				countIdNodes++;
+			</c:forEach>		
+		</c:forEach>		
 		// create a network
 		var container = document.getElementById('dvGraph');
 		var data = {
 			nodes : nodes,
 			edges : edges
 		};
-		var options = {
-// 				    layout:{
+		 var options = {
+	               
+// 	                layout:{
 // 	                    randomSeed:34
 // 	                },
 // 	                physics: {
@@ -130,38 +140,27 @@
 // 	                        updateInterval:25
 // 	                    }
 // 	                }
-			
-		};
+	            };
 // var options = {physics: {barnesHut: {enabled: false}, repulsion: {nodeDistance:150, springConstant: 0.013, damping: 0.3}}, smoothCurves:false};
 		network = new vis.Network(container, data, options);
-
-		network.on('selectNode', function (properties) {
+		
+		network.on('doubleClick', function (properties) {
 			if(properties.nodes != 1){
 			    var node = nodes.get(properties.nodes)[0];
-			    window.open(encodeURI('../VSCSystem/ListAuthors?searchName='+node.label), '_blank');
+			    onSelectNode(node);
 			}
-		});
-		network.on('selectEdge', function (properties) {
-		    var edge = edges.get(properties.edges)[0];
-		    var nodeAuthor = nodes.get(edge.from);
-		    var nodeCoAuthor = nodes.get(edge.to);
-
-		    onSelectEdge(nodeAuthor, nodeCoAuthor, edge.value, collaborations[edge.to]);
-		    network.unselectAll();
 		});
 
 		network.once("stabilizationIterationsDone", function() {
 			waitingDialog.hide();
 		});
 	}
-
 </script>
 </head>
-
 <body onload="draw()">
-	<div class="container" style="width:1007px">	
+	<div class="container">	
 		<div class="page-header text-center page-header-custom">
-	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Author's collaborations</small></h1>
+	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Author's publications</small></h1>
 	  		<h3 class="sub-page-header"><small>Selected Author: ${author.name}</small></h3>
 		</div>
 		<div class="col-md-3 grid-panel-filter">
@@ -170,7 +169,7 @@
 					FILTERS
 				</div>
 				<div class="panel-body">
-					<form action="FilterCollaborationsGraph" method="post">
+					<form action="FilterPublicationsGraph" method="post">
 						<div class="form-group form-group-filter">
 	  						<label for="yearFilter">Year:</label>
 							<select id="yearFilter" name="yearFilter" class="form-control" multiple="multiple">
@@ -192,23 +191,15 @@
 							<label for="venueFilter">Venue:</label>
 							<select id="venueFilter" name="venueFilter" class="form-control">
 								<option></option>
+								<option value="">Select a venue...</option>
 								<c:forEach items="${venuesFilter}" var="venueValue">
 									<option ${venueValue == venueFiltered ? 'selected' : ''} value="${venueValue}">${venueValue}</option>
 								</c:forEach>
 							</select>
 	  					</div>
-						<div class="form-group form-group-filter">
-							<label for="minNumberFilter">Minimun number of collaborations:</label>
-							<select id="minNumberFilter" name="minNumberFilter" class="form-control">
-								<option></option>
-								<c:forEach items="${minNumbersFilter}" var="minNumberValue">
-									<option ${minNumberValue == minNumbersFiltered ? 'selected' : ''} value="${minNumberValue}">${minNumberValue}</option>
-								</c:forEach>
-							</select>
-	  					</div>
 	  					<div class="center-block text-center" style="margin-top: 40px;" >
 							<button type="submit" class="btn btn-primary btn-sm" type="button">Apply Filter</button>
-							<button type="button" class="btn btn-default btn-sm" onClick="clearFilter(true)">Clear</button>
+							<button type="button" class="btn btn-default btn-sm" onClick="clearFilter(false)">Clear</button>
 							<button type="button" class="btn btn-primary btn-sm" 
 									onClick="window.location.href='LoadGraphInformation?urlKey=${author.urlKey}&name=${author.name}'">Select another Graph</button>
 	  					</div>
@@ -226,19 +217,46 @@
 				</div>
 			</div>
 		</div>
-		<div class="modal bs-example-modal-lg" role="dialog" id="publicationListModal" aria-labelledby="publicationListModalLabel" aria-hidden="true">
+		<div class="modal bs-example-modal-lg" role="dialog" id="publicationInformationModal" aria-labelledby="publicationInformationModalLabel" aria-hidden="true">
 			<div class="modal-dialog modal-lg">
 				<div class="modal-content">
 					<div class="modal-header modal-header-custom">
 						<button type="button" class="close close-custom" data-dismiss="modal" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
-						<h4 class="modal-title" id="publicationListModalLabel"></h4>
+						<h4 class="modal-title" id="publicationInformationModalLabel"></h4>
 					</div>
 					<div class="modal-body">
 						<form class="form-horizontal">
-						  <div class="form-group" id="publications">
-						    
+						  <div class="form-group">
+						    <label class="col-md-2 control-label">Title:</label>
+						    <div class="col-md-10">
+						      <p class="form-control-static" id="publicationTitle"></p>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label class="col-md-2 control-label">Year:</label>
+						    <div class="col-md-10">
+						      <p class="form-control-static" id="publicationYear"></p>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label class="col-md-2 control-label">Venue:</label>
+						    <div class="col-md-10">
+						      <p class="form-control-static" id="publicationVenue"></p>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label class="col-md-2 control-label">Type:</label>
+						    <div class="col-md-10">
+						      <p class="form-control-static" id="publicationType"></p>
+						    </div>
+						  </div>
+						  <div class="form-group">
+						    <label class="col-md-2 control-label">Path:</label>
+						    <div class="col-md-10">
+						      <p class="form-control-static" id="publicationPath"></p>
+						    </div>
 						  </div>
 						</form>
 					</div>

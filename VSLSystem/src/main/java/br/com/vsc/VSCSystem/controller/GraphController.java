@@ -1,6 +1,7 @@
 package br.com.vsc.VSCSystem.controller;
 
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.http.HttpSession;
 
@@ -36,22 +37,32 @@ public class GraphController {
 		Author authorSearched = new Author(name, urlKey);
 		try {
 			
-			authorSearched.setPublications(publicationService.searchPublicationsByAuthor(urlKey));
-			authorSearched.setCollaborations(collaborationService.searchAuthorsCollaborations(urlKey));
+			authorSearched.setPublications(publicationService.searchPublicationsByAuthor(urlKey, session));
+			if(session.getAttribute("fUrlAuthorKey") != null && !session.getAttribute("fUrlAuthorKey").equals("null")){
+				authorSearched.setUrlKey(String.valueOf(session.getAttribute("fUrlAuthorKey")));
+				session.setAttribute("fUrlAuthorKey", "null");
+			}
+			authorSearched.setCollaborations(collaborationService.searchAuthorsCollaborations(authorSearched.getUrlKey(), session));
+			
+			authorSearched.setOtherNames((TreeSet<String>)session.getAttribute("otherAuthorNames"));
+			
+			session.setAttribute("authorSearchedSession", authorSearched);
+			
 			
 			Set<Integer> yearsFilter = FilterController.getYearsFilter(authorSearched);
 			Set<String> typesFilter = FilterController.getTypesFilter(authorSearched);
 			Set<String> venuesFilter = FilterController.getVenuesFilter(authorSearched);
+			Set<Integer> minNumbersFilter = FilterController.getMinimumNumCollaborationsFilter(authorSearched);
 			
-			session.setAttribute("authorSearchedSession", authorSearched);
 			session.setAttribute("yearsFilterSession", yearsFilter);
 			session.setAttribute("typesFilterSession", typesFilter);
 			session.setAttribute("venuesFilterSession", venuesFilter);
+			session.setAttribute("minNumbersFilterSession", minNumbersFilter);
+			session.setAttribute("minNumbersFilterSession", minNumbersFilter);
 			
+			boolean hideBackToListButton = (boolean)session.getAttribute("hideBackToListButton");
+			mv.addObject("hideBackToListButton", hideBackToListButton);
 			mv.addObject("msg", "XML successfully processed!");
-			mv.addObject("yearsFilter", yearsFilter);
-			mv.addObject("typesFilter", typesFilter);
-			mv.addObject("venuesFilter", venuesFilter);
 			mv.addObject("author", authorSearched);
 		} catch (DBLPException dblpe) {
 			mv.addObject("msg", dblpe.getMessage());
@@ -65,9 +76,9 @@ public class GraphController {
 	 * 
 	 * 
 	 */
-	@RequestMapping("/GenerateAuthorGraph")
+	@RequestMapping("/GeneratePublicationsGraph")
 	public ModelAndView GenerateAuthorGraph(String urlKey, String name, HttpSession session) {
-		ModelAndView mv = new ModelAndView("AuthorGraph");
+		ModelAndView mv = new ModelAndView("PublicationsGraph");
 			
 		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
 		mv.addObject("typesFilter", session.getAttribute("typesFilterSession"));
@@ -88,6 +99,7 @@ public class GraphController {
 		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
 		mv.addObject("typesFilter", session.getAttribute("typesFilterSession"));
 		mv.addObject("venuesFilter", session.getAttribute("venuesFilterSession"));
+		mv.addObject("minNumbersFilter", session.getAttribute("minNumbersFilterSession"));
 		mv.addObject("author", session.getAttribute("authorSearchedSession"));
 
 		return mv;

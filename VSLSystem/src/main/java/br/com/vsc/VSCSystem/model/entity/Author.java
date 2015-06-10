@@ -2,8 +2,9 @@ package br.com.vsc.VSCSystem.model.entity;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class Author implements Serializable{
 	/**
@@ -13,16 +14,25 @@ public class Author implements Serializable{
 	
 	private String urlKey;
 	private String name;
+	private Set<String> otherNames = new TreeSet<String>();
 	private List<Publication> publications = new ArrayList<Publication>();
-	private HashMap<Author, Integer> collaborations = new HashMap<Author, Integer>();
+	private List<Collaboration> collaborations = new ArrayList<Collaboration>();
 
 	public Author(String name, String urlKey) {
 		this.urlKey = urlKey;
 		this.name = name.trim();
 	}
 	
+	public Author(String name) {
+		this.name = name.trim();
+	}
+	
 	public String getUrlKey() {
 		return urlKey;
+	}
+	
+	public void setUrlKey(String urlKey) {
+		this.urlKey= urlKey ;
 	}
 
 	public String getName() {
@@ -36,13 +46,22 @@ public class Author implements Serializable{
 	public void setPublications(List<Publication> publications) {
 		this.publications = publications;
 	}
-
-	public HashMap<Author, Integer> getCollaborations() {
+	
+	public List<Collaboration> getCollaborations() {
 		return collaborations;
 	}
 
-	public void setCollaborations(HashMap<Author, Integer> collaborations) {
+	public void setCollaborations(List<Collaboration> collaborations) {
 		this.collaborations = collaborations;
+	}
+
+	public Set<String> getOtherNames() {
+		return otherNames;
+	}
+
+	public void setOtherNames(Set<String> otherNames) {
+		this.otherNames = otherNames;
+		this.otherNames.remove(this.name);
 	}
 
 	@Override
@@ -62,9 +81,7 @@ public class Author implements Serializable{
 	    if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
 	        return false;
 	    }
-	    if ((this.urlKey == null) ? (other.urlKey != null) : !this.urlKey.equals(urlKey)) {
-	    	return false;
-	    }
+	    
 	    return true;
 	}
 	
@@ -72,7 +89,6 @@ public class Author implements Serializable{
 	public int hashCode() {
 	    int hash = 3;
 	    hash = 53 * hash + (this.name != null ? this.name.hashCode() : 0);
-	    hash = 53 * hash + (this.urlKey != null ? this.urlKey.hashCode() : 0);
 	    return hash;
 	}
 }

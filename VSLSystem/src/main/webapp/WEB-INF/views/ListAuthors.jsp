@@ -65,7 +65,7 @@
 	</script>
 </head>
 <body>
-	<div class="container" style="width:780px">
+	<div class="container" style="width:780px !important">
 		<div class="page-header text-center page-header-custom">
 	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Author selection</small></h1>
 		</div>

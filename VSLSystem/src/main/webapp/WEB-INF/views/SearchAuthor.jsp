@@ -25,6 +25,11 @@
 			});
 		});
 	</script>
+	<style>
+		hr{
+			margin: 15px 0 !important;
+		}
+	</style>
 </head>
 <body>
 	<div class="container" style="width:600px">	
@@ -51,10 +56,21 @@
 				</div>
 			</form>
 		</div>
+		<div class="row">
+			<div class="center-block" style="max-width: 870px; margin-top: 100px;">
+				<hr class="soften">
+				<div class="center-block" style="max-width: 720px;">
+					<h4 class="welcome-text">
+						The VSCSytem - Visualizer of Scientific Collaborations is an application that aims to facilitate the visualization of all informations regarding an author and her publications as well as the collaborations network with her coauthors and their respective publications. All information is based on the bibliographic repository of computer science called DBLP, hosted at Universität Trier, in Germany.
+					</h4>
+				</div>
+				<hr class="soften">
+			</div>
+		</div>
 	</div>
 	<div class="footer">
-      <div class="container text-center">
-        <p>Made by Lucas Gentile and Thiago Vogt, based on <a target="_blank" href="http://dblp.uni-trier.de/db/" title="DBLP">DBLP - Computer Science Bibliography</a> </p>
+      <div class="container text-center" style="height:0px !important">
+        <p>Developed by Lucas Gentile and Thiago Vogt, based on <a target="_blank" href="http://dblp.uni-trier.de/db/" title="DBLP">DBLP - Computer Science Bibliography</a> </p>
       </div>
     </div>
 </body>

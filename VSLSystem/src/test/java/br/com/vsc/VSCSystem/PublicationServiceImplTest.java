@@ -1,17 +1,13 @@
 package br.com.vsc.VSCSystem;
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 import br.com.vsc.VSCSystem.model.entity.Author;
 import br.com.vsc.VSCSystem.model.entity.Publication;
-import br.com.vsc.VSCSystem.model.exception.DBLPException;
 import br.com.vsc.VSCSystem.model.service.implementation.PublicationServiceImpl;
 
 public class PublicationServiceImplTest {
@@ -33,10 +29,10 @@ public class PublicationServiceImplTest {
 		author = null;
 	}
 
-	@Test
-	public void testSearchPublicationsByAuthor() throws DBLPException {
-		publications = publicationService.searchPublicationsByAuthor(author.getUrlKey());
-		
-		assertTrue(publications.size() > 1);
-	}
+//	@Test
+//	public void testSearchPublicationsByAuthor() throws DBLPException {
+//		publications = publicationService.searchPublicationsByAuthor(author.getUrlKey());
+//		
+//		assertTrue(publications.size() > 1);
+//	}
 }

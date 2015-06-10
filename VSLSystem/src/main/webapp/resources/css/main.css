@@ -10,6 +10,11 @@
 		text-decoration: none !important;
 	}
 	
+	.container{
+		width: 100% !important;
+		height: 650px !important;
+	}
+	
 	.validation-error-alert{
 		max-width: 500px;
 		height: 72px;
@@ -43,8 +48,28 @@
 	  background-color: #f5f5f5;
 	  padding: 10px 0;
 	}
-
+	
+	.welcome-text{
+		color: #337ab7;
+		text-align: center;
+		line-height: 40px;
+		font-weight: 700;
+		font-style: italic;
+	}
 /* AuthorGraph.jsp & CollaborationGraph.jsp*/
+	.grid-panel-filter{
+		padding: 0px !important;
+		height: 100%;
+	}
+	
+	.grid-panel-graph{
+		padding-right: 0px !important;
+		height: 100%;
+	}
+	
+	.panel{
+		height: 100%;
+	}
 
 	.panel-heading-custom{
 		height:25px !important; 
@@ -54,31 +79,69 @@
 		background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%) !important;
 		border-color: #265a88 !important;
 	}
-	label{
-		font-size: 12px;
+	
+	.modal-header-custom{
+		height: 45px !important;
+	  	padding: 10px 20px !important;
+	  	background-color: #265a88 !important;
+	  	background-image: linear-gradient(to bottom,#337ab7 0,#265a88 100%) !important;
+	  	border-color: #265a88 !important;
+	  	color: #fff;
+	  	border-bottom: 1px solid transparent;
+		border-top-left-radius: 5px;
+		border-top-right-radius: 5px;
 	}
+
+	label.control-label{
+		font-size: 16px;
+		text-align: right;
+	}
+	
+	.close-custom{
+		margin-top: -7px !important;
+	  	margin-right: -5px !important;
+	  	font-size: 31px !important;
+	}
+	
+	label + div.col-md-10{
+		padding-left: 0px;
+	}
+	
+	p.form-control-static{
+		font-size: 17px;
+	}
+	
+	.modal-body {
+		max-height: 600px !important;
+  		overflow: auto;
+	}
+	
+	.modal-footer {
+		border-top: 1px solid #337ab7 !important;
+	}
+	
+	hr.soften {
+		height: 1px;
+		background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(46, 109, 164,.8), rgba(0,0,0,0));
+		background-image: -moz-linear-gradient(left, rgba(0,0,0,0), rgba(46, 109, 164,.8), rgba(0,0,0,0));
+		background-image: -ms-linear-gradient(left, rgba(0,0,0,0), rgba(46, 109, 164,.8), rgba(0,0,0,0));
+		background-image: -o-linear-gradient(left, rgba(0,0,0,0), rgba(46, 109, 164,	.8), rgba(0,0,0,0));
+		border: 0;
+		margin: 4px 0;
+	}
+
 	.select-filter{
 		height: 27px !important;
  		font-size: 11px !important;
  		padding: 0px 5px !important;
 	}
-	.panel-body-graph{
-		height: 500px;
-	}
+
 	.dv-graph{
-		height: 480px;
+		height: 600px;
 	}
-	.dvFilters{
-		
-	}
-	#yearFilter{
-		width: 135px;
-	}
-	#typeFilter{
-		width: 225px;
-	}
-	#venueFilter{
-		width: 265px;
+	
+	.form-group-filter{
+		margin-top: 25px;
 	}
 	
 /* GraphTypes.jsp */

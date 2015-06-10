@@ -1,10 +1,12 @@
 package br.com.vsc.VSCSystem.model.service;
 
-import java.util.HashMap;
+import java.util.List;
 
-import br.com.vsc.VSCSystem.model.entity.Author;
+import javax.servlet.http.HttpSession;
+
+import br.com.vsc.VSCSystem.model.entity.Collaboration;
 import br.com.vsc.VSCSystem.model.exception.DBLPException;
 
 public interface CollaborationService {
-	HashMap<Author, Integer> searchAuthorsCollaborations(String urlAuthorKey) throws DBLPException;
+	List<Collaboration> searchAuthorsCollaborations(String urlAuthorKey, HttpSession session) throws DBLPException;
 }
