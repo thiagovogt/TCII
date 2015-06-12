@@ -97,7 +97,8 @@
 										onClick="window.location.href='LoadGraphInformation?urlKey=${author.urlKey}&name=${author.name}'">Select another Graph</button>
 		  					</div>
 		  					<div class="center-block text-center">
-								<span id="infoIcon" class="glyphicon glyphicon-info-sign margin-graph-type-view infoIcon"></span>
+								<span id="infoIcon" class="glyphicon glyphicon-info-sign margin-graph-type-view infoIcon" 
+									data-toggle="tooltip" data-placement="bottom" title="Click here for some information!"></span>
 		  					</div>
 						</form>
 					</div>
@@ -166,6 +167,8 @@
 			$("#backButton,#HomeLink").click(function(e) {
 				waitingDialog.show("Please wait...");
 			});
+			
+			$('[data-toggle="tooltip"]').tooltip();
 			
 			<c:forEach items="${yearFiltered}" var="yearValue">
 				$("#yearFilter option[value='" + <c:out value="${yearValue}" /> + "']").prop("selected", true);
@@ -247,8 +250,11 @@
 				edges : edges
 			};
 			var options = {
-				
-			};
+// 			        physics:{
+// 			            barnesHut:{gravitationalConstant:-30000},
+// 			            stabilization: {iterations:2500}
+// 			          }
+					}
 			network = new vis.Network(container, data, options);
 	
 			network.on('doubleClick', function (properties,e) {
