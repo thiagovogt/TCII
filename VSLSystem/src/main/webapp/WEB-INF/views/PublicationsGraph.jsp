@@ -88,7 +88,7 @@
 										onClick="window.location.href='LoadGraphInformation?urlKey=${author.urlKey}&name=${author.name}'">Select another Graph</button>
 		  					</div>
 		  					<div class="center-block text-center">
-								<span id="infoIcon" class="glyphicon glyphicon-info-sign margin-graph-type-view infoIcon"></span>
+								<span title="teste" id="infoIcon" class="glyphicon glyphicon-info-sign margin-graph-type-view infoIcon"></span>
 		  					</div>
 						</form>
 					</div>

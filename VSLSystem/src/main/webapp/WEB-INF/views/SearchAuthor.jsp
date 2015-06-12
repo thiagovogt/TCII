@@ -41,7 +41,7 @@
 							<label for="searchName" class="sr-only">Author's Name:</label> 
 							<input  class="form-control" type="text" name="searchName" id="searchName" value="" placeholder="Search..." 
 									aria-hidden="true" data-trigger="hover" rel="popover" data-placement="bottom" 
-									data-content="You may search an author by name or last name."/>
+									data-content="You might search an author by name or last name."/>
 							<span class="input-group-btn">
 						    	<button type="submit" class="btn btn-primary" type="button">Search</button>
 						    </span>

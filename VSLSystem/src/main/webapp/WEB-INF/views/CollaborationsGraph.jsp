@@ -93,7 +93,7 @@
 		  					<div class="center-block text-center" style="margin-top: 40px;" >
 								<button type="submit" class="btn btn-primary btn-sm" id="submitFilter" type="button">Apply Filter</button>
 								<button type="button" class="btn btn-default btn-sm" onClick="clearFilter(true)">Clear</button>
-								<button type="button" class="btn btn-primary btn-sm" 
+								<button type="button" class="btn btn-primary btn-sm" id="backButton" 
 										onClick="window.location.href='LoadGraphInformation?urlKey=${author.urlKey}&name=${author.name}'">Select another Graph</button>
 		  					</div>
 		  					<div class="center-block text-center">
