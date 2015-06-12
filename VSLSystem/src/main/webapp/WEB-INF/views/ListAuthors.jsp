@@ -15,59 +15,16 @@
 	
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	
 	<script src="https://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"> </script>
 	<script src="https://cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"> </script>
-
-	<script type="text/javascript">
 	
-		$(function(){
-			$("form").submit(function(event) {
-				if (!$("input[type='radio'][name='urlKey']").is(':checked')) {
-					$("#errorMsg").show().delay(2000).fadeOut("slow");
-					event.preventDefault();
-				}
-			});
-			
-			$("#authorsSearchTable tbody tr").mouseover(function() {
-				$(this).css("cursor", "pointer");
-			});
-		});
-		
-		$(document).ready(function() {
-			var table = $('#authorsSearchTable').DataTable( {
-				  "columns": [
-				              { className: "text-center",
-				            	orderable: false
-				              },
-				             	null
-				             ],
-				  "order": [[ 1, "asc" ]],
-				  "columnDefs": [
-				                 { "width": "35%", "targets": 0 }
-				               ]
-	   			} );
-	
-			$('#authorsSearchTable tbody').on('click', 'tr', function() {
-				if ($(this).hasClass('active')) {
-					$(this).find("input").prop('checked', false);
-					$("#authorName").val("");
-					$(this).removeClass('active');
-				} else {
-					table.$('tr.active').removeClass('active');
-					$(this).addClass('active');
-					table.$('tr.active').find("input").prop('checked', true);
-					$("#authorName").val(table.$('tr.active').find("td").eq(1).html());
-				}
-			});
-			$('#dataTableForm').css("display","block");
-			$('#loadingRow').css("display","none");
-		});
-	</script>
+	<script type="text/javascript" src="<c:url value="/resources/js/loading-modal.js" />"> </script>
 </head>
 <body>
 	<div class="container" style="width:780px !important">
 		<div class="page-header text-center page-header-custom">
-	  		<h1><a href="Home" title="Home">VSCSystem</a> <small>Author selection</small></h1>
+	  		<h1><a href="Home" id="HomeLink" title="Home">VSCSystem</a> <small>Author's Selection</small></h1>
 		</div>
 		<div class="row" id="loadingRow">
 			<div class="center-block text-center loading-message">
@@ -119,5 +76,55 @@
 			</form>
 		</div>
 	</div>
+	<script type="text/javascript">
+	
+		$(function(){
+			$("#HomeLink").click(function(e) {
+				waitingDialog.show("Please wait...");
+			});
+			
+			$("form").submit(function(event) {
+				if (!$("input[type='radio'][name='urlKey']").is(':checked')){
+					$("#errorMsg").show().delay(2000).fadeOut("slow");
+					event.preventDefault();
+				}else{
+					waitingDialog.show("Loading data...");
+				}
+			});
+			
+			$("#authorsSearchTable tbody tr").mouseover(function(){
+				$(this).css("cursor", "pointer");
+			});
+		
+			var table = $('#authorsSearchTable').DataTable({
+			      "lengthChange": false,
+				  "columns": [
+				              { className: "text-center",
+				            	orderable: false
+				              },
+				             	null
+				             ],
+				  "order": [[ 1, "asc" ]],
+				  "columnDefs": [
+				                 { "width": "35%", "targets": 0}
+				               ]
+	   		});
+	
+			$('#authorsSearchTable tbody').on('click', 'tr', function() {
+				if ($(this).hasClass('active')) {
+					$(this).find("input").prop('checked', false);
+					$("#authorName").val("");
+					$(this).removeClass('active');
+				} else {
+					table.$('tr.active').removeClass('active');
+					$(this).addClass('active');
+					table.$('tr.active').find("input").prop('checked', true);
+					$("#authorName").val(table.$('tr.active').find("td").eq(1).html());
+				}
+			});
+			$('#dataTableForm').css("display","block");
+			$('#loadingRow').css("display","none");
+		});
+	</script>
 </body>
 </html>
