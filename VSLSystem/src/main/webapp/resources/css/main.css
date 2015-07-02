@@ -21,8 +21,8 @@
 	}
 	
 	.loading-message{
-		max-width: 450px; 
-		margin-top:100px;
+		max-width:  450px; 
+		margin-top: 250px;
 	}
 	
 	.popover-title{
@@ -38,6 +38,24 @@
 	.sub-page-header{
 		margin-top: 10px !important;
 	}
+	
+	.popover{
+		border-color: #337ab7 !important;
+	}
+	.bottom > .arrow{
+		border-top-color: #337ab7 !important;
+  		border-bottom-color: #337ab7 !important;
+	}
+	
+	.popover-content{
+		text-align: justify;
+	}
+	.infoIcon{
+		color: #337ab7; 
+		cursor: pointer; 
+		font-size: 20px;
+	}
+	
 
 /* SearchAuthor.jsp */
 	.footer {
@@ -55,6 +73,7 @@
 		line-height: 40px;
 		font-weight: 700;
 		font-style: italic;
+		font-size: 15px;
 	}
 /* AuthorGraph.jsp & CollaborationGraph.jsp*/
 	.grid-panel-filter{

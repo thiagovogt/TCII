@@ -53,7 +53,10 @@ public class FilterController {
 	 * 
 	 */
 	@RequestMapping("/FilterCollaborationsGraph")
-	public ModelAndView FilterCollaboration(@RequestParam(value = "yearFilter", required = false, defaultValue = "0") int[] yearFilter, String typeFilter, String venueFilter, @RequestParam(value = "minNumberFilter", required = false, defaultValue = "0") int minNumberFilter, HttpSession session) {
+	public ModelAndView FilterCollaboration(@RequestParam(value = "yearFilter", required = false, defaultValue = "0") int[] yearFilter
+												, String typeFilter, String venueFilter
+													, @RequestParam(value = "minNumberFilter", required = false, defaultValue = "0") int minNumberFilter
+														, HttpSession session) {
 		ModelAndView mv = new ModelAndView("CollaborationsGraph");
 		
 		Author authorSession = (Author) session.getAttribute("authorSearchedSession");
@@ -61,7 +64,7 @@ public class FilterController {
 		Author filteredAuthor = new Author(authorSession.getName(), authorSession.getUrlKey());
 		filteredAuthor.setPublications(this.getFilteredPublications(yearFilter, typeFilter, venueFilter, authorSession.getPublications()));
 		
-		filteredAuthor.setCollaborations(this.getFilteredCollaborations(filteredAuthor.getPublications(), authorSession.getCollaborations()));
+		filteredAuthor.setCollaborations(this.getFilteredCollaborations(minNumberFilter, filteredAuthor.getPublications(), authorSession.getCollaborations()));
 		
 		mv.addObject("author", filteredAuthor);
 		mv.addObject("yearsFilter", session.getAttribute("yearsFilterSession"));
@@ -78,7 +81,7 @@ public class FilterController {
 	/*
 	 * Filtrar as colaborações do autor
 	 * */
-	private List<Collaboration> getFilteredCollaborations(List<Publication> publications, List<Collaboration> collaborations){
+	private List<Collaboration> getFilteredCollaborations(int minNumberFilter, List<Publication> publications, List<Collaboration> collaborations){
 		List<Collaboration> filteredCollaborations = new ArrayList<Collaboration>();
 		String coAuthorNameAux = null;
 		Map<String, Integer> coAuthorsCollaborations = new TreeMap<String, Integer>();
@@ -102,9 +105,12 @@ public class FilterController {
 			if(coAuthorsCollaborations.containsKey(coAuthorNameAux)){
 				int numberOfFilteredCollaborations = coAuthorsCollaborations.get(coAuthorNameAux);
 				List<Publication> publicationsAux = collaborationPublications.get(coAuthorNameAux);
-				Collaboration collaborationAux = new Collaboration(collaboration.getCoAuthor(), numberOfFilteredCollaborations);
-				collaborationAux.setPublications(publicationsAux);
-				filteredCollaborations.add(collaborationAux);
+				
+				if(numberOfFilteredCollaborations >= minNumberFilter){
+					Collaboration collaborationAux = new Collaboration(collaboration.getCoAuthor(), numberOfFilteredCollaborations);
+					collaborationAux.setPublications(publicationsAux);
+					filteredCollaborations.add(collaborationAux);
+				}
 			}
 		}
 		return filteredCollaborations;

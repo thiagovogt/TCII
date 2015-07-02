@@ -1,7 +1,8 @@
 function onSelectNode(node) {
     doubleClickTime = new Date();
 	if(node.isCoAuthor){
-		window.open(encodeURI('../VSCSystem/ListAuthors?searchName='+node.label), '_blank');
+		waitingDialog.show("Redirecting...");
+		window.open(encodeURI('../VSCSystem/ListAuthors?searchName='+node.label), "_self");
 	}else{
 		if(node.eePath != "" && node.urlPath != ""){
 			$("#publicationPath").html(node.eePath + "<br>"+ node.urlPath);
